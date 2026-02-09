@@ -63,7 +63,7 @@ class Aluguel():
         Aluguel.tabela_aluguel()
         conexao = sqlite3.connect(caminho_data)
         cursor = conexao.cursor()
-        cursor.execute('''SELECT * FROM aluguel WHERE id_aluguel = ?''', (id))
+        cursor.execute('''SELECT * FROM aluguel WHERE id_aluguel = ?''', (id, ))
         aluguel = cursor.fetchone()
 
         cursor.close()
