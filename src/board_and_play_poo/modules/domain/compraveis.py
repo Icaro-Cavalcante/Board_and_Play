@@ -39,7 +39,7 @@ class Jogo_venda(Jogo):
          novo_status = str(input("Informe o status do jogo comprável: "))
          novo_preco = float(input("Informe o valor do jogo comprável: "))
 
-         novo_jogo = Jogo(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_preco)
+         novo_jogo = Jogo_venda(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_preco)
 
          Jogo_venda.tabela_jogo_venda()
          conexao = sqlite3.connect(caminho_data)
