@@ -46,7 +46,7 @@ class Jogo_venda(Jogo):
          cursor = conexao.cursor()
          cursor.execute('''INSERT OR IGNORE INTO jogo_compra
                        (id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_compra)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_compra))
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_compra))
          conexao.commit()
          cursor.close()
          conexao.close()
@@ -58,7 +58,7 @@ class Jogo_venda(Jogo):
           Jogo_venda.tabela_jogo_venda()
           conexao = sqlite3.connect(caminho_data)
           cursor = conexao.cursor()
-          cursor.execute('''SELECT * FROM jogo_compra WHERE id = ?''', (id))
+          cursor.execute('''SELECT * FROM jogo_compra WHERE id = ?''', (id, ))
           jogo_compravel = cursor.fetchone()
 
           cursor.close()

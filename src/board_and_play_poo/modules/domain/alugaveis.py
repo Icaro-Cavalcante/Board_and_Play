@@ -60,7 +60,7 @@ class Jogo_aluguel(Jogo):
           Jogo_aluguel.tabela_jogo_aluguel()
           conexao = sqlite3.connect(caminho_data)
           cursor = conexao.cursor()
-          cursor.execute('''SELECT * FROM jogo_aluguel WHERE id = ?''', (id))
+          cursor.execute('''SELECT * FROM jogo_aluguel WHERE id = ?''', (id, ))
           jogo_alugavel = cursor.fetchone()
 
           cursor.close()
