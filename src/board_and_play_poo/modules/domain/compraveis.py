@@ -8,7 +8,7 @@ class Jogo_venda(Jogo):
     '''
     def __init__(self, id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_compra):
           super().__init__(id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status)
-          self.__valor_compra = valor_compra
+          self._valor_compra = valor_compra
 
     def __str__(self):
          return f"ID: {self.id}\nNome: {self.nome}\nCusto de aquisição: {self._custo_aquisicao}\nDescrição: {self._descricao}\nIdade mínima: {self._idade_min}\nNúmero de jogadores: {self._num_jogadores}\nTipo: {self.tipo}\nStatus: {self._status}"
@@ -21,7 +21,7 @@ class Jogo_venda(Jogo):
       Jogo_venda.pasta_database()
       conexao = sqlite3.connect(caminho_data)
       cursor = conexao.cursor()
-      cursor.execute('''CREATE TABLE jogo_compra IF NOT EXISTS(id INTEGER UNIQUE, nome TEXT, custo_aquisicao REAL, descricao TEXT, idade_min INTEGER, num_jogadores INTEGER, tipo TEXT, status TEXT, valor_compra REAL)''')
+      cursor.execute('''CREATE TABLE IF NOT EXISTS jogo_compra(id INTEGER UNIQUE, nome TEXT, custo_aquisicao REAL, data_aquisicao TEXT, descricao TEXT, idade_min INTEGER, num_jogadores INTEGER, tipo TEXT, status TEXT, valor_compra REAL)''')
       
       cursor.close()
       conexao.close()
@@ -46,7 +46,7 @@ class Jogo_venda(Jogo):
          cursor = conexao.cursor()
          cursor.execute('''INSERT OR IGNORE INTO jogo_aluguel
                        (id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_compra)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo.novo_id, novo_jogo.novo_nome, novo_jogo.novo_custo, novo_jogo.nova_data, novo_jogo.nova_descricao, novo_jogo.nova_idade, novo_jogo.novo_num, novo_jogo.novo_tipo, novo_jogo.novo_status, novo_jogo.novo_preco))
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_compra))
          conexao.commit()
          cursor.close()
          conexao.close()
