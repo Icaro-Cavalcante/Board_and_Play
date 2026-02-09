@@ -8,8 +8,8 @@ class Jogo_aluguel(Jogo):
     '''
     def __init__(self, id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_sessao, valor_diaria):
         super().__init__(id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status)
-        self.__valor_sessao = valor_sessao
-        self.__valor_diaria = valor_diaria
+        self._valor_sessao = valor_sessao
+        self._valor_diaria = valor_diaria
 
     def __str__(self):
          return f"ID: {self.id}\nNome: {self.nome}\nCusto de aquisição: {self._custo_aquisicao}\nDescrição: {self._descricao}\nIdade mínima: {self._idade_min}\nNúmero de jogadores: {self._num_jogadores}\nTipo: {self.tipo}\nStatus: {self._status}"
@@ -22,8 +22,8 @@ class Jogo_aluguel(Jogo):
       Jogo_aluguel.pasta_database()
       conexao = sqlite3.connect(caminho_data)
       cursor = conexao.cursor()
-      cursor.execute('''CREATE TABLE jogo_aluguel IF NOT EXISTS(id INTEGER UNIQUE, nome TEXT, custo_aquisicao REAL, descricao TEXT, idade_min INTEGER, num_jogadores INTEGER, tipo TEXT, status TEXT, valor_sessao REAL, valor_diaria REAL)''')
-      
+      cursor.execute('''CREATE TABLE IF NOT EXISTS jogo_aluguel (id INTEGER UNIQUE, nome TEXT, custo_aquisicao REAL, data_aquisicao TEXT, descricao TEXT, idade_min INTEGER, num_jogadores INTEGER, tipo TEXT, status TEXT, valor_sessao REAL, valor_diaria REAL)''')
+
       cursor.close()
       conexao.close()
     
@@ -31,24 +31,24 @@ class Jogo_aluguel(Jogo):
          '''Recebe os atributos do jogo alugável e registra ele no banco de dados'''
          novo_id = int(input("Informe o id do jogo alugável: "))
          novo_nome = str(input("Informe o nome do jogo alugável: "))
-         novo_custo = float(input("Informe o id do jogo alugável: "))
+         novo_custo = float(input("Informe o custo do jogo alugável: "))
          nova_data = str(input("Informe a data de aquisição do jogo alugável: "))
-         nova_descricao = int(input("Informe a descrição do jogo alugável: "))
+         nova_descricao = str(input("Informe a descrição do jogo alugável: "))
          nova_idade = int(input("Informe a idade mínima do jogo alugável: "))
-         novo_num = int("Informe o número de jogadores do jogo alugável: ")
-         novo_tipo= int("Informe o tipo do jogo alugável: ")
-         novo_status = int("Informe o status do jogo alugável: ")
-         novo_sessao = int("Informe o valor da sessão do jogo alugável: ")
-         novo_diaria = int("Informe o valor da diária do jogo alugável: ")
+         novo_num = int(input("Informe o número de jogadores do jogo alugável: "))
+         novo_tipo= str(input("Informe o tipo do jogo alugável: "))
+         novo_status = str(input("Informe o status do jogo alugável: "))
+         novo_sessao = float(input("Informe o valor da sessão do jogo alugável: "))
+         novo_diaria = float(input("Informe o valor da diária do jogo alugável: "))
 
-         novo_jogo = Jogo(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_sessao, novo_diaria)
+         novo_jogo = Jogo_aluguel(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_sessao, novo_diaria)
 
          Jogo_aluguel.tabela_jogo_aluguel()
          conexao = sqlite3.connect(caminho_data)
          cursor = conexao.cursor()
          cursor.execute('''INSERT OR IGNORE INTO jogo_aluguel
                        (id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_sessao, valor_diaria)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo.novo_id, novo_jogo.novo_nome, novo_jogo.novo_custo, novo_jogo.nova_data, novo_jogo.nova_descricao, novo_jogo.nova_idade, novo_jogo.novo_num, novo_jogo.novo_tipo, novo_jogo.novo_status, novo_jogo.novo_sessao, novo_jogo.novo_diaria))
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_sessao, novo_jogo._valor_diaria))
          conexao.commit()
          cursor.close()
          conexao.close()
