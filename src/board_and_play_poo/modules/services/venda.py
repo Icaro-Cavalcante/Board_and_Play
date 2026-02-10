@@ -90,6 +90,6 @@ class Venda():
 
     def calcular_venda(self, quantidade):
         '''Recebe o ID do produto a ser comprado e a quantidade e retorna o valor da venda'''
-        valor_compra = Produto(self.id_produtoa)[8]
+        valor_compra = (Produto.read(self.id_produtoa))[8]
         venda = valor_compra * quantidade
         return  venda
