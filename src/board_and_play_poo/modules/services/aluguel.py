@@ -84,7 +84,7 @@ class Aluguel():
         conexao.close() 
 
     def delete():
-        print("\nFunção em desenvolcimento\n")
+        print("\nFunção em desenvolvimento\n")
 
     def calcular_multa(self, dias):
         '''Recebe o valor da multa por atraso diária, os dias de atraso e calcula o valor da multa.'''
@@ -93,12 +93,12 @@ class Aluguel():
     
     def calculo_aluguel_externo(self, dias):
         '''Recebe o ID do jogo alugado externamente e os dias pelos quais ele vai ser alugado e retorna o valor do aluguel'''
-        diaria = Jogo_aluguel(self.id_jogo_aluguel)[10]
+        diaria = (Jogo_aluguel.read(self.id_jogo_aluguel))[10]
         aluguel_externo = diaria * dias
         return aluguel_externo
     
     def calculo_aluguel_interno(self, quantidade_sessoes):
         '''Recebe o ID do jogo alugado internamente e a quantidade de sessões pelas quais ele vai ser alugado e retorna o valor do aluguel'''
-        valor_sessao = Jogo_aluguel(self.id_jogo_aluguel)[9]
+        valor_sessao = (Jogo_aluguel.read(self.id_jogo_aluguel))[9]
         aluguel_interno = valor_sessao * quantidade_sessoes
         return aluguel_interno
