@@ -4,16 +4,21 @@ import sqlite3
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
 class Aluguel():
-    def __init__(self, id_aluguel, id_jogo_aluguel, data_inicio, data_prevista_devolucao, multa_diaria, multa_avaria):
-        self.id_aluguel = id_aluguel
-        self.id_jogo_aluguel = id_jogo_aluguel
+    def __init__(self, id_aluguel, id_produto, data_inicio, data_prevista_devolucao, multa_diaria, multa_avaria):
+        self.__id_aluguel = id_aluguel
+        self.id_produto = id_produto
         self.data_inicio = data_inicio
         self.data_prevista_devolucao = data_prevista_devolucao
         self.multa_diaria = multa_diaria
         self.multa_avaria = multa_avaria
 
+    @property
+    def id_aluguel(self) -> int:
+        '''getter para importar o __id_aluguel encapsulado em outras classes'''
+        return self._id_aluguel
+
     def __str__(self):
-        return f"ID do aluguel: {self.id_aluguel}\nID do jogo alugado: {self.id_jogo_aluguel}\nData de início: {self.data_inicio}\nData prevista para devolução: {self.data_prevista_devolucao}\nMulta diária: {self.multa_diaria}\nMulta de avaria: {self.multa_avaria}"
+        return f"ID do aluguel: {self.id_aluguel}\nID do jogo alugado: {self.id_produto}\nData de início: {self.data_inicio}\nData prevista para devolução: {self.data_prevista_devolucao}\nMulta diária: {self.multa_diaria}\nMulta de avaria: {self.multa_avaria}"
     
     def __eq__(self, outro):
         return self.id_aluguel == outro.id_aluguel
@@ -30,7 +35,7 @@ class Aluguel():
         conexao = sqlite3.connect(caminho_data)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS aluguel 
-                       (id_aluguel INTEGER UNIQUE, id_jogo_aluguel INTEGER, data_inicio TEXT, data_prevista_devolucao TEXT, multa_diaria REAL, multa_avaria REAL)''')
+                       (id_aluguel INTEGER UNIQUE, id_produto INTEGER, data_inicio TEXT, data_prevista_devolucao TEXT, multa_diaria REAL, multa_avaria REAL)''')
 
         cursor.close()
         conexao.close()
@@ -38,20 +43,20 @@ class Aluguel():
     def create():
         '''Recebe os atributos do aluguel e registra ele no banco de dados'''
         novo_id_aluguel = int(input("Informe o ID do aluguel: "))
-        novo_id_jogo = int(input("Informe o ID do jogo alugado: "))
+        novo_id_produto = int(input("Informe o ID do jogo alugado: "))
         nova_data_inicio = str(input("Informe a data de inicio do aluguel: "))
         nova_data_devolucao = str(input("Informe a data prevista de devolução do aluguel: "))
         nova_multa_diaria = str(input("Informe o valor da multa diária o do aluguel: "))
         nova_multa_avaria = str(input("Informe o valor da multa de avaria o do aluguel: "))
 
-        novo_aluguel = Aluguel(novo_id_aluguel, novo_id_jogo, nova_data_inicio, nova_data_devolucao, nova_multa_diaria, nova_multa_avaria)
+        novo_aluguel = Aluguel(novo_id_aluguel, novo_id_produto, nova_data_inicio, nova_data_devolucao, nova_multa_diaria, nova_multa_avaria)
 
         Aluguel.tabela_aluguel()
         conexao = sqlite3.connect(caminho_data)
         cursor = conexao.cursor()
         cursor.execute('''INSERT OR IGNORE INTO aluguel 
-                       (id_aluguel, id_jogo_aluguel, data_inicio, data_prevista_devolucao, multa_diaria, multa_avaria)
-                       VALUES (?, ?, ?, ?, ?, ?)''', (novo_aluguel.id_aluguel, novo_aluguel.id_jogo_aluguel, novo_aluguel.data_inicio, novo_aluguel.data_prevista_devolucao, novo_aluguel.multa_diaria, novo_aluguel.multa_avaria))
+                       (id_aluguel, id_produto, data_inicio, data_prevista_devolucao, multa_diaria, multa_avaria)
+                       VALUES (?, ?, ?, ?, ?, ?)''', (novo_aluguel.id_aluguel, novo_aluguel.id_produto, novo_aluguel.data_inicio, novo_aluguel.data_prevista_devolucao, novo_aluguel.multa_diaria, novo_aluguel.multa_avaria))
         
         conexao.commit()
         cursor.close()

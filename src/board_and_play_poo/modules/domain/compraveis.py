@@ -6,7 +6,7 @@ class Jogo_venda(Jogo):
     '''
     A classe dos jogos compráveis. Ela cuida do CRUD 
     '''
-    def __init__(self, id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_compra):
+    def __init__(self, id_jogo_venda, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_compra):
           super().__init__(id, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status)
           self._valor_compra = valor_compra
 
