@@ -15,7 +15,7 @@ class Aluguel():
     @property
     def id_aluguel(self) -> int:
         '''getter para importar o __id_aluguel encapsulado em outras classes'''
-        return self._id_aluguel
+        return self.__id_aluguel
 
     def __str__(self):
         return f"ID do aluguel: {self.id_aluguel}\nID do jogo alugado: {self.id_produto}\nData de início: {self.data_inicio}\nData prevista para devolução: {self.data_prevista_devolucao}\nMulta diária: {self.multa_diaria}\nMulta de avaria: {self.multa_avaria}"
@@ -82,7 +82,7 @@ class Aluguel():
         cursor = conexao.cursor()
         cursor.execute(f'''UPDATE aluguel
                     SET {nome_atributo} = ?
-                    WHERE id = ?''', (atributo_update, id))
+                    WHERE id_aluguel = ?''', (atributo_update, id))
         
         conexao.commit()
         cursor.close()

@@ -32,7 +32,7 @@ class Venda():
         conexao = sqlite3.connect(caminho_data)
         cursor = conexao.cursor()
         cursor.execute('''CREATE TABLE IF NOT EXISTS venda 
-                       (id_venda INTEGER UNIQUE, id_produto INTEGER, tipo TEXT)''')
+                       (id_venda INTEGER UNIQUE, id_produto INTEGER, tipo_produto TEXT)''')
 
         cursor.close()
         conexao.close()
@@ -76,7 +76,7 @@ class Venda():
         cursor = conexao.cursor()
         cursor.execute(f'''UPDATE venda
                     SET {nome_atributo} = ?
-                    WHERE id = ?''', (atributo_update, id))
+                    WHERE id_venda = ?''', (atributo_update, id))
         
         conexao.commit()
         cursor.close()
