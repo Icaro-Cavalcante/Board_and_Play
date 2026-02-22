@@ -76,6 +76,11 @@ class Aluguel():
         conexao.close()
         return aluguel
 
+    def tupla_objeto(tupla):
+         '''Transforma a tupla retornada no método read em um objeto'''
+         aluguel = Aluguel(tupla[0], tupla[1], tupla[2], tupla[3], tupla[4], tupla[5])
+         return aluguel
+
     def update(id, nome_atributo, atributo_update):
         '''Recebe o id, o nome do atributo e o atributo update e atualiza o atributo com o  valor do update.'''
         Aluguel.tabela_aluguel()
