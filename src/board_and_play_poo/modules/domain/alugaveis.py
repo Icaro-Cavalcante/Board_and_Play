@@ -80,6 +80,7 @@ class Jogo_aluguel(Jogo):
           conexao.commit()
           cursor.close()
           conexao.close() 
+          return "Sucesso! Atributo atualizado."
     
     def delete(id_produto):
           '''Recebe o id do jogo alugável e atualiza seu status para inativo.'''
@@ -93,3 +94,4 @@ class Jogo_aluguel(Jogo):
           conexao.commit()
           cursor.close()
           conexao.close()
+          return "Sucesso! Jogo inativado."
