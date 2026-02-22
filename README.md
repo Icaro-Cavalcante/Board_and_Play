@@ -22,7 +22,7 @@ Board_and_Play/
 |   |   ├── domain
 |   |   |    ├── __init__.py          # Transforma o diretório em um pacote
 |   |   |    ├── alugaveis.py         # Classe utilizada para gerenciamento de jogos que atendem aos serviços de aluguel
-|   |   |    ├── clientes.py          # Classe utilizada para cadastro e gerenciamento de cleintes
+|   |   |    ├── clientes.py          # Classe utilizada para cadastro e gerenciamento de clientes
 |   |   |    ├── colaboradores.py     # Classe utilizada para para cadastro e gerenciamento de colaboradores
 |   |   |    ├── compraveis.py        # Classe utilizada para gerenciamento de jogos que atendem aos serviços de compra
 |   |   |    ├── jogos.py             # Classe pai que dá atributos comuns aos jogos alugáveis e compráveis
@@ -70,4 +70,5 @@ Board_and_Play/
 
 
 ## 📖 UML textual
+
 
