@@ -12,7 +12,7 @@ class Jogo_aluguel(Jogo):
         self._valor_diaria = valor_diaria
 
     def __str__(self):
-         return f"ID: {self.id_produto}\nNome: {self.nome}\nCusto de aquisição: {self._custo_aquisicao}\nDescrição: {self._descricao}\nIdade mínima: {self._idade_min}\nNúmero de jogadores: {self._num_jogadores}\nTipo: {self.tipo}\nStatus: {self._status}"
+         return f"\nID: {self._id_produto}\nNome: {self._nome}\nCusto de aquisição: {self._custo_aquisicao}\nDescrição: {self._descricao}\nIdade mínima: {self._idade_min}\nNúmero de jogadores: {self._num_jogadores}\nTipo: {self._tipo}\nStatus: {self._status}"
 
     def __eq__(self, outro):
          return self.id_produto == outro.id_produto
@@ -95,3 +95,8 @@ class Jogo_aluguel(Jogo):
           cursor.close()
           conexao.close()
           return "Sucesso! Jogo inativado."
+    
+    def tupla_objeto(tupla):
+         '''Transforma a tupla retornada no método read em um objeto'''
+         jogo_objeto = Jogo_aluguel(tupla[0], tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], tupla[6], tupla[7], tupla[8], tupla[9], tupla[10])
+         return jogo_objeto

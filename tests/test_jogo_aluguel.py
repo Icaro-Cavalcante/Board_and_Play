@@ -23,3 +23,10 @@ def teste_jogo_aluguel_delete():
     '''Teste para o método delete da classe jogo aluguel.'''
     resultado = Jogo_aluguel.delete(1)
     assert resultado == "Sucesso! Jogo inativado."
+
+def teste_jogo_aluguel_tupla_objeto():
+    '''Teste para o método tupla objeto da classe jogo aluguel.'''
+    tupla = Jogo_aluguel.read(1)
+    resultado = Jogo_aluguel.tupla_objeto(tupla)
+    assert resultado._custo_aquisicao == 80
+    
