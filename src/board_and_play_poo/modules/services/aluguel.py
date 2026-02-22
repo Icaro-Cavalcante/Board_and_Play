@@ -101,12 +101,16 @@ class Aluguel():
     
     def calculo_aluguel_externo(self, dias):
         '''Recebe o ID do jogo alugado externamente e os dias pelos quais ele vai ser alugado e retorna o valor do aluguel'''
-        diaria = (Jogo_aluguel.read(self.id_produto))[10]
+        tupla = Jogo_aluguel.read(self.id_produto)
+        jogo = Jogo_aluguel.tupla_objeto(tupla)
+        diaria = jogo._valor_diaria
         aluguel_externo = diaria * dias
         return aluguel_externo
     
     def calculo_aluguel_interno(self, quantidade_sessoes):
         '''Recebe o ID do jogo alugado internamente e a quantidade de sessões pelas quais ele vai ser alugado e retorna o valor do aluguel'''
-        valor_sessao = (Jogo_aluguel.read(self.id_produto))[9]
-        aluguel_interno = valor_sessao * quantidade_sessoes
+        tupla = Jogo_aluguel.read(self.id_produto)
+        jogo = Jogo_aluguel.tupla_objeto(tupla)
+        sessao = jogo._valor_sessao
+        aluguel_interno = sessao * quantidade_sessoes
         return aluguel_interno
