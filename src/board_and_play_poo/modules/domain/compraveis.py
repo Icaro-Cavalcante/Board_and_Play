@@ -52,6 +52,7 @@ class Jogo_venda(Jogo):
          conexao.close()
 
          print("\n Jogo criado\n")
+         return "Sucesso! Jogo criado."
 
     def read(id_produto):
           '''Recebe o id do jogo alugável e retorna uma tupla com os dados dele.'''
@@ -77,6 +78,8 @@ class Jogo_venda(Jogo):
           conexao.commit()
           cursor.close()
           conexao.close() 
+
+          return "Sucesso! Atributo atualizado."
     
     def delete(id_produto):
           '''Recebe o id do jogo alugável e atualiza seu status para inativo.'''
@@ -90,3 +93,5 @@ class Jogo_venda(Jogo):
           conexao.commit()
           cursor.close()
           conexao.close()
+
+          return "Sucesso! Jogo inativado."
