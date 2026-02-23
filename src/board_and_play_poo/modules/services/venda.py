@@ -56,6 +56,7 @@ class Venda():
         cursor.close()
         conexao.close()
         print("\nVenda criada.\n")
+        return "Sucesso! Venda criada."
 
     def read(id):
         '''Recebe o id de venda e retorna uma tupla com os dados dela.'''
@@ -81,6 +82,8 @@ class Venda():
         conexao.commit()
         cursor.close()
         conexao.close() 
+
+        return "Sucesso! Atributo atualizado."
 
 # Não sei dizer onde exatamente seria utilizado um Delete uma vez que, por RN, precisamos manter todos esses dados no banco
 # Talvez o CRUD seja apenas um CRU
