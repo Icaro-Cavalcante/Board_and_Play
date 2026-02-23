@@ -155,12 +155,18 @@ def menu_aluguel():
             case 1:
                 Aluguel.create()
             case 2:
-                id = int(input("Informe o ID: "))
-                consultar_aluguel = Aluguel.read(id)
-                if consultar_aluguel == None:
-                    print("Esse aluguel não existe")
+                while True:
+                    try:
+                        id = int(input("Digite o ID do aluguel que deseja consultar: "))
+                        break
+                    except ValueError:
+                        print("\nO ID precisa ser um número inteiro.\n")
+                tupla = Aluguel.read(id)
+                if tupla == None:
+                    print("Esse aluguel não foi encontrado.")
                 else:
-                    print(consultar_aluguel)
+                    objeto = Aluguel.tupla_objeto(tupla)
+                    print(objeto)
             case 3:
                 menu_edicao_aluguel()
             case 4:
