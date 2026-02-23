@@ -101,7 +101,18 @@ def menu_jogo_compra():
             case 1:
                 Jogo_venda.create()
             case 2:
-                print(Jogo_venda.read(int(input("Digite o id do jogo para busca: "))))
+                while True:
+                    try:
+                        id = int(input("Digite o ID do jogo que deseja consultar: "))
+                        break
+                    except ValueError:
+                        print("\nO ID precisa ser um número inteiro.\n")
+                tupla = Jogo_venda.read(id)
+                if tupla == None:
+                    print("Esse jogo não foi encontrado.")
+                else:
+                    objeto = Jogo_venda.tupla_objeto(tupla)
+                    print(objeto)
             case 3:
                 menu_edicao_jogo_compra()
             case 4:
