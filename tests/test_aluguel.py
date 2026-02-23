@@ -36,3 +36,9 @@ def teste_aluguel_calculo_aluguel_interno():
     obj_aluguel = Aluguel(1, 1, "20/10/2025", "30/10/2025", 40, 100)
     resultado = obj_aluguel.calculo_aluguel_interno(5)
     assert resultado == 20 * 5
+
+def teste_aluguel_tupla_objeto():
+    '''Teste para o método tupla objeto da classe aluguel.'''
+    tupla = Aluguel.read(1)
+    resultado = Aluguel.tupla_objeto(tupla)
+    assert resultado.multa_diaria == 200
