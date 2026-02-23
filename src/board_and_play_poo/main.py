@@ -211,8 +211,18 @@ def menu_venda():
             case 1:
                 Venda.create()
             case 2:
-                id = int(input("Digite o id da venda para busca: "))
-                print(id)
+                while True:
+                    try:
+                        id = int(input("Digite o ID da venda que deseja consultar: "))
+                        break
+                    except ValueError:
+                        print("\nO ID precisa ser um número inteiro.\n")
+                tupla = Venda.read(id)
+                if tupla == None:
+                    print("Essa venda não foi encontrada.")
+                else:
+                    objeto = Venda.tupla_objeto(tupla)
+                    print(objeto)
             case 3:
                 menu_edicao_venda()
             case 4:

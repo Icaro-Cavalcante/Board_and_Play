@@ -69,6 +69,11 @@ class Venda():
         cursor.close()
         conexao.close()
         return venda
+    
+    def tupla_objeto(tupla):
+         '''Transforma a tupla retornada no método read em um objeto'''
+         venda_objeto = Venda(tupla[0], tupla[1], tupla[2])
+         return venda_objeto
 
     def update(id, nome_atributo, atributo_update):
         '''Recebe o id, o nome do atributo e o atributo update e atualiza o atributo com o  valor do update.'''
