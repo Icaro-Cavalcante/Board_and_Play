@@ -1,5 +1,6 @@
 from pathlib import Path
 from ..domain.produtos import Produto
+from ..domain.compraveis import Jogo_venda
 import sqlite3
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
@@ -98,6 +99,8 @@ class Venda():
 
     def calcular_venda(self, quantidade):
         '''Recebe o ID do produto a ser comprado e a quantidade e retorna o valor da venda'''
-        valor_compra = (Produto.read(self.id_produtoa))[8]
+        tupla = Jogo_venda.read(self.id_produto)
+        objeto = Jogo_venda.tupla_objeto(tupla)
+        valor_compra = objeto._valor_compra
         venda = valor_compra * quantidade
-        return  venda
+        return venda
