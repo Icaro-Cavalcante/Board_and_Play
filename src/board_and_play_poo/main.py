@@ -6,10 +6,15 @@ from modules.services.aluguel import Aluguel
 def main():
     '''Função principal do sistema, a qual exibe a interface e permite a interação do usuário com as outras funcionalidades'''
     while True:
-        print("Board and play")
-        print("-" * 20)
-        print("1 - Jogo aluguel\n2 - Jogo venda\n3 - Aluguel\n4 - Venda\n5 - Sair")
-        escolha = int(input("Selecione uma opção: "))
+        while True:
+            try:
+                print("\nBoard and play")
+                print("-" * 20)
+                print("1 - Jogo aluguel\n2 - Jogo venda\n3 - Aluguel\n4 - Venda\n5 - Sair")
+                escolha = int(input("Selecione uma opção: "))
+                break
+            except ValueError:
+                print("\nA opção deve ser um número inteiro.\n")
         match escolha:
             case 1:
                 menu_jogo_aluguel()
@@ -26,10 +31,15 @@ def main():
 
 def menu_jogo_aluguel():
     while True:
-        print("\nMenu dos jogos alugáveis")
-        print("-" * 20)
-        print("1 - Cadastrar jogo alugável\n2 - Consultar jogo alugável\n3 - Editar jogo alugável\n4 - Deletar jogo alugável\n5 - Sair")
-        escolha = int(input("Selecione uma opção: "))
+        while True:
+            try:
+                print("\nMenu dos jogos alugáveis")
+                print("-" * 20)
+                print("1 - Cadastrar jogo alugável\n2 - Consultar jogo alugável\n3 - Editar jogo alugável\n4 - Deletar jogo alugável\n5 - Sair")
+                escolha = int(input("Selecione uma opção: "))
+                break
+            except ValueError:
+                print("\nA opção deve ser um número inteiro.\n")
         match escolha:
             case 1:
                 Jogo_aluguel.create()
@@ -93,10 +103,15 @@ def menu_edicao_jogo_aluguel():
 
 def menu_jogo_compra():
     while True:
-        print("\nMenu dos jogos compráveis")
-        print("-" * 20)
-        print("1 - Cadastrar jogo comprável\n2 - Consultar jogo comprável\n3 - Editar jogo comprável\n4 - Deletar jogo comprável\n5 - Sair")
-        escolha = int(input("Selecione uma opção: "))
+        while True:
+            try:
+                print("\nMenu dos jogos compráveis")
+                print("-" * 20)
+                print("1 - Cadastrar jogo comprável\n2 - Consultar jogo comprável\n3 - Editar jogo comprável\n4 - Deletar jogo comprável\n5 - Sair")
+                escolha = int(input("Selecione uma opção: "))
+                break
+            except ValueError:
+                print("\nA opção deve ser um número inteiro.\n")
         match escolha:
             case 1:
                 Jogo_venda.create()
@@ -158,10 +173,15 @@ def menu_edicao_jogo_compra():
 
 def menu_aluguel():
     while True:
-        print("\nMenu dos aluguéis")
-        print("-" * 20)
-        print("1 - Cadastrar aluguel\n2 - Consultar aluguel\n3 - Editar aluguel\n4 - Sair")
-        escolha = int(input("Selecione uma opção: "))
+        while True:
+            try:
+                print("\nMenu dos aluguéis")
+                print("-" * 20)
+                print("1 - Cadastrar aluguel\n2 - Consultar aluguel\n3 - Editar aluguel\n4 - Sair")
+                escolha = int(input("Selecione uma opção: "))
+                break
+            except ValueError:
+                print("\nA opção deve ser um número inteiro.\n")
         match escolha:
             case 1:
                 Aluguel.create()
@@ -220,10 +240,15 @@ def menu_edicao_aluguel():
 
 def menu_venda():
     while True:
-        print("\nMenu de vendas")
-        print("-" * 20)
-        print("1 - Cadastrar venda\n2 - Consultar venda\n3 - Editar venda\n4 - Sair")
-        escolha = int(input("Selecione uma opção: "))
+        while True:
+            try:
+                print("\nMenu de vendas")
+                print("-" * 20)
+                print("1 - Cadastrar venda\n2 - Consultar venda\n3 - Editar venda\n4 - Sair")
+                escolha = int(input("Selecione uma opção: "))
+                break
+            except ValueError:
+                print("\nA opção deve ser um número inteiro.\n")
         match escolha:
             case 1:
                 Venda.create()
