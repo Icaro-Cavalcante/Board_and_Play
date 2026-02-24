@@ -28,33 +28,46 @@ class Jogo_aluguel(Jogo):
       conexao.close()
     
     def create():
-         '''Recebe os atributos do jogo alugável e registra ele no banco de dados'''
-         novo_id = int(input("Informe o id do jogo alugável: "))
-         novo_nome = str(input("Informe o nome do jogo alugável: "))
-         novo_custo = float(input("Informe o custo do jogo alugável: "))
-         nova_data = str(input("Informe a data de aquisição do jogo alugável: "))
-         nova_descricao = str(input("Informe a descrição do jogo alugável: "))
-         nova_idade = int(input("Informe a idade mínima do jogo alugável: "))
-         novo_num = int(input("Informe o número de jogadores do jogo alugável: "))
-         novo_tipo= str(input("Informe o tipo do jogo alugável: "))
-         novo_status = str(input("Informe o status do jogo alugável: "))
-         novo_sessao = float(input("Informe o valor da sessão do jogo alugável: "))
-         novo_diaria = float(input("Informe o valor da diária do jogo alugável: "))
+     '''Recebe os atributos do jogo alugável e registra ele no banco de dados'''
+     while True:
+          try:
+               novo_id = int(input("Informe o id do jogo alugável: "))
+               break
+          except ValueError:
+               print("\nO ID deve ser um número inteiro\n")
+     if Jogo_aluguel.read(novo_id) == None:
+          while True:
+               try:
+                    novo_nome = str(input("Informe o nome do jogo alugável: "))
+                    novo_custo = float(input("Informe o custo do jogo alugável: "))
+                    nova_data = str(input("Informe a data de aquisição do jogo alugável: "))
+                    nova_descricao = str(input("Informe a descrição do jogo alugável: "))
+                    nova_idade = int(input("Informe a idade mínima do jogo alugável: "))
+                    novo_num = int(input("Informe o número de jogadores do jogo alugável: "))
+                    novo_tipo = str(input("Informe o tipo do jogo alugável: "))
+                    novo_status = str(input("Informe o status do jogo alugável: "))
+                    novo_sessao = float(input("Informe o valor da sessão do jogo alugável: "))
+                    novo_diaria = float(input("Informe o valor da diária do jogo alugável: "))
+                    break
+               except ValueError:
+                    print("\nTipo inválido de dado, reniciando cadastro...\n")
+          novo_jogo = Jogo_aluguel(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_sessao, novo_diaria)
+          
+          Jogo_aluguel.tabela_jogo_aluguel()
+          conexao = sqlite3.connect(caminho_data)
+          cursor = conexao.cursor()
+          cursor.execute('''INSERT OR IGNORE INTO jogo_aluguel
+                         (id_produto, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_sessao, valor_diaria)
+                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id_produto, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_sessao, novo_jogo._valor_diaria))
+          conexao.commit()
+          cursor.close()
+          conexao.close()
 
-         novo_jogo = Jogo_aluguel(novo_id, novo_nome, novo_custo, nova_data, nova_descricao, nova_idade, novo_num, novo_tipo, novo_status, novo_sessao, novo_diaria)
-
-         Jogo_aluguel.tabela_jogo_aluguel()
-         conexao = sqlite3.connect(caminho_data)
-         cursor = conexao.cursor()
-         cursor.execute('''INSERT OR IGNORE INTO jogo_aluguel
-                       (id_produto, nome, custo_aquisicao, data_aquisicao, descricao, idade_min, num_jogadores, tipo, status, valor_sessao, valor_diaria)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', (novo_jogo._id_produto, novo_jogo._nome, novo_jogo._custo_aquisicao, novo_jogo._data_aquisicao, novo_jogo._descricao, novo_jogo._idade_min, novo_jogo._num_jogadores, novo_jogo._tipo, novo_jogo._status, novo_jogo._valor_sessao, novo_jogo._valor_diaria))
-         conexao.commit()
-         cursor.close()
-         conexao.close()
-
-         print("\n Jogo criado\n")
-         return "Sucesso! Jogo criado."
+          print("\n Jogo criado\n")
+          return "Sucesso! Jogo criado."
+     else:
+          print("Esse jogo já existe.")
+          return "Esse jogo já existe"
 
     def read(id_produto):
           '''Recebe o id do jogo alugável e retorna uma tupla com os dados dele.'''
