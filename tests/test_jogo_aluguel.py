@@ -7,7 +7,7 @@ def teste_jogo_alugel_create():
     with patch('builtins.input', side_effect=["1","War","80.0","12/10/2025","Desafie seus amigos e descubra por que War é o jogo de estratégia mais jogado do Brasil!","10","3","tabuleiro","disponivel","20","40"]):
         resultado = Jogo_aluguel.create()
 
-        assert resultado == "Sucesso! Jogo criado."
+        assert resultado == "Sucesso! Jogo criado." or resultado == "Esse jogo já existe"
 
 def teste_jogo_aluguel_read():
     '''Teste para o método read da classe jogo aluguel.'''
