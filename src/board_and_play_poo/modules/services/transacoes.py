@@ -35,7 +35,17 @@ class Transacao:
         '''Recebe os atributos da transação e registra ela no banco de dados'''
         novo_id_transacao = int(input("Informe o ID da transação: "))
         novo_id_negocio = int(input("Informe o ID do negócio para comprovante: "))
-        novo_valor_final = Transacao.calcular_valor(obj_negocio)
+        while True:
+            try:
+                if obj_negocio.id_aluguel:
+                    escolha = int(input("\n1 - Aluguel interno\n2 - Aluguel externo\n"))
+                    break
+            except AttributeError:
+                if obj_negocio.id_venda:
+                    escolha = 3
+                    break
+                print("\nInput inválido, digite novamente.\n")
+        novo_valor_final = Transacao.calcular_valor(obj_negocio, escolha)
         novo_metodo = str(input("Informe a forma de pagamento: "))
         nova_multa_avaria = Transacao.calcular_multa(obj_negocio)
 
@@ -51,6 +61,7 @@ class Transacao:
         conexao.commit()
         cursor.close()
         conexao.close()
+        print("Comprovante criado.")
         return "\nComprovante criado.\n"
         
     def read(id):
@@ -69,32 +80,45 @@ class Transacao:
          transacao = Transacao(tupla[0], tupla[1], tupla[2], tupla[3], tupla[4])
          return transacao
 
-    def calcular_valor(obj_negocio):
-        try:
-            if obj_negocio.id_aluguel:
-                escolha = int(input("\n1 - Aluguel interno\n2 - Aluguel externo:\n"))
-                match escolha:
-                    case 1:
-                        valor = obj_negocio.calculo_aluguel_interno(int(input("\nDigite quantas sessões serão ofertadas: ")))
-                    case 2:
-                        valor = obj_negocio.calculo_aluguel_externo(int(input("\nDigite a quantia de dias para locação: ")))
-                    case _:
-                        print("Escolha inválida, saindo de menu de cálculo.\n")
-            elif obj_negocio.id_venda:
-                valor = obj_negocio.calcular_venda(int(input("Digite a quantia deste produto a ser comprado: ")))
-        except AttributeError:
-            return print("Tentativa de cálculo de valor falhou, tente repassar um aluguel/venda existente e ativo.")
+    def calcular_valor(obj_negocio, escolha):
+        match escolha:
+            case 1:
+                valor = obj_negocio.calculo_aluguel_interno(int(input("\nDigite quantas sessões serão ofertadas: ")))
+            case 2:
+                valor = obj_negocio.calculo_aluguel_externo(int(input("\nDigite a quantia de dias para locação: ")))
+            case 3:
+                valor = obj_negocio.calcular_venda(int(input("\nDigite a quantia deste produto a ser comprado: ")))
         return valor
     
-    def calcular_multa(obj_negocio):
-        try:
-            print("A")
-            if obj_negocio.id_aluguel:
-                print("A")
-                valor = obj_negocio.calcular_multa(int(input("Digite a quantia de dias além do prazo estipulado(0 se nenhum): ")))
-            elif obj_negocio.id_venda:
-                return 0
-        except AttributeError:
-            return print("Tentativa de cálculo de multa falhou, tente repassar um aluguel existente e ativo.")
+    def calcular_multa_dias(obj_negocio):
+        valor = 0
+        while True:
+            try:
+                if obj_negocio.id_aluguel:
+                    valor = obj_negocio.calcular_multa(int(input("Digite a quantia de dias além do prazo estipulado(0 se nenhum)\n")))
+                    break
+            except AttributeError:
+                if not obj_negocio.id_venda:
+                    print("\nTentativa de cálculo de multa falhou, digite novamente.\n")
+                else: break
+        return valor
+    
+    def calcular_multa_avaria(obj_negocio):
+        valor = 0
+        while True:
+            try:
+                if obj_negocio.id_aluguel:
+                    escolha = int(input("Houve danos ao produto durante a locação?\n1 - Sim\n2 - Não\n"))
+                    break
+            except AttributeError: 
+                if not obj_negocio.id_venda:
+                    print("\nInput inválido, digite novamente.\n")
+                else: break
+            if escolha == 1: valor = obj_negocio.multa_avaria
         return valor
 
+    def calcular_multa(obj_negocio):
+        avaria = Transacao.calcular_multa_avaria(obj_negocio)
+        dias = Transacao.calcular_multa_dias(obj_negocio)
+        multa = dias + avaria
+        return multa
