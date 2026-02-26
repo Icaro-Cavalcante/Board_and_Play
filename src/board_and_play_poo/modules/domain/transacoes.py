@@ -1,5 +1,5 @@
 import sqlite3
-from board_and_play_poo.modules.domain.aluguel import Aluguel
+from aluguel import Aluguel
 from venda import Venda
 from pathlib import Path
 caminho_data = "src/board_and_play_poo/data/dados.db"

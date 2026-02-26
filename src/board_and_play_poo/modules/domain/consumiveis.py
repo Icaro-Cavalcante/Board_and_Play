@@ -1,4 +1,4 @@
-from .transacoes import Trans_venda
+from .transacoes import Transacao
 from .produtos import Produto
 class Consumivel(Produto):
     '''Classe que cuida dos consumíveis (alimentos prontos, bebidas)'''

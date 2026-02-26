@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from..src.board_and_play_poo.modules.domain.alugaveis import Jogo_aluguel
+#from..board_and_play_poo.modules.domain.alugaveis import Jogo_aluguel
 
 def teste_jogo_alugel_create():
     '''Teste para o método create da classe jogo aluguel.'''

@@ -1,6 +1,6 @@
 from pathlib import Path
 from .produtos import Produto
-from .compraveis import Jogo_venda
+#from .compraveis import Jogo_venda
 import sqlite3
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
