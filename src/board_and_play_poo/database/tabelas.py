@@ -86,16 +86,16 @@ class Tabela():
         self.vendas = Table('vendas', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('cliente_id', Integer, ForeignKey('cliente.id'), nullable=False, unique=True),
-            Column('colaborador_id', Integer, ForeignKey('colaborador.id'), nullable=False, unique=True),
+            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False, unique=True),
+            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False, unique=True),
             Column('nota_fiscal', String(50), unique=True)
         )
 
         self.alugueis = Table('alugueis', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('cliente_id', Integer, ForeignKey('cliente.id'), nullable=False, unique=True),
-            Column('colaborador_id', Integer, ForeignKey('colaborador.id'), nullable=False, unique=True),
+            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False, unique=True),
+            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False, unique=True),
             Column('numero_contrato', String(50), unique=True),
             Column('data_inicio', Date, nullable=False),
             Column('data_prevista_devolucao', Date, nullable=False),
@@ -132,3 +132,10 @@ class Tabela():
             data_dir = Path(caminho_data_pasta)
             data_dir.mkdir(exist_ok=True) # check se a tabela já existe
             self.metadata.create_all(database.session)
+
+    def create_test_table(self, database):
+            '''Cria as tabelas no banco de dados'''
+            caminho_data_pasta = r"src/board_and_play_poo/data_test"
+            data_dir = Path(caminho_data_pasta)
+            data_dir.mkdir(exist_ok=True) # check se a tabela já existe
+            self.metadata.create_all(database.test_session)

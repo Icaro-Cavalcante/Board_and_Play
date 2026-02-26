@@ -65,7 +65,7 @@ Board_and_Play/
   -  Adicione o gitignore (opcional): `echo "*" > .vevn/.gitignore`
   -  Baixe a biblioteca necessária para os testes: `pip install pytest`
   
-- 3 - Para rodar o arquivo principal, digite no Terminal: `python src/board_and_play_poo/main.py`
+- 3 - Para rodar o arquivo principal, digite no Terminal: `python -m src.board_and_play_poo.main`
 
 
 
