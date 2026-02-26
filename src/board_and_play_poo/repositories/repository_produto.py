@@ -61,7 +61,7 @@ class Repository_produto():
             ).first() 
 
         if produto_bd: # Caso o produto exista
-            produto = Produto(produto_bd[0], produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5]) # Transformando produto em um objeto
+            produto = Produto(produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5], produto_bd[0]) # Transformando produto em um objeto
             return produto # Produto é retornado
         return None # Caso não, None é retornado
     
