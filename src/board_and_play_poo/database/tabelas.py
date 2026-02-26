@@ -132,3 +132,10 @@ class Tabela():
             data_dir = Path(caminho_data_pasta)
             data_dir.mkdir(exist_ok=True) # check se a tabela já existe
             self.metadata.create_all(database.session)
+
+    def create_test_table(self, database):
+            '''Cria as tabelas no banco de dados'''
+            caminho_data_pasta = r"src/board_and_play_poo/data_test"
+            data_dir = Path(caminho_data_pasta)
+            data_dir.mkdir(exist_ok=True) # check se a tabela já existe
+            self.metadata.create_all(database.test_session)
