@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch
-from..src.board_and_play_poo.modules.services.venda import Venda
+from..board_and_play_poo.modules.domain.venda import Venda
 def teste_venda_create():
     '''Teste para o método create da classe venda.'''
 

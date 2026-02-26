@@ -1,5 +1,5 @@
 from pathlib import Path
-from ..domain.alugaveis import Jogo_aluguel
+#from .alugaveis import Jogo_aluguel
 import sqlite3
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
