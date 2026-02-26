@@ -1,0 +1,11 @@
+from sqlalchemy import create_engine
+from ..config_database import Config_database
+
+config = Config_database()
+
+class Database():
+    def __init__(self):
+        self.session = create_engine(config.DATABASE_URL, echo=config.DATABASE_URL)
+
+    def conectar(self):
+        return self.session.connect()
