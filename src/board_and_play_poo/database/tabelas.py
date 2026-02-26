@@ -42,7 +42,8 @@ class Tabela():
             Column('nome', String(50), unique=True, nullable=False),
             Column('custo_aquisicao', Numeric(10,2), nullable=False),
             Column('data_aquisicao', Date, nullable=False),
-            Column('categoria', String(20), nullable=False)   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
+            Column('categoria', String(20), nullable=False),   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
+            Column('quantidade', Integer, nullable=False)
           )
 
         self.jogos = Table('jogos', self.metadata,
