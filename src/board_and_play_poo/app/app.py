@@ -1,7 +1,9 @@
 #from modules.domain.alugaveis import Jogo_aluguel
 #from modules.domain.compraveis import Jogo_venda
-from modules.domain.venda import Venda
-from modules.domain.aluguel import Aluguel
+from ..modules.domain.venda import Venda
+from ..modules.domain.aluguel import Aluguel
+from ..database.database import Database
+from ..database.tabelas import Tabela
 
 class App():
     def menu_principal():
