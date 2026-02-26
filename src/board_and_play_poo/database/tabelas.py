@@ -49,7 +49,7 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
             Column('etiqueta', String(50), unique=True, nullable=False),
-            Column('gênero', String(15)),
+            Column('genero', String(15)),
             Column('descricao', String(200)),
             Column('idade_min', Integer, default=0),
             Column('num_jogadores', Integer, default=1),
