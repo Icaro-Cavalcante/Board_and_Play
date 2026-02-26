@@ -10,3 +10,6 @@ class Database():
 
     def conectar(self):
         return self.session.connect()
+    
+    def conectar_test(self):
+        return self.test_session.connect()
