@@ -43,7 +43,7 @@ class Repository_produto():
 
 # ------------------------------------------------- CRUD TESTES --------------------------------------------------
 
-    def create(self, produto):
+    def teste_create(self, produto):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados de testes.'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             conexao.execute (text ("""INSERT OR IGNORE INTO produtos
@@ -54,7 +54,7 @@ class Repository_produto():
             conexao.commit() # Commitando o cadastro
         return "Jogo cadastrado."
 
-    def read(self, id):
+    def teste_read(self, id):
         '''Recebe o ID de um produto e retorna um objeto dos seus dados'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             produto_bd = conexao.execute (text ("""SELECT * FROM produtos WHERE id = ?"""), (id, ) # query
@@ -65,7 +65,7 @@ class Repository_produto():
             return produto # Produto é retornado
         return None # Caso não, None é retornado
     
-    def update(self, id, nome_atributo, atributo_update):
+    def teste_update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um produto, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados.'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             conexao.execute (text (f'''UPDATE produto
