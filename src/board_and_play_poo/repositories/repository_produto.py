@@ -11,14 +11,14 @@ class Repository_produto():
     def create(self, produto):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados.'''
         query = text ("""INSERT OR IGNORE INTO produtos
-            (id, codigo_barras, nome, custo_aquisicao, data_aquisicao, categoria)
-            VALUES (:id, :codigo_barras, :nome, :custo_aquisicao, :data_aquisicao, :categoria)
-            """) # Query
+            (codigo_barras, nome, custo_aquisicao, data_aquisicao, categoria, quantidade)
+            VALUES (:codigo_barras, :nome, :custo_aquisicao, :data_aquisicao, :categoria, :quantidade)""") # Query
+        
         with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados
-            conexao.execute (query , {"id":produto.id, "codigo_barras":produto.codigo_barras, "nome":produto.nome, "custo_aquisicao":produto.custo_aquisicao, "data_aquisicao":produto.data_aquisicao, "categoria":produto.categoria} # Executa a query, passa o dicionário e cadastra um novo produto
+            conexao.execute (query , {"codigo_barras":produto.codigo_barras, "nome":produto.nome, "custo_aquisicao":produto.custo_aquisicao, "data_aquisicao":produto.data_aquisicao, "categoria":produto.categoria, "quantidade": produto.quantidade} # Executa a query, passa o dicionário e cadastra um novo produto
             )
             conexao.commit() # Commitando o cadastro
-        print("Jogo cadastrado.")
+        return "Jogo cadastrado."
 
     def read(self, id):
         '''Recebe o ID de um produto e retorna um objeto dos seus dados'''
@@ -29,7 +29,7 @@ class Repository_produto():
         produto_bd = produto_bd[0] # Pega a tupla da lista
 
         if produto_bd: # Caso o produto exista
-            produto = Produto(produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5], produto_bd[0]) # Transformando produto em um objeto
+            produto = Produto(produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5], produto_bd[6], produto_bd[0]) # Transformando produto em um objeto
             return produto # Produto é retornado
         return None # Caso não, None é retornado
     
@@ -49,11 +49,11 @@ class Repository_produto():
     def teste_create(self, produto):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados de testes.'''
         query = text ("""INSERT OR IGNORE INTO produtos
-            (id, codigo_barras, nome, custo_aquisicao, data_aquisicao, categoria)
-            VALUES (:id, :codigo_barras, :nome, :custo_aquisicao, :data_aquisicao, :categoria)
+            (codigo_barras, nome, custo_aquisicao, data_aquisicao, categoria, quantidade)
+            VALUES (:codigo_barras, :nome, :custo_aquisicao, :data_aquisicao, :categoria, :quantidade)
             """) # Query
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query , {"id":produto.id, "codigo_barras":produto.codigo_barras, "nome":produto.nome, "custo_aquisicao":produto.custo_aquisicao, "data_aquisicao":produto.data_aquisicao, "categoria":produto.categoria} # Executa a query, passa o dicionário e cadastra um novo produto
+            conexao.execute (query , {"codigo_barras":produto.codigo_barras, "nome":produto.nome, "custo_aquisicao":produto.custo_aquisicao, "data_aquisicao":produto.data_aquisicao, "categoria":produto.categoria, "quantidade":produto.quantidade} # Executa a query, passa o dicionário e cadastra um novo produto
             )
             conexao.commit() # Commitando o cadastro
         return "Jogo cadastrado."
@@ -67,7 +67,7 @@ class Repository_produto():
         produto_bd = produto_bd[0] # Pega a tupla da lista
 
         if produto_bd: # Caso o produto exista
-            produto = Produto(produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5], produto_bd[0]) # Transformando produto em um objeto
+            produto = Produto(produto_bd[1], produto_bd[2], produto_bd[3], produto_bd[4], produto_bd[5], produto_bd[6], produto_bd[0]) # Transformando produto em um objeto
             return produto # Produto é retornado
         return None # Caso não, None é retornado
     

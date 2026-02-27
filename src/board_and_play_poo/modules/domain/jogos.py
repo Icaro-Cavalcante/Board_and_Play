@@ -10,3 +10,6 @@ class Jogo():
         self.tipo_jogo = tipo_jogo
         self.status = status
         self.id = id
+
+    def __str__(self):
+        return f"ID do jogo: {self.id}\nID de produto desse jogo: {self.produto_id}\nEtiqueta: {self.etiqueta}\nGênero do jogo: {self.genero}\nDescrição: {self.descricao}\nIdade mínima: {self.idade_min}\nNúmero mínimo de jogadores: {self.num_jogadores}\nTipo do jogo: {self.tipo_jogo}\nStatus: {self.status}"

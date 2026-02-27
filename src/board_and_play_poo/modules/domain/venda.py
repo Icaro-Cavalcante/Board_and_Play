@@ -3,7 +3,7 @@ from .transacoes import Transacao
 #from .compraveis import Jogo_venda
 
 class Venda(Transacao):
-    def __init__(self, id_venda, id_produto, tipo_produto, id_transacao, id_cliente, id_colaborador, nota_fiscal):
+    def __init__(self, id_produto, tipo_produto, id_transacao, id_cliente, id_colaborador, nota_fiscal, id_venda = None):
         super(self.__init__(id_transacao, id_cliente, id_colaborador, nota_fiscal))
         self.__id_venda = id_venda
         self.id_produto = id_produto
@@ -15,7 +15,7 @@ class Venda(Transacao):
         return self.__id_venda
 
     def __str__(self):
-        return f"ID da Venda: {self.id_venda}\nID do produto comprado: {self.id_produto}\nTipo do produto comprado: {self.tipo_produto}"
+        return f"ID da Venda: {self.id_venda}\nID do produto comprado: {self.id_produto}\nTipo do produto comprado: {self.tipo_produto}\nID da transação: {self._id_transacao}"
     
     def __eq__(self, outro):
         return self.id_venda == outro.id_venda

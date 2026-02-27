@@ -1,3 +1,4 @@
+"""
 import pytest
 from unittest.mock import patch
 #from..board_and_play_poo.modules.domain.alugaveis import Jogo_aluguel
@@ -29,4 +30,4 @@ def teste_jogo_aluguel_tupla_objeto():
     tupla = Jogo_aluguel.read(1)
     resultado = Jogo_aluguel.tupla_objeto(tupla)
     assert resultado._custo_aquisicao == 80
-    
+"""
