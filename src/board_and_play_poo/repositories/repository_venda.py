@@ -12,13 +12,14 @@ class Repository_venda():
     def create(self, venda):
         '''Recebe um objeto de venda e cadastra ele no banco de dados.'''
         with self.database.conectar() as conexao: # Estabelecendo a conexão
-            conexao.execute (text ("""INSERT OR IGNORE INTO vendas
-            (id, transacao_id, clientes_id, colaboradores_id, nota_fiscal)
-            VALUES (:id, :transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)
-            """), {"id":venda.id, "transacao_id":venda.transacao_id, "clientes_id":venda.clientes_id, "colaboradores_id":venda.colaboradores_id, "nota_fiscal":venda.nota_fiscal} # Query
+            query = text ("""INSERT OR IGNORE INTO vendas
+            (transacao_id, clientes_id, colaboradores_id, nota_fiscal)
+            VALUES (:transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)""")
+
+            conexao.execute (query, {"transacao_id":venda.transacao_id, "clientes_id":venda.clientes_id, "colaboradores_id":venda.colaboradores_id, "nota_fiscal":venda.nota_fiscal} # Query
             )
             conexao.commit() # Commitando o cadastro
-        print("Jogo cadastrado.")
+        print("Venda cadastrada.")
 
     def read(self, id):
         '''Recebe o ID de uma venda e retorna um objeto dos seus dados'''
@@ -27,7 +28,7 @@ class Repository_venda():
             ).first() 
 
         if venda_bd: # Caso o venda exista
-            venda = Venda(venda_bd[0], venda_bd[1], venda_bd[2], venda_bd[3], venda_bd[4]) # Transformando venda em um objeto
+            venda = Venda(venda_bd[1], venda_bd[2], venda_bd[3], venda_bd[4], venda_bd[0]) # Transformando venda em um objeto
             return venda # venda é retornado
         return None # Caso não, None é retornado
     
@@ -45,15 +46,16 @@ class Repository_venda():
 # ------------------------------------------------- CRUD TESTES --------------------------------------------------
 
     def teste_create(self, venda):
-        '''Recebe um objeto de jogo e cadastra ele no banco de dados de testes.'''
+        '''Recebe um objeto de Venda e cadastra ele no banco de dados de testes.'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (text ("""INSERT OR IGNORE INTO vendas
-            (id, transacao_id, clientes_id, colaboradores_id, nota_fiscal)
-            VALUES (:id, :transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)
-            """), {"id":venda.id, "transacao_id":venda.transacao_id, "clientes_id":venda.clientes_id, "colaboradores_id":venda.colaboradores_id, "nota_fiscal":venda.nota_fiscal} # Query
+            query = text ("""INSERT OR IGNORE INTO vendas
+            (transacao_id, clientes_id, colaboradores_id, nota_fiscal)
+            VALUES (:id, :transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)""")
+
+            conexao.execute (query, {"transacao_id":venda.transacao_id, "clientes_id":venda.clientes_id, "colaboradores_id":venda.colaboradores_id, "nota_fiscal":venda.nota_fiscal} # Query
             )
             conexao.commit() # Commitando o cadastro
-        return "Jogo cadastrado."
+        return "Venda cadastrada."
 
     def teste_read(self, id):
         '''Recebe o ID de um venda e retorna um objeto dos seus dados'''
@@ -62,7 +64,7 @@ class Repository_venda():
             ).first() 
 
         if venda_bd: # Caso o venda exista
-            venda = Venda(venda_bd[0], venda_bd[1], venda_bd[2], venda_bd[3], venda_bd[4]) # Transformando venda em um objeto
+            venda = Venda(venda_bd[1], venda_bd[2], venda_bd[3], venda_bd[4], venda_bd[0]) # Transformando venda em um objeto
             return venda # venda é retornado
         return None # Caso não, None é retornado
     

@@ -6,7 +6,7 @@ from pathlib import Path
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
 class Transacao(ABC):
-    def __init__(self, id_transacao, id_cliente, id_colaborador, nota_fiscal):
+    def __init__(self, id_cliente, id_colaborador, nota_fiscal, id_transacao = None):
         self._id_transacao = id_transacao
         self._id_cliente = id_cliente
         self._id_colaborador = id_colaborador

@@ -11,10 +11,11 @@ class Repository_jogo():
     def create(self, jogo):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados.'''
         with self.database.conectar() as conexao: # Estabelecendo a conexão
-            conexao.execute (text ("""INSERT OR IGNORE INTO jogos
-            (id, produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
-            VALUES (:id, :produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)
-            """), {"id":jogo.id, "produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
+            query = text ("""INSERT OR IGNORE INTO jogos
+            (produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
+            VALUES (:produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""")
+
+            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
             )
             conexao.commit() # Commitando o cadastro
         print("Jogo cadastrado.")
@@ -26,7 +27,7 @@ class Repository_jogo():
             ).first() 
 
         if jogo_bd: # Caso o jogo exista
-            jogo = Jogo(jogo_bd[0], jogo_bd[1], jogo_bd[2], jogo_bd[3], jogo_bd[4], jogo_bd[5], jogo_bd[6], jogo_bd[7], jogo_bd[8]) # Transformando jogo em um objeto
+            jogo = Jogo(jogo_bd[1], jogo_bd[2], jogo_bd[3], jogo_bd[4], jogo_bd[5], jogo_bd[6], jogo_bd[7], jogo_bd[8], jogo_bd[0]) # Transformando jogo em um objeto
             return jogo # Jogo é retornado
         return None # Caso não, None é retornado
     
@@ -56,10 +57,11 @@ class Repository_jogo():
     def teste_create(self, jogo):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados de testes.'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (text ("""INSERT OR IGNORE INTO jogos
-            (id, produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
-            VALUES (:id, :produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)
-            """), {"id":jogo.id, "produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
+            query = text ("""INSERT OR IGNORE INTO jogos
+            (produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
+            VALUES (:id, :produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""")
+
+            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
             )
             conexao.commit() # Commitando o cadastro
         return"Jogo cadastrado."
