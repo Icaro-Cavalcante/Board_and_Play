@@ -20,7 +20,6 @@ def teste_produto_read():
     '''Teste para o método read de produto repository'''
     teste_produto_create()
     produto = produto_repo.teste_read(1)
-    print(produto)
     assert produto.id == 1
 
 def teste_produto_update():
