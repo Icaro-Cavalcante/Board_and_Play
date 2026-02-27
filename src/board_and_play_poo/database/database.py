@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from ..config_database import Config_database
+from src.board_and_play_poo.config_database import Config_database
 
 config = Config_database()
 

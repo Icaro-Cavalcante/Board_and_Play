@@ -57,15 +57,16 @@ Board_and_Play/
 - 2 - Crie um ambiente virtual
   -  Abra o terminal
   -  Crie o venv: `python -m venv .venv`
-  -  Ative o venv:
-    - Linux/mac: `source .venv/bin/activate`
-    - Windows powershell: `.venv\Scripts\Activate.ps1`
-    - Windows bash: `source .venv/Scripts/activate`
-  -  Atualize o pip: `python -m pip install --upgrade pip`
-  -  Adicione o gitignore (opcional): `echo "*" > .vevn/.gitignore`
-  -  Baixe a biblioteca necessária para os testes: `pip install pytest`
+- 3 -  Ative o venv:
+    - 🐧 Linux/mac: `source .venv/bin/activate`
+    - 🤖 Windows powershell: `.venv\Scripts\Activate.ps1`
+    - 🖥️ Windows bash: `source .venv/Scripts/activate`
+- 4 -  Atualize o pip: `python -m pip install --upgrade pip`
+- 5 -  Adicione o gitignore (opcional): `echo "*" > .vevn/.gitignore`
+- 6 -  Baixe as bibliotecas necessárias: `pip install -r requirements.txt`
   
-- 3 - Para rodar o arquivo principal, digite no Terminal: `python -m src.board_and_play_poo.main`
+- 7 - Para executar o arquivo principal, digite no Terminal: `python -m src.board_and_play_poo.main`
+- 8 - Se quiser executar os testes use `python -m pytest`
 
 
 
