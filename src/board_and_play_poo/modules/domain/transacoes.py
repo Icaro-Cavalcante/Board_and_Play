@@ -1,24 +1,27 @@
 import sqlite3
 from abc import ABC, abstractmethod
-from aluguel import Aluguel
-from venda import Venda
+from datetime import datetime
+""" from aluguel import Aluguel
+from venda import Venda """
 from pathlib import Path
 caminho_data = "src/board_and_play_poo/data/dados.db"
 
 class Transacao(ABC):
-    def __init__(self, id_cliente, id_colaborador, nota_fiscal, id_transacao = None):
-        self._id_transacao = id_transacao
-        self._id_cliente = id_cliente
-        self._id_colaborador = id_colaborador
-        self._nota_fiscal = nota_fiscal
+    def __init__(self, data_hora, valor_total, forma_pagamento, status_pagamento, tipo_transacao , id = None):
+        self.id = id
+        self.data_hora = data_hora
+        self.valor_total = valor_total
+        self.forma_pagamento = forma_pagamento
+        self.status_pagamento = status_pagamento
+        self.tipo_transacao = tipo_transacao
 
     def __str__(self):
-        return f"ID da transação: {self.id_transacao} | ID do cliente: {self._id_cliente} | ID do colaborador: {self._id_colaborador}\nNota fiscal: {self._nota_fiscal}\n"
-
+        return f"ID da transação: {self.id} | ID do cliente: {self.id_cliente} | ID do colaborador: {self.id_colaborador}\n"
+'''
     @abstractmethod
     def calcular_valor(self, obj_negocio):
         pass
-        '''try:
+        try:
             if obj_negocio.id_aluguel:
                 escolha = int(input("\n1 - Aluguel interno\n2 - Aluguel externo"))
                 match escolha:
@@ -33,11 +36,11 @@ class Transacao(ABC):
         except AttributeError:
             return print("Tentativa de cálculo de valor falhou, tente repassar um aluguel/venda existente e ativo.")
         return valor'''
-
+'''
     @abstractmethod
     def calcular_multa(self, obj_negocio):
         pass
-        '''try:
+        try:
             if obj_negocio.id_venda:
                 return 0
             elif obj_negocio.id_aluguel:
