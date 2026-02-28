@@ -5,8 +5,6 @@ from src.board_and_play_poo.database.tabelas import Tabela
 from src.board_and_play_poo.modules.domain.produtos import Produto
 from src.board_and_play_poo.repositories.repository_produto import Repository_produto
 
-# ------------------Testes de Repository------------------
-
 tb = Tabela()
 db = Database()
 tb.create_test_table(db) # Criando tabelas do db de test
