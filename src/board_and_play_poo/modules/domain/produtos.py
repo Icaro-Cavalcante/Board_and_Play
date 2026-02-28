@@ -10,7 +10,3 @@ class Produto:
         self.categoria = categoria
         self.quantidade = quantidade
         self.id = id
-
-
-    def __str__(self):
-        return f"ID do produto: {self.id} | Código de barras do produto: {self.codigo_barras} | Nome do produto: {self.nome}\nCusto de aquisição do produto: {self.custo_aquisicao} | Data de aquisição do produto: {self.data_aquisicao} | Categoria do produto: {self.categoria}\n Quantidade disponível do produto: {self.quantidade}."
