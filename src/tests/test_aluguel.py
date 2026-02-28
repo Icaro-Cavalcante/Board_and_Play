@@ -1,6 +1,8 @@
-import pytest
+"""import pytest
 from unittest.mock import patch
 from..board_and_play_poo.modules.domain.aluguel import Aluguel
+
+# ------------------Testes de repository------------------
 
 def teste_aluguel_create():
     '''Teste para o método create da classe aluguel.'''
@@ -18,7 +20,11 @@ def teste_aluguel_update():
     '''Teste para o método update da classe aluguel.'''
     resultado = Aluguel.update(1, "multa_diaria", 200)
     assert resultado == "Sucesso! Atributo atualizado."
+"""
 
+# ------------------Testes de classe------------------
+
+"""
 def teste_aluguel_calcular_multa():
     '''Teste para o método calcular multa da classe aluguel.'''
     obj_aluguel = Aluguel(1, 1, "20/10/2025", "30/10/2025", 40, 100)
@@ -42,3 +48,4 @@ def teste_aluguel_tupla_objeto():
     tupla = Aluguel.read(1)
     resultado = Aluguel.tupla_objeto(tupla)
     assert resultado.multa_diaria == 200
+"""

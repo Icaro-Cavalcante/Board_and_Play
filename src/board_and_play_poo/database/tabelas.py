@@ -1,4 +1,5 @@
 from pathlib import Path
+from datetime import datetime
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
     Integer, Float, Date, DateTime, Numeric, Text, # para definir formato dos atributos
@@ -77,7 +78,7 @@ class Tabela():
   
         self.transacoes = Table('transacoes', self.metadata,
             Column('id', Integer, primary_key=True),
-            Column('data_hora', DateTime, nullable=False),
+            Column('data_hora', DateTime, nullable=False, default=datetime.now),
             Column('valor_total', Numeric(10,2), nullable=False),
             Column('forma_pagamento', String(30)),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
             Column('status_pagamento', String(20), default='PENDENTE'), # 'PAGO', 'PENDENTE', 'INATIVA'
@@ -87,16 +88,16 @@ class Tabela():
         self.vendas = Table('vendas', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False, unique=True),
-            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False, unique=True),
+            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False),
+            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id')),
             Column('nota_fiscal', String(50), unique=True)
         )
 
         self.alugueis = Table('alugueis', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False, unique=True),
-            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False, unique=True),
+            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False),
+            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
             Column('numero_contrato', String(50), unique=True),
             Column('data_inicio', Date, nullable=False),
             Column('data_prevista_devolucao', Date, nullable=False),
