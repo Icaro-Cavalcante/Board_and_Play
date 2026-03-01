@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from ..modules.domain.jogos import Jogo
+from src.board_and_play_poo.modules.domain.jogos import Jogo
 
 class Repository_jogo():
     '''Classe que realiza as operações do banco de dados relacionadas a jogo.'''
@@ -10,91 +10,48 @@ class Repository_jogo():
 
     def create(self, jogo):
         '''Recebe um objeto de jogo e cadastra ele no banco de dados.'''
-        with self.database.conectar() as conexao: # Estabelecendo a conexão
+        conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
+        if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
-            VALUES (:produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""")
+            VALUES (:produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""") # Query
 
-            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
+            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-        print("Jogo cadastrado.")
+            return "Jogo cadastrado."
+        else: # Se não
+            return("Não foi possível conectar")
 
     def read(self, id):
         '''Recebe o ID de um jogo e retorna um objeto dos seus dados'''
-        with self.database.conectar() as conexao: # Estabelecendo a conexão
-            jogo_bd = conexao.execute (text (f"""SELECT * FROM jogos WHERE id = {id}""") # query
-            ).all()
-            jogo_bd = jogo_bd[0]
-
-        if jogo_bd: # Caso o jogo exista
-            jogo = Jogo(jogo_bd[1], jogo_bd[2], jogo_bd[3], jogo_bd[4], jogo_bd[5], jogo_bd[6], jogo_bd[7], jogo_bd[8], jogo_bd[0]) # Transformando jogo em um objeto
+        conexao = self.database.conectar() # Estabelecendo a conexão
+        if conexao: 
+            query = text (f"""SELECT * FROM jogos WHERE id = :id""")
+            jogo = conexao.execute (query, {"id": id, } # query
+            ).first()
             return jogo # Jogo é retornado
         return None # Caso não, None é retornado
     
     def update(self, id, nome_atributo, atributo_update):
-        query = text (f'''UPDATE jogos
-                    SET {nome_atributo} = {atributo_update}
-                    WHERE id = {id}''') # query
-        with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query)
+        '''Recebe o ID de um produto, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado.'''
+        # Nota 1: nome_atributo deve ser passado a partir de um dicionario. Exemplo dic = {1: "nome"}... nome deve ser passado como parâmetro e o usuário não pode passar nada que esteja fora dos atributos do dicionário.
+        # Nota 2: nome_atributo não pode ser usado como um placeholder (:nome_atributo). Se for usado como um da erro
+        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
+        if conexao:
+            query = text (f'''UPDATE jogos
+                    SET {nome_atributo} = :atributo_update
+                    WHERE id = :id''') # query
+            conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
-            
-        print("Atributo atualizado.")
+            return "Atributo atualizado"
 
     def inactivate(self, id):
         '''Recebe o ID de um jogo e altera seus status para inativo no banco de dados'''
         query = text (f'''UPDATE jogos
-                    SET status = {"INATIVO"}
-                    WHERE id = {id}''') # query
+                    SET status = :inativar
+                    WHERE id = :id''') # query
         with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query)
+            conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
         print("Jogo inativado.")
-
-# ------------------------------------------------- CRUD TESTES --------------------------------------------------
-
-    def teste_create(self, jogo):
-        '''Recebe um objeto de jogo e cadastra ele no banco de dados de testes.'''
-        with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            query = text ("""INSERT OR IGNORE INTO jogos
-            (produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
-            VALUES (:produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""")
-
-            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Query
-            )
-            conexao.commit() # Commitando o cadastro
-        return"Jogo cadastrado."
-
-    def teste_read(self, id):
-        '''Recebe o ID de um jogo e retorna um objeto dos seus dados'''
-        with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            jogo_bd = conexao.execute (text (f"""SELECT * FROM jogos WHERE id = {id}""") # query
-            ).all()
-            jogo_bd = jogo_bd[0] 
-
-        if jogo_bd: # Caso o jogo exista
-            jogo = Jogo(jogo_bd[1], jogo_bd[2], jogo_bd[3], jogo_bd[4], jogo_bd[5], jogo_bd[6], jogo_bd[7], jogo_bd[8], jogo_bd[0]) # Transformando jogo em um objeto
-            return jogo # Jogo é retornado
-        return None # Caso não, None é retornado
-    
-    def teste_update(self, id, nome_atributo, atributo_update):
-        '''Recebe o ID de um jogo, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados de testes.'''
-        query = text (f'''UPDATE jogos
-                    SET {nome_atributo} = {atributo_update}
-                    WHERE id = {id}''') # query
-        with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query)
-            conexao.commit()
-            
-        return"Atributo atualizado."
-
-    def teste_inactivate(self, id):
-        '''Recebe o ID de um jogo e altera seus status para inativo no banco de dados de testes.'''
-        query = text (f'''UPDATE jogos
-                    SET status = "INATIVO"
-                    WHERE id = {id}''') # query
-        with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query)
-            conexao.commit()
-        return"Jogo inativado."

@@ -14,13 +14,14 @@ class Repository_produto():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO produtos
                 (nome, codigo_barras, categoria, quantidade)
-                VALUES (:nome, :codigo_barras, :categoria, :quantidade)
+                VALUES (:nome, :codigo_barras, :categoria, :quantidade)RETURNING id
                 """) # Query
             # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute (query , {"nome":tupla[1], "codigo_barras":tupla[2], "categoria":tupla[3], "quantidade":tupla[4]},  # Executa a query, passa o dicionário e cadastra um novo produto
+            result = conexao.execute (query , {"nome":tupla[0], "codigo_barras":tupla[1], "categoria":tupla[2], "quantidade":tupla[3]},  # Executa a query, passa o dicionário e cadastra um novo produto
             )
+            obj_id = result.fetchone()[0]
             conexao.commit() # Commitando o cadastro
-            return("Produto cadastrado.")
+            return(obj_id)
         else: # Se a conexão não existir
             return("Não foi possível conectar")
 
@@ -30,9 +31,8 @@ class Repository_produto():
         if conexao: # Se a conexão existir
             query = text ("""SELECT * FROM produtos WHERE id = :id""") # query
             produto_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
-            ).all() # É retornada uma lista com uma tupla dentro
-            produto = produto_bd[0] # Pega a tupla da lista
-            return produto # Produto é retornado
+            ).first() # É retornada uma lista com uma tupla dentro
+            return produto_bd # Produto é retornado
         else: # Se a conexão não existir
             return "Não foi possível conectar"
     

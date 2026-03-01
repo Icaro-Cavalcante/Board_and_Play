@@ -39,8 +39,8 @@ class Tabela():
 
         self.produtos = Table('produtos', self.metadata,
             Column('id', Integer, primary_key=True),
-            Column('codigo_barras', String(13), unique=True, nullable=False),
-            Column('nome', String(50), unique=True, nullable=False),
+            Column('nome', String(50), nullable=False),
+            Column('codigo_barras', String(13), nullable=False),
             Column('categoria', String(20), nullable=False),   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
             Column('quantidade', Integer, nullable=False)
           )
@@ -52,7 +52,7 @@ class Tabela():
             Column('genero', String(15)),
             Column('descricao', String(200)),
             Column('idade_min', Integer, default=0),
-            Column('num_jogadores', Integer, default=1),
+            Column('num_jogadores', String(5), default=1),
             Column('tipo_jogo', String(10), nullable=False),  # 'ALUGAVEL' ou 'COMPRAVEL'
             Column('status', String(20), nullable=False),  # 'DISPONIVEL', 'INDISPONIVEL'
         )
@@ -75,6 +75,7 @@ class Tabela():
   
         self.transacoes = Table('transacoes', self.metadata,
             Column('id', Integer, primary_key=True),
+            Column('comprovante', String(10), unique = True),
             Column('data_hora', DateTime, nullable=False, default=datetime.now),
             Column('valor_total', Numeric(10,2), nullable=False),
             Column('forma_pagamento', String(30)),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
