@@ -25,7 +25,7 @@ class Repository_acessorio():
             return("Não foi possível conectar")
 
     def read(self, id):
-        '''Recebe o ID de um acessorio e retorna um objeto dos seus dados'''
+        '''Recebe o ID de um acessorio e retorna uma tupla dos seus dados'''
         conexao = self.database.conectar() # Estabelecendo a conexão
         if conexao: 
             query = text (f"""SELECT * FROM acessorios WHERE id = :id""")
@@ -49,10 +49,12 @@ class Repository_acessorio():
 
     def inactivate(self, id):
         '''Recebe o ID de um acessorio e altera seus status para inativo no banco de dados'''
-        query = text (f'''UPDATE acessorios
+         # query
+        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
+        if conexao: # Estabelecendo a conexão com o banco de dados de testes
+            query = text (f'''UPDATE acessorios
                     SET status = :inativar
-                    WHERE id = :id''') # query
-        with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados de testes
+                    WHERE id = :id''')
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
         print("Acessório inativado.")

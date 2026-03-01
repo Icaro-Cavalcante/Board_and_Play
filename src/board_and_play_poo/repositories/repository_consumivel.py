@@ -49,10 +49,11 @@ class Repository_consumivel():
 
     def inactivate(self, id):
         '''Recebe o ID de um consumível e altera seus status para inativo no banco de dados'''
-        query = text (f'''UPDATE consumiveis
+        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
+        if conexao:
+            query = text (f'''UPDATE consumiveis
                     SET status = :inativar
                     WHERE id = :id''') # query
-        with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
         print("Consumível inativado.")
