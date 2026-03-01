@@ -1,12 +1,13 @@
-class Produto:
-    '''Integra atributos em comum de suas subclasses, mantendo controle do atributo 'custo' para verificar valor de operação/despesa'''
+from abc import ABC
 
-    def __init__(self, codigo_barras, nome, custo_aquisicao, data_aquisicao, categoria, quantidade, id=None): # O ID não deve ser passado como parâmetro
+class Produto(ABC):
+    '''
+    Integra atributos em comum de suas subclasses, servindo como generalização
+    '''
+
+    def __init__(self, nome, codigo_barras, categoria, quantidade, id=None): # O ID não deve ser passado como parâmetro
         self.nome = nome
         self.codigo_barras = codigo_barras
-        self.nome = nome
-        self.custo_aquisicao = custo_aquisicao
-        self.data_aquisicao = data_aquisicao
         self.categoria = categoria
         self.quantidade = quantidade
         self.id = id
