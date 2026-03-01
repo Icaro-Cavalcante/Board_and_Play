@@ -1,19 +1,9 @@
-from .transacoes import Transacao
 from .produtos import Produto
+
 class Consumivel(Produto):
     '''Classe que cuida dos consumíveis (alimentos prontos, bebidas)'''
-    def __init__(self, id, nome, qtd_compra, preco_total):
-        super().__init__(id, nome, qtd_compra, preco_total)
+    def __init__(self, nome, codigo_barras, categoria, quantidade, data_validade, lote, restricoes, produto_id = None, consumivel_id = None):
+        super().__init__(nome, codigo_barras, categoria, quantidade, produto_id)
 
-    def criar():
-        '''Cadastra um consumivel no banco de dados'''
-        pass
-    def ler(id):
-        '''Recebe o id e retorna os dados do consumivel com esse id'''
-        pass
-    def editar():
-        '''Edita os atributos de um consumivel no banco de dados'''
-        pass
-    def deletar():
-        '''muda status para inativo'''
-        pass
+    def __str__(self):
+        return f"ID do consumivel: {self.consumivel_id}\nID de produto desse consumivel: {self.produto_id}\nData de validade: {self.data_validade}\nLote a que pertence: {self.lote}\nRestrições: {self.restricoes}"
