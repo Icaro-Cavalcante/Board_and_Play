@@ -25,7 +25,7 @@ class Repository_colaborador():
             return("Não foi possível conectar")
 
     def read(self, id):
-        '''Recebe o ID de um colaborador e retorna um objeto dos seus dados'''
+        '''Recebe o ID de um colaborador e retorna uma tupla dos seus dados'''
         conexao = self.database.conectar() # Estabelecendo a conexão
         if conexao: 
             query = text (f"""SELECT * FROM colaboradores WHERE id = :id""")
@@ -49,10 +49,11 @@ class Repository_colaborador():
 
     def inactivate(self, id):
         '''Recebe o ID de um colaborador e altera seus status para inativo no banco de dados'''
-        query = text (f'''UPDATE colaboradores
+        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
+        if conexao:
+            query = text (f'''UPDATE colaboradores
                     SET status = :inativar
                     WHERE id = :id''') # query
-        with self.database.conectar() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
         print("Colaborador inativado.")
