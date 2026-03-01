@@ -60,7 +60,7 @@ class Tabela():
         self.acessorios = Table('acessorios', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
-            Column('categoria', String(20), nullable=False) # 'ROUPA', 'CHAVEIRO', 'CANECA'
+            Column('tipo_acessorio', String(20), nullable=False) # 'ROUPA', 'CHAVEIRO', 'CANECA'
         )
 
         self.consumiveis = Table('consumiveis', self.metadata,
