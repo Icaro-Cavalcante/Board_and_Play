@@ -2,7 +2,7 @@ from pathlib import Path
 from datetime import datetime
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
-    Integer, Float, Date, DateTime, Numeric, Text, # para definir formato dos atributos
+    Integer, Date, DateTime, Numeric, Text, # para definir formato dos atributos
     ForeignKey, UniqueConstraint) # para especializar relacionamentos
 
 class Tabela():
@@ -41,8 +41,6 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('codigo_barras', String(13), unique=True, nullable=False),
             Column('nome', String(50), unique=True, nullable=False),
-            Column('custo_aquisicao', Numeric(10,2), nullable=False),
-            Column('data_aquisicao', Date, nullable=False),
             Column('categoria', String(20), nullable=False),   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
             Column('quantidade', Integer, nullable=False)
           )
@@ -68,9 +66,8 @@ class Tabela():
         self.consumiveis = Table('consumiveis', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
-            Column('data_validade', Date, nullable=False),
+            Column('data_validade', Date, nullable=False), #  default=datetime.date
             Column('lote', String(50)),
-            Column('ingredientes', Text),
             Column('restricoes', String, nullable=False, default='Nenhum') # 'ALERGENICOS', 'LACTOSE', 'GLUTEN'
         )
 
@@ -112,7 +109,7 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('venda_id', Integer, ForeignKey('vendas.id'), nullable=False),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False),
-            Column('quantidade', Integer, default=1),
+            Column('quantidade_venda', Integer, default=1),
             Column('preco_unitario', Numeric(10,2))
         )
         
