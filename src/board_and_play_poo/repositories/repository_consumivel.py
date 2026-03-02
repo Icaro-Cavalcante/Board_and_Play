@@ -20,7 +20,7 @@ class Repository_consumivel():
             conexao.execute (query, {"produto_id":consumivel.produto_id, "data_validade":consumivel.data_validade, "lote":consumivel.lote, "restricoes":consumivel.restricoes} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Consumivel cadastrado."
+            return "Consumivel cadastrado"
         else: # Se não
             return("Não foi possível conectar")
 
@@ -46,14 +46,3 @@ class Repository_consumivel():
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
             return "Atributo atualizado"
-
-    def inactivate(self, id):
-        '''Recebe o ID de um consumível e altera seus status para inativo no banco de dados'''
-        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
-        if conexao:
-            query = text (f'''UPDATE consumiveis
-                    SET status = :inativar
-                    WHERE id = :id''') # query
-            conexao.execute (query, {"inativar": "INATIVADO", "id": id})
-            conexao.commit()
-        print("Consumível inativado.")

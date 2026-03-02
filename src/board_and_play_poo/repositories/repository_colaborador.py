@@ -15,12 +15,12 @@ class Repository_colaborador():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO colaboradores
             (cpf, nome, email, contato, contato_emergencia, salario, cargo, status)
-            VALUES (:cpf, :nome, :email, :contato, :status)""") # Query
+            VALUES (:cpf, :nome, :email, :contato, :contato_emergencia, :salario, :cargo, :status)""") # Query
 
             conexao.execute (query, {"cpf":colaborador.cpf, "nome":colaborador.nome, "email":colaborador.email, "contato":colaborador.contato, "contato_emergencia":colaborador.contato_emergencia, "salario":colaborador.salario, "cargo":colaborador.cargo, "status":colaborador.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Colaborador cadastrado."
+            return "Colaborador cadastrado"
         else: # Se não
             return("Não foi possível conectar")
 
@@ -56,4 +56,4 @@ class Repository_colaborador():
                     WHERE id = :id''') # query
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
-        print("Colaborador inativado.")
+        return "Colaborador inativado"

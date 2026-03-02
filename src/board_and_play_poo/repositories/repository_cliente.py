@@ -20,7 +20,7 @@ class Repository_cliente():
             conexao.execute (query, {"cpf":cliente.cpf, "nome":cliente.nome, "email":cliente.email, "contato":cliente.contato, "status":cliente.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Cliente cadastrado."
+            return "Cliente cadastrado"
         else: # Se não
             return("Não foi possível conectar")
 
@@ -57,4 +57,4 @@ class Repository_cliente():
                     WHERE id = :id''')
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
-        print("Cliente inativado.")
+        return"Cliente inativado"
