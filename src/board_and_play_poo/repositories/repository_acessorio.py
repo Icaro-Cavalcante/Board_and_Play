@@ -20,7 +20,7 @@ class Repository_acessorio():
             conexao.execute (query, {"produto_id":acessorio.produto_id, "tipo_acessorio":acessorio.tipo_acessorio} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Acessório cadastrado."
+            return "Acessório cadastrado"
         else: # Se não
             return("Não foi possível conectar")
 
@@ -46,15 +46,3 @@ class Repository_acessorio():
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
             return "Atributo atualizado"
-
-    def inactivate(self, id):
-        '''Recebe o ID de um acessorio e altera seus status para inativo no banco de dados'''
-         # query
-        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
-        if conexao: # Estabelecendo a conexão com o banco de dados de testes
-            query = text (f'''UPDATE acessorios
-                    SET status = :inativar
-                    WHERE id = :id''')
-            conexao.execute (query, {"inativar": "INATIVADO", "id": id})
-            conexao.commit()
-        print("Acessório inativado.")

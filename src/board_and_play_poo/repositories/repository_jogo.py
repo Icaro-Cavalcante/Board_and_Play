@@ -19,7 +19,7 @@ class Repository_jogo():
             conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Jogo cadastrado."
+            return "Jogo cadastrado"
         else: # Se não
             return("Não foi possível conectar")
 
@@ -55,4 +55,4 @@ class Repository_jogo():
                     WHERE id = :id''') # query
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
-        print("Jogo inativado.")
+        return "Jogo inativado"
