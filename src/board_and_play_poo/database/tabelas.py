@@ -63,7 +63,6 @@ class Tabela():
         self.jogos_venda = Table('jogos_venda', self.metadata,
             Column('id', Integer, primary_key = True),
             Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
-            Column('id', Integer, primary_key = True)
         )
 
         self.acessorios = Table('acessorios', self.metadata,
