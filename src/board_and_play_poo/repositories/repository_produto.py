@@ -13,11 +13,11 @@ class Repository_produto():
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO produtos
-                (nome, codigo_barras, categoria, quantidade)
-                VALUES (:nome, :codigo_barras, :categoria, :quantidade)RETURNING id
+                (nome, codigo_barras, categoria)
+                VALUES (:nome, :codigo_barras, :categoria)RETURNING id
                 """) # Query
             # Estabelecendo a conexão com o banco de dados de testes
-            result = conexao.execute (query , {"nome":tupla[0], "codigo_barras":tupla[1], "categoria":tupla[2], "quantidade":tupla[3]},  # Executa a query, passa o dicionário e cadastra um novo produto
+            result = conexao.execute (query , {"nome":tupla[0], "codigo_barras":tupla[1], "categoria":tupla[2]},  # Executa a query, passa o dicionário e cadastra um novo produto
             )
             obj_id = result.fetchone()[0]
             conexao.commit() # Commitando o cadastro
