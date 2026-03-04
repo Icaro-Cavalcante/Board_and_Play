@@ -13,13 +13,14 @@ class Repository_jogo():
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
-            (produto_id, etiqueta, genero, descricao, idade_min, num_jogadores, tipo_jogo, status)
-            VALUES (:produto_id, :etiqueta, :genero, :descricao, :idade_min, :num_jogadores, :tipo_jogo, :status)""") # Query
+            (produto_id, genero, descricao, idade_min, num_jogadores)
+            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)""") # Query
 
-            conexao.execute (query, {"produto_id":jogo.produto_id, "etiqueta":jogo.etiqueta, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores, "tipo_jogo":jogo.tipo_jogo, "status":jogo.status} # Executando a query
+            conexao.execute (query, {"produto_id":jogo.produto_id, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
             return "Jogo cadastrado"
+
         else: # Se não
             return("Não foi possível conectar")
 
@@ -56,3 +57,4 @@ class Repository_jogo():
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
         return "Jogo inativado"
+
