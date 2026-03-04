@@ -46,15 +46,3 @@ class Repository_jogo():
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
             return "Atributo atualizado"
-
-    def inactivate(self, id):
-        '''Recebe o ID de um jogo e altera seus status para inativo no banco de dados'''
-        conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
-        if conexao:
-            query = text (f'''UPDATE jogos
-                    SET status = :inativar
-                    WHERE id = :id''') # query
-            conexao.execute (query, {"inativar": "INATIVADO", "id": id})
-            conexao.commit()
-        return "Jogo inativado"
-

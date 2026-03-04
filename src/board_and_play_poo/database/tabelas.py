@@ -1,9 +1,11 @@
 from pathlib import Path
 from datetime import datetime
+from src.board_and_play_poo.config_database import Config_database
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
     Integer, Date, DateTime, Numeric, # para definir formato dos atributos
     ForeignKey) # para especializar relacionamentos
+config = Config_database()
 
 class Tabela():
     '''
@@ -140,11 +142,9 @@ class Tabela():
 
     def create_table(self, database):
             '''Cria as tabelas no banco de dados'''
-            caminho_data_pasta = r"src/board_and_play_poo/data"
-            data_dir = Path(caminho_data_pasta)
-            data_dir.mkdir(exist_ok=True) # check se a tabela já existe
-
             if database.ambiente == "real":
+                config.DATABASE_DIR.mkdir(exist_ok=True) # check se a tabela já existe
                 self.metadata.create_all(database.session)
             elif database.ambiente == "teste":
+                config.TESTS_DIR.mkdir(exist_ok=True) # check se a tabela já existe
                 self.metadata.create_all(database.test_session)
