@@ -63,7 +63,6 @@ class Tabela():
         self.jogos_venda = Table('jogos_venda', self.metadata,
             Column('id', Integer, primary_key = True),
             Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
-            Column('id', Integer, primary_key = True)
         )
 
         self.acessorios = Table('acessorios', self.metadata,
@@ -132,7 +131,7 @@ class Tabela():
 
         self.multas = Table('multas', self.metadata,
             Column('id', Integer, primary_key=True),
-            Column('item_aluguel_id', ForeignKey('itens_aluguel'), nullable=False,),
+            Column('item_aluguel_id', ForeignKey('itens_aluguel.id'), nullable=False,),
             Column('multa_diaria', Numeric(10,2), default=0),
             Column('multa_avaria', Numeric(10,2), default=0)
         )
