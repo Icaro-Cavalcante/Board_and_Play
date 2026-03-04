@@ -2,8 +2,8 @@ from pathlib import Path
 from datetime import datetime
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
-    Integer, Date, DateTime, Numeric, Text, # para definir formato dos atributos
-    ForeignKey, UniqueConstraint) # para especializar relacionamentos
+    Integer, Date, DateTime, Numeric, # para definir formato dos atributos
+    ForeignKey) # para especializar relacionamentos
 
 class Tabela():
     '''
@@ -12,7 +12,7 @@ class Tabela():
     def __init__(self):
         self.metadata = MetaData()
 
-# ------------------------------------------------- CADASTRO PESSOAS --------------------------------------------------
+# -------------------------------------------------- CADASTRO PESSOAS --------------------------------------------------
 
         self.clientes = Table('clientes', self.metadata,
             Column('id', Integer, primary_key=True),
@@ -35,26 +35,35 @@ class Tabela():
             Column('status', String(10), nullable=False, default='ATIVO') # 'ATIVO', 'INATIVO', 'FERIAS', 'ATESTADO'
         )
 
-# ------------------------------------------- TABELAS DA HIERARQUIA CONCEITUAL ------------------------------------------
+# ------------------------------------------- TABELAS DA HIERARQUIA CONCEITUAL -------------------------------------------
 
         self.produtos = Table('produtos', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('nome', String(50), nullable=False),
-            Column('codigo_barras', String(13), nullable=False),
-            Column('categoria', String(20), nullable=False),   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
-            Column('quantidade', Integer, nullable=False)
+            Column('codigo_barras', String(13), unique=True, nullable=False),
+            Column('categoria', String(20), nullable=False)   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
           )
 
         self.jogos = Table('jogos', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
-            Column('etiqueta', String(50), unique=True, nullable=False),
             Column('genero', String(15)),
             Column('descricao', String(200)),
             Column('idade_min', Integer, default=0),
-            Column('num_jogadores', String(5), default=1),
-            Column('tipo_jogo', String(10), nullable=False),  # 'ALUGAVEL' ou 'COMPRAVEL'
-            Column('status', String(20), nullable=False),  # 'DISPONIVEL', 'INDISPONIVEL'
+            Column('num_jogadores', String(5), default=1)
+        )
+        
+        self.jogos_aluguel = Table('jogos_aluguel', self.metadata,
+            Column('id', Integer, primary_key=True),
+            Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
+            Column('etiqueta', String(50), unique=True, nullable=False),
+            Column('status', String(20), nullable=False)  # 'DISPONIVEL', 'INDISPONIVEL'
+        )
+        
+        self.jogos_venda = Table('jogos_venda', self.metadata,
+            Column('id', Integer, primary_key = True),
+            Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
+            Column('id', Integer, primary_key = True)
         )
 
         self.acessorios = Table('acessorios', self.metadata,
@@ -71,7 +80,7 @@ class Tabela():
             Column('restricoes', String, nullable=False, default='Nenhum') # 'ALERGENICOS', 'LACTOSE', 'GLUTEN'
         )
 
-# ----------------------------------------- TABELAS DA HIERARQUIA COMPORTAMENTAL ---------------------------------------
+# ------------------------------------------- TABELAS DA HIERARQUIA COMPORTAMENTAL -------------------------------------------
   
         self.transacoes = Table('transacoes', self.metadata,
             Column('id', Integer, primary_key=True),
@@ -86,25 +95,24 @@ class Tabela():
         self.vendas = Table('vendas', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False),
-            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id')),
+            Column('cliente_id', Integer, ForeignKey('clientes.id'), nullable=False),
+            Column('colaborador_id', Integer, ForeignKey('colaboradores.id')),
             Column('nota_fiscal', String(50), unique=True)
         )
 
         self.alugueis = Table('alugueis', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('clientes_id', Integer, ForeignKey('clientes.id'), nullable=False),
-            Column('colaboradores_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
+            Column('cliente_id', Integer, ForeignKey('clientes.id'), nullable=False),
+            Column('colaborador_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
             Column('numero_contrato', String(50), unique=True),
             Column('data_inicio', Date, nullable=False),
             Column('data_prevista_devolucao', Date, nullable=False),
             Column('data_devolucao_real', Date),
-            Column('multa_diaria', Numeric(10,2), default=0),
-            Column('multa_avaria', Numeric(10,2), default=0)
+            Column('status', String, default='ABERTO') # 'ABERTO', 'ALTERADO' e 'FECHADO'
         )
 
-# ---------------------------------------------- TABELAS RELACIONAIS ----------------------------------------------------
+# --------------------------------------------------- TABELAS RELACIONAIS ---------------------------------------------------
 
         self.itens_venda = Table('itens_venda', self.metadata,
             Column('id', Integer, primary_key=True),
@@ -119,12 +127,17 @@ class Tabela():
             Column('aluguel_id', Integer, ForeignKey('alugueis.id'), nullable=False),
             Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False),
             Column('valor_diaria', Numeric(10,2)),
-            Column('dias_previstos', Integer),
-            Column('dias_reais', Integer),
-            Column('subtotal', Numeric(10,2))
+            Column('valor_sessao', Numeric(10,2))
         )
 
-# -------------------------------------------------- MÉTODO ------------------------------------------------------------
+        self.multas = Table('multas', self.metadata,
+            Column('id', Integer, primary_key=True),
+            Column('item_aluguel_id', ForeignKey('itens_aluguel'), nullable=False,),
+            Column('multa_diaria', Numeric(10,2), default=0),
+            Column('multa_avaria', Numeric(10,2), default=0)
+        )
+
+# --------------------------------------------------------- MÉTODO ----------------------------------------------------------
 
     def create_table(self, database):
             '''Cria as tabelas no banco de dados'''
