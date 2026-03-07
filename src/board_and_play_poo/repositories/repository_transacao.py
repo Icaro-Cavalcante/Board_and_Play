@@ -71,10 +71,10 @@ class Repository_transacao():
         '''Recebe um objeto de transação e cadastra ele no banco de dados de testes.'''
         with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
             query = text ("""INSERT OR IGNORE INTO transacoes
-            (data_hora, valor_total, forma_pagamento, status_pagamento, tipo_transacao)
-            VALUES (:data_hora, :valor_total, :forma_pagamento, :status_pagamento, :tipo_transacao)""")
+            (data_hora, valor_total, forma_pagamento, tipo_transacao)
+            VALUES (:data_hora, :valor_total, :forma_pagamento, :tipo_transacao)""")
 
-            conexao.execute (query, {"data_hora":datetime.now(), "valor_total":transacao.valor_total, "forma_pagamento":transacao.forma_pagamento, "status_pagamento":transacao.status_pagamento, "tipo_transacao":transacao.tipo_transacao} # Query
+            conexao.execute (query, {"data_hora":datetime.now(), "valor_total":transacao.valor_total, "forma_pagamento":transacao.forma_pagamento, "tipo_transacao":transacao.tipo_transacao} # Query
             )
             conexao.commit() # Commitando o cadastro
         return "Transação cadastrada."
@@ -102,17 +102,6 @@ class Repository_transacao():
             conexao.commit() # Commitando o update
 
         return "Atributo atualizado."
-    
-    def teste_inactivate(self, id):
-        '''Reccebe o ID de uma transação e coloca o status de pagamento como "INATIVA".'''
-        query = text (f'''UPDATE transacoes
-                    SET status_pagamento = "INATIVA"
-                    WHERE id = {id}''')
-        with self.database.conectar_test() as conexao: # Estabelecendo a conexão com o banco de dados de testes
-            conexao.execute(query) # Executa a query
-            conexao.commit() # Commitando a mudança
-
-            return "Transação mudada para INATIVA com sucesso."
 
     def teste_pagar(self, id):
         '''Recebe o ID de uma transação e coloca o status de pagamento como "PAGO".'''

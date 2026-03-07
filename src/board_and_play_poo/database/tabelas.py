@@ -89,7 +89,6 @@ class Tabela():
             Column('data_hora', DateTime, nullable=False, default=datetime.now),
             Column('valor_total', Numeric(10,2), nullable=False),
             Column('forma_pagamento', String(30)),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
-            Column('status_pagamento', String(20), default='PENDENTE'), # 'PAGO', 'PENDENTE', 'INATIVA'
             Column('tipo_transacao', String(10), nullable=False)  # 'VENDA' ou 'ALUGUEL'
         )
 
