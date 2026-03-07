@@ -1,22 +1,22 @@
 from sqlalchemy import text
 from src.board_and_play_poo.modules.domain.jogos import Jogo
+from src.board_and_play_poo.repositories.repository_produto import Repository_produto
 
 class Repository_jogo():
     '''Classe que realiza as operações do banco de dados relacionadas a jogo.'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
-# ------------------------------------------------- CRUD REAL --------------------------------------------------
 
     def create(self, jogo):
-        '''Recebe um objeto de jogo e cadastra ele no banco de dados.'''
+        '''Recebe uma tupla de jogo e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, genero, descricao, idade_min, num_jogadores)
             VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)""") # Query
 
-            conexao.execute (query, {"produto_id":jogo.produto_id, "genero":jogo.genero, "descricao":jogo.descricao, "idade_min":jogo.idade_min, "num_jogadores":jogo.num_jogadores} # Executando a query
+            conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
             return "Jogo cadastrado"
