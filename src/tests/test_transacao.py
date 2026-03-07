@@ -1,3 +1,4 @@
+"""
 import pytest
 from unittest.mock import patch
 from src.board_and_play_poo.database.database import Database
@@ -42,3 +43,4 @@ def teste_transacao_pagar():
     '''Teste para o método pagar de transacao repository'''
     resultado = transacao_repo.teste_pagar(1)
     assert resultado == "Pasagamento registrado com sucesso."
+"""

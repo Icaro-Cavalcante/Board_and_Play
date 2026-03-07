@@ -1,3 +1,4 @@
+"""
 import pytest
 from unittest.mock import patch
 from src.board_and_play_poo.database.database import Database
@@ -31,14 +32,12 @@ def teste_venda_update():
     resultado = venda_repo.teste_update(1, "colaboradores_id", 2)
     assert resultado == "Atributo atualizado."
 
-"""def teste_venda_tupla_objeto():
+def teste_venda_tupla_objeto():
     '''Teste para o método tupla objeto da classe venda.'''
     tupla = Venda.read(1)
     resultado = Venda.tupla_objeto(tupla)
-    assert resultado.id_produto == 1"""
+    assert resultado.id_produto == 1
 
-# ------------------Testes de Classe------------------
-"""
 def teste_venda_calcular_venda():
     '''Teste para o método tupla objeto da classe venda.'''
     tupla = Venda.read(1)

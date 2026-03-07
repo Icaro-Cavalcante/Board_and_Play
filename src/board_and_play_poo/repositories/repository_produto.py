@@ -14,7 +14,7 @@ class Repository_produto():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO produtos
                 (nome, codigo_barras, categoria)
-                VALUES (:nome, :codigo_barras, :categoria)RETURNING id
+                VALUES (:nome, :codigo_barras, :categoria) RETURNING id
                 """) # Query
             # Estabelecendo a conexão com o banco de dados de testes
             result = conexao.execute (query , {"nome":tupla[0], "codigo_barras":tupla[1], "categoria":tupla[2]},  # Executa a query, passa o dicionário e cadastra um novo produto
