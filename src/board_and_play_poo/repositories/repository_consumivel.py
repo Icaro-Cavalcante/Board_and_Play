@@ -14,10 +14,10 @@ class Repository_consumivel():
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO consumiveis
-            (produto_id, data_validade, lote, restricoes)
+            (produto_id, data_validade, lote, restricoes, quantidade)
             VALUES (:produto_id, :data_validade, :lote, :restricoes)""") # Query
 
-            conexao.execute (query, {"produto_id":consumivel.produto_id, "data_validade":consumivel.data_validade, "lote":consumivel.lote, "restricoes":consumivel.restricoes} # Executando a query
+            conexao.execute (query, {"produto_id":consumivel.produto_id, "data_validade":consumivel.data_validade, "lote":consumivel.lote, "restricoes":consumivel.restricoes, "quantidade":consumivel.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
             return "Consumivel cadastrado"

@@ -14,10 +14,10 @@ class Repository_acessorio():
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO acessorios
-            (produto_id, tipo_acessorio)
-            VALUES (:produto_id, :tipo_acessorio)""") # Query
+            (produto_id, tipo_acessorio, quantidade)
+            VALUES (:produto_id, :tipo_acessorio, :quantidade)""") # Query
 
-            conexao.execute (query, {"produto_id":acessorio.produto_id, "tipo_acessorio":acessorio.tipo_acessorio} # Executando a query
+            conexao.execute (query, {"produto_id":acessorio.produto_id, "tipo_acessorio":acessorio.tipo_acessorio, "quantidade":acessorio.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
             return "Acessório cadastrado"

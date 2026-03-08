@@ -7,10 +7,10 @@ class Repository_aluguel():
         self.database = database
         self.table = table
 
-# ------------------------------------------------------------ CRUD  ------------------------------------------------------------
+# -------------------------------------------------- CRUD --------------------------------------------------
 
     def create(self, aluguel):
-        '''Recebe uma tupla de transacao e cadastra ela no banco de dados.'''
+        '''Recebe um objeto de aluguel e cadastra ela no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO alugueis
