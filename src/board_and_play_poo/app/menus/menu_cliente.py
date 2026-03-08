@@ -1,10 +1,10 @@
-class MenuJogoAluguel:
-    def menu_jogo_aluguel(self):
-        '''Menu da classe jogo aluguel'''
+class MenuCliente:
+    def menu_cliente():
+        '''Menu da classe cliente'''
         while True:
             while True:
                 try:
-                    print("\nJogos alugáveis")
+                    print("\nClientes")
                     print("-" * 20)
                     print("1 - Cadastrar\n2 - Consultar\n3 - Atualizar dados\n4 - Inativar\n5 - Voltar")
                     escolha = int(input("Selecione uma opção: "))
@@ -24,5 +24,3 @@ class MenuJogoAluguel:
                     break
                 case _:
                     print("Escolha inválida.\n")
-
-    def cadastro_jogo_aluguel():

@@ -1,12 +1,12 @@
-class MenuJogoAluguel:
-    def menu_jogo_aluguel(self):
-        '''Menu da classe jogo aluguel'''
+class MenuContrato:    
+    def menu_contrato():
+        '''Menu das consultas dos contratos de aluguel do sistema.'''
         while True:
             while True:
                 try:
-                    print("\nJogos alugáveis")
+                    print("\nContratos")
                     print("-" * 20)
-                    print("1 - Cadastrar\n2 - Consultar\n3 - Atualizar dados\n4 - Inativar\n5 - Voltar")
+                    print("1 - Consultar por ID\n2 - Consultar contratos ativos\n3 - Consultar contratos alterados\n4 - Consultar contratos fechados\n5 - Voltar")
                     escolha = int(input("Selecione uma opção: "))
                     break
                 except ValueError:
@@ -17,12 +17,10 @@ class MenuJogoAluguel:
                 case 2:
                     print("\n===Função em desenvolvimento===\n")
                 case 3:
-                    print("\n===Função em desenvolvimento===\n")
+                   print("\n===Função em desenvolvimento===\n")
                 case 4:
                     print("\n===Função em desenvolvimento===\n")
                 case 5:
                     break
                 case _:
                     print("Escolha inválida.\n")
-
-    def cadastro_jogo_aluguel():
