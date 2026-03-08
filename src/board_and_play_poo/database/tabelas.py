@@ -71,7 +71,8 @@ class Tabela():
         self.acessorios = Table('acessorios', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
-            Column('tipo_acessorio', String(20), nullable=False) # 'ROUPA', 'CHAVEIRO', 'CANECA'
+            Column('tipo_acessorio', String(20), nullable=False), # 'ROUPA', 'CHAVEIRO', 'CANECA'
+            Column('quantidade', Integer, nullable=False, default=1)
         )
 
         self.consumiveis = Table('consumiveis', self.metadata,
@@ -79,7 +80,8 @@ class Tabela():
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
             Column('data_validade', Date, nullable=False), #  default=datetime.date
             Column('lote', String(50)),
-            Column('restricoes', String, nullable=False, default='Nenhum') # 'ALERGENICOS', 'LACTOSE', 'GLUTEN'
+            Column('restricoes', String, nullable=False, default='Nenhum'), # 'ALERGENICOS', 'LACTOSE', 'GLUTEN'
+            Column('quantidade', Integer, nullable=False, default=1)
         )
 
 # ------------------------------------------- TABELAS DA HIERARQUIA COMPORTAMENTAL -------------------------------------------

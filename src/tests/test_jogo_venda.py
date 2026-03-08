@@ -14,7 +14,7 @@ j_venda_repo = Repository_jogo_venda(db, tb)
 
 def teste_jogo_venda_create():
     '''Teste para o método create da classe jogo venda repository.'''
-    jogo_venda = (2, 8778878778787878)
+    jogo_venda = Jogo_venda("Amigos", "QYI-8625", "jogo_venda", "Lúdico", "Game", 16, 2, 2, 2, 2)
     resultado = j_venda_repo.create(jogo_venda)
     assert resultado == "Jogo venda cadastrado"
 
