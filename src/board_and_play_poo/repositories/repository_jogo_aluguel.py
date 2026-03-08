@@ -50,12 +50,6 @@ class Repository_jogo_aluguel():
                 return jogo_aluguel # Jogo aluguel é retornado
         return None # Caso não, None é retornado
     
-# produto > nome, codigo_barras, categoria, produto_id=None
-#jogo > genero, descricao, idade_min, num_jogadores, jogo_id, produto_id
-#jogo aluguel > etiqueta, status, id, jogo_id, produto_id
-
-# self, nome, codigo_barras, categoria, genero, descricao, idade_min, num_jogadores, etiqueta, status, produto_id = None, jogo_id=None, id=None
-
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um jogo aluguel, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado.'''
         conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes

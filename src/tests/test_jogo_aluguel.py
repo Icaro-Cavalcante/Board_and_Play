@@ -10,7 +10,6 @@ from src.board_and_play_poo.modules.domain.jogo_aluguel import Jogo_aluguel
 tb = Tabela()
 db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
-jogo_repo = Repository_jogo_aluguel(db, tb)
 j_aluguel_repo = Repository_jogo_aluguel(db, tb)
 
 def teste_jogo_alugel_create():
