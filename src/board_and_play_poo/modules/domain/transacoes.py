@@ -14,13 +14,9 @@ class Transacao(ABC):
         return f"ID da transação: {self.id} | ID do cliente: {self.id_cliente} | ID do colaborador: {self.id_colaborador}\n"
 
     @abstractmethod
-    def calcular_valor(self, obj_negocio):
+    def calcular_valor(self, preco):
         pass
 
     @abstractmethod
-    def gerar_comprovante(self, obj_negocio): #????????????
-        pass
-
-    @abstractmethod
-    def tempo_atual(self, obj_negocio):
+    def gerar_comprovante(self): #????????????
         pass
