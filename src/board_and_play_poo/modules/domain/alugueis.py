@@ -4,7 +4,7 @@ from .colaboradores import Colaborador
 from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
 class Aluguel(Transacao):
-    '''Classe responsável pelas transações de aluguel.'''
+    '''Classe responsável pelas transações de aluguel'''
     def __init__(self, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, numero_contrato, data_inicio, data_prevista_devolucao, data_devolucao_real, status, transacao_id=None, cliente_id=None, colaborador_id=None, aluguel_id=None):
         super().__init__(comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id)
         self.__numero_contrato = numero_contrato

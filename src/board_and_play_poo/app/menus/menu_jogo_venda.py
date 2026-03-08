@@ -26,4 +26,4 @@ class MenuJogoVenda:
                     print("Escolha inválida.\n")
 
     def cadastrar_jogo_venda():
-        
+        pass

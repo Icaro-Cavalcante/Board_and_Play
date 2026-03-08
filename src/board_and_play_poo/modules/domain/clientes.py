@@ -1,7 +1,5 @@
 class Cliente:
-    """
-    Descreve o cliente que usufruirá dos serviços da loja, solicitando alugueis e compras. É usado para manter no histórico as ações de cada cliente, e seu status caso seja multado
-    """
+    """Descreve o cliente que usufruirá dos serviços da loja, solicitando alugueis e compras. É usado para manter no histórico as ações de cada cliente, e seu status caso seja multado"""
 
     def __init__(self, cpf, nome, email, contato, status, cliente_id = None): # verificar se podemos encapsular esses atributos
         self.__cpf = cpf

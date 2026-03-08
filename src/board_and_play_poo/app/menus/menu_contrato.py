@@ -1,6 +1,6 @@
 class MenuContrato:    
     def menu_contrato():
-        '''Menu das consultas dos contratos de aluguel do sistema.'''
+        '''Menu das consultas dos contratos de aluguel do sistema'''
         while True:
             while True:
                 try:

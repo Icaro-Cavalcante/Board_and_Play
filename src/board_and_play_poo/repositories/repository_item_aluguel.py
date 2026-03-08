@@ -1,6 +1,4 @@
 from sqlalchemy import text
-from src.board_and_play_poo.modules.domain.jogos import Jogo
-from src.board_and_play_poo.modules.domain.alugueis import Aluguel
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
@@ -8,16 +6,16 @@ tb = Tabela()
 db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
 
-class Repository_item_aluguel():
-    '''Classe que realiza as operações do banco de dados relacionadas a item aluguel.'''
+class RepositoryItemAluguel():
+    '''Classe que realiza as operações do banco de dados relacionadas a item aluguel'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
 
-# ------------------------------------------- CRUD -------------------------------------------
+# ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
     def create(self, item_aluguel):
-        '''Recebe uma tupla com dados de item aluguel e cadastra ela no banco de dados.'''
+        '''Recebe uma tupla com dados de item aluguel e cadastra ela no banco de dados'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO itens_aluguel
@@ -30,7 +28,7 @@ class Repository_item_aluguel():
             return "Jogo aluguel cadastrado"
 
         else: # Se não
-            return("Não foi possível conectar")
+            return "Não foi possível conectar"
 
     def read(self, id):
         '''Recebe o ID de um item aluguel e retorna uma tupla dos seus dados'''
@@ -43,5 +41,6 @@ class Repository_item_aluguel():
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
             if tupla:
-                return  # Item_aluguel é retornado
-        return None # Caso não, None é retornado
+                return tupla # ItemAluguel é retornado
+        else:
+            return None # Caso não, None é retornado

@@ -3,7 +3,7 @@ from .transacoes import Transacao
 from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
 class Venda(Transacao):
-    """Classe que representa uma venda, com métodos de calculo de valor e desconto"""
+    """Classe responsável pelas transações de venda"""
     def __init__(self, cliente_id, colaborador_id, nota_fiscal, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, venda_id = None, transacao_id = None):
         super().__init__(self, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id)
         self.__venda_id = venda_id

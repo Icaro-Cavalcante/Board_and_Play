@@ -1,12 +1,12 @@
 from sqlalchemy import text
 
-class Repository_produto():
-    '''Classe que realiza as operações do banco de dados relacionadas a produto.'''
+class RepositoryProduto():
+    '''Classe que realiza as operações do banco de dados relacionadas a produto'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
 
-# ------------------------------------------- CRUD -------------------------------------------
+# ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
     def create(self, tupla):
         '''Recebe uma tupla com os parâmetros de atributos da generalização Produto para suas especificações'''
@@ -23,8 +23,8 @@ class Repository_produto():
             conexao.commit() # Commitando o cadastro
             return(obj_id)
         else: # Se a conexão não existir
-            return("Não foi possível conectar")
-
+            return "Não foi possível conectar"
+                   
     def read(self, id):
         '''Recebe o ID de um produto e retorna uma tupla dos seus dados'''
         conexao = self.database.conectar()  # Estabelecendo conexão com o banco de dados
@@ -34,10 +34,10 @@ class Repository_produto():
             ).first() # É retornada uma lista com uma tupla dentro
             return produto_bd # Produto é retornado
         else: # Se a conexão não existir
-            return "Não foi possível conectar"
+            return None # Caso não, None é retornado
     
     def update(self, id, nome_atributo, atributo_update):
-        '''Recebe o ID de um produto, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado.'''
+        '''Recebe o ID de um produto, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         # Nota 1: nome_atributo deve ser passado a partir de um dicionario. Exemplo dic = {1: "nome"}... nome deve ser passado como parâmetro e o usuário não pode passar nada que esteja fora dos atributos do dicionário.
         # Nota 2: nome_atributo não pode ser usado como um placeholder (:nome_atributo). Se for usado como um da erro
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
@@ -50,7 +50,3 @@ class Repository_produto():
             return "Atributo atualizado."
         else: # Se a conexão não existir
             return "Não foi possível conectar" 
-
-    def delete(self):
-        '''Por regra de negócio, nenhum produto será deletado do banco de dados, apenas terá seu status atualizado para inativo.'''
-        pass
