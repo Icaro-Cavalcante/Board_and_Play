@@ -1,20 +1,18 @@
-from pathlib import Path
 from datetime import datetime
-from board_and_play_poo.modules.infrastructure.config_database import Config_database
+from src.board_and_play_poo.modules.infrastructure.config_database import ConfigDatabase
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
     Integer, Date, DateTime, Numeric, # para definir formato dos atributos
     ForeignKey) # para especializar relacionamentos
-config = Config_database()
+
+config = ConfigDatabase()
 
 class Tabela():
-    '''
-    Classe responsável por gerenciar todas as tabelas do banco de dados.
-    '''
+    '''Classe responsável por gerenciar todas as tabelas do banco de dados'''
     def __init__(self):
         self.metadata = MetaData()
 
-# -------------------------------------------------- CADASTRO PESSOAS --------------------------------------------------
+# ----------------------------------------------------- CADASTRO PESSOAS -----------------------------------------------------
 
         self.clientes = Table('clientes', self.metadata,
             Column('id', Integer, primary_key=True),
@@ -37,13 +35,13 @@ class Tabela():
             Column('status', String(10), nullable=False, default='ATIVO') # 'ATIVO', 'INATIVO', 'FERIAS', 'ATESTADO'
         )
 
-# ------------------------------------------- TABELAS DA HIERARQUIA CONCEITUAL -------------------------------------------
+# --------------------------------------------- TABELAS DA HIERARQUIA CONCEITUAL ---------------------------------------------
 
         self.produtos = Table('produtos', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('nome', String(50), nullable=False),
             Column('codigo_barras', String(13), unique=True, nullable=False),
-            Column('categoria', String(20), nullable=False)   # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
+            Column('categoria', String(20), nullable=False) # 'JOGO', 'ACESSORIO', 'CONSUMIVEL'
           )
 
         self.jogos = Table('jogos', self.metadata,
@@ -59,7 +57,7 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
             Column('etiqueta', String(50), unique=True, nullable=False),
-            Column('status', String(20), nullable=False)  # 'DISPONIVEL', 'INDISPONIVEL'
+            Column('status', String(20), nullable=False)  # 'DISPONIVEL', 'INDISPONIVEL', 'INATIVO'
         )
         
         self.jogos_venda = Table('jogos_venda', self.metadata,
@@ -78,7 +76,7 @@ class Tabela():
         self.consumiveis = Table('consumiveis', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
-            Column('data_validade', Date, nullable=False), #  default=datetime.date
+            Column('data_validade', Date, nullable=False), # default=datetime.date
             Column('lote', String(50)),
             Column('restricoes', String, nullable=False, default='Nenhum'), # 'ALERGENICOS', 'LACTOSE', 'GLUTEN'
             Column('quantidade', Integer, nullable=False, default=1)

@@ -1,7 +1,7 @@
 from .produtos import Produto
 
 class Acessorio(Produto):
-    '''Classe que cuida de todos os produtos do tipo acessorio.'''
+    '''Classe que cuida de todos os produtos do tipo acessorio'''
     def __init__(self, nome, codigo_barras, categoria, tipo_acessorio, quantidade, produto_id = None, acessorio_id = None):
         super().__init__(nome, codigo_barras, categoria, produto_id)
         self.__tipo_acessorio = tipo_acessorio

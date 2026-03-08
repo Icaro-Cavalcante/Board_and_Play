@@ -1,10 +1,10 @@
 from sqlalchemy import create_engine
-from board_and_play_poo.modules.infrastructure.config_database import Config_database
+from src.board_and_play_poo.modules.infrastructure.config_database import ConfigDatabase
 
-config = Config_database()
+config = ConfigDatabase()
 
 class Database():
-    '''Classe que cuida da conexão do banco de dados.'''
+    '''Classe que cuida da conexão do banco de dados'''
     def __init__(self, ambiente):
         self.session = create_engine(config.DATABASE_URL, echo=config.DATABASE_ECHO) # Conexão
         self.test_session = create_engine(config.TESTS_URL, echo=True) # Conexão para testes

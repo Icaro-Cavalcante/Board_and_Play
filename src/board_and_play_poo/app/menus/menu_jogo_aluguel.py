@@ -26,3 +26,4 @@ class MenuJogoAluguel:
                     print("Escolha inválida.\n")
 
     def cadastro_jogo_aluguel():
+        pass

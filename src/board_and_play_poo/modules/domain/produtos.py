@@ -1,9 +1,7 @@
 from abc import ABC
 
 class Produto(ABC):
-    '''
-    Integra atributos em comum de suas subclasses, servindo como generalização
-    '''
+    '''Classe abstrata que integra atributos em comum de suas subclasses, servindo como generalização'''
 
     def __init__(self, nome, codigo_barras, categoria, produto_id=None): # O ID não deve ser passado como parâmetro
         self._nome = nome

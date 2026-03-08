@@ -9,7 +9,6 @@ class Consumivel(Produto):
         self.__restricoes = restricoes
         self.__quantidade = quantidade
         self.__consumivel_id = consumivel_id
-
     
     @property
     def data_validade(self):

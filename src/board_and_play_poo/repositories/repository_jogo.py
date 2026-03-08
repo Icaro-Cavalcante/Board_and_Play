@@ -1,30 +1,29 @@
 from sqlalchemy import text
-from src.board_and_play_poo.modules.domain.jogos import Jogo
-from src.board_and_play_poo.repositories.repository_produto import Repository_produto
 
-class Repository_jogo():
-    '''Classe que realiza as operações do banco de dados relacionadas a jogo.'''
+class RepositoryJogo():
+    '''Classe que realiza as operações do banco de dados relacionadas a jogo'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
 
-# ------------------------------------------- CRUD -------------------------------------------
+# ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
     def create(self, jogo):
-        '''Recebe uma tupla de jogo e cadastra ele no banco de dados.'''
+        '''Recebe uma tupla de jogo e cadastra ele no banco de dados'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, genero, descricao, idade_min, num_jogadores)
-            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)""") # Query
+            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)
+            RETURNING id""") # Query
 
-            conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
+            UtilId = conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return "Jogo cadastrado"
+            return UtilId
 
         else: # Se não
-            return("Não foi possível conectar")
+            return "Não foi possível conectar"
 
     def read(self, id):
         '''Recebe o ID de um jogo e retorna uma tupla dos seus dados'''
@@ -37,7 +36,7 @@ class Repository_jogo():
         return None # Caso não, None é retornado
     
     def update(self, id, nome_atributo, atributo_update):
-        '''Recebe o ID de um jogo, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado.'''
+        '''Recebe o ID de um jogo, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         # Nota 1: nome_atributo deve ser passado a partir de um dicionario. Exemplo dic = {1: "nome"}... nome deve ser passado como parâmetro e o usuário não pode passar nada que esteja fora dos atributos do dicionário.
         # Nota 2: nome_atributo não pode ser usado como um placeholder (:nome_atributo). Se for usado como um da erro
         conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
@@ -48,3 +47,5 @@ class Repository_jogo():
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
             return "Atributo atualizado"
+        else:
+            return "Não foi possível conectar"

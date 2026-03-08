@@ -1,6 +1,4 @@
 from sqlalchemy import text
-from src.board_and_play_poo.modules.domain.jogos import Jogo
-from src.board_and_play_poo.modules.domain.vendas import Venda
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
@@ -8,16 +6,16 @@ tb = Tabela()
 db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
 
-class Repository_item_venda():
-    '''Classe que realiza as operações do banco de dados relacionadas a item_venda.'''
+class RepositoryItemVenda():
+    '''Classe que realiza as operações do banco de dados relacionadas a item_venda'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
 
-# ------------------------------------------- CRUD -------------------------------------------
+# ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
     def create(self, item_venda):
-        '''Recebe uma tupla com dados de item venda e cadastra ele no banco de dados.'''
+        '''Recebe uma tupla com dados de item venda e cadastra ele no banco de dados'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO itens_venda
@@ -30,7 +28,7 @@ class Repository_item_venda():
             return "item_venda cadastrado"
 
         else: # Se não
-            return("Não foi possível conectar")
+            return "Não foi possível conectar"
 
     def read(self, id):
         '''Recebe o ID de um item_venda e retorna uma tupla dos seus dados'''
@@ -43,5 +41,6 @@ class Repository_item_venda():
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
             if tupla:
-                return  # Item_venda é retornado
-        return None # Caso não, None é retornado
+                return tupla # ItemVenda é retornado
+        else:
+            return None # Caso não, None é retornado

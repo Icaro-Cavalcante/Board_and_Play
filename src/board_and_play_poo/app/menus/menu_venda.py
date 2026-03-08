@@ -1,6 +1,6 @@
 class MenuVenda:    
     def menu_venda():
-        '''Menu das consultas das vendas do sistema.'''
+        '''Menu das consultas das vendas do sistema'''
         while True:
             while True:
                 try:

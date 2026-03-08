@@ -1,6 +1,7 @@
 class App():
+    """Aplicação, onde são guardados os menus que serão chamados para a interação do usuáiro"""
     def menu_principal():
-        '''Menu principal.''' 
+        '''Menu principal''' 
         print("Inicializando o sistema...")
         while True: 
             while True:
@@ -34,7 +35,7 @@ class App():
                     print("Escolha inválida.\n")
 
     def menu_estoque():
-        '''Menu das classes que herdam de produto'''
+        '''Menu das classes que herdam de Produto'''
         while True:
             while True:
                 try:

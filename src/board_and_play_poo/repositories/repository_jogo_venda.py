@@ -1,26 +1,25 @@
 from sqlalchemy import text
-from src.board_and_play_poo.modules.domain.jogos_venda import Jogo_venda
-from src.board_and_play_poo.repositories.repository_jogo import Repository_jogo
-from src.board_and_play_poo.repositories.repository_produto import Repository_produto
+from src.board_and_play_poo.repositories.repository_jogo import RepositoryJogo
+from src.board_and_play_poo.repositories.repository_produto import RepositoryProduto
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
 tb = Tabela()
 db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
-jogo_repo = Repository_jogo(db, tb)
-produto_repo = Repository_produto(db, tb)
+jogo_repo = RepositoryJogo(db, tb)
+produto_repo = RepositoryProduto(db, tb)
 
-class Repository_jogo_venda():
-    '''Classe que realiza as operações do banco de dados relacionadas a jogo venda.'''
+class RepositoryJogoVenda():
+    '''Classe que realiza as operações do banco de dados relacionadas a jogo venda'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
 
-# ------------------------------------------- CRUD -------------------------------------------
+# ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
     def create(self, jogo_venda):
-        '''Recebe um objeto de jogo venda e cadastra ele no banco de dados.'''
+        '''Recebe um objeto de jogo venda e cadastra ele no banco de dados'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos_venda
@@ -32,7 +31,7 @@ class Repository_jogo_venda():
             conexao.commit() # Commitando o cadastro
             return "Jogo venda cadastrado"
         else: # Se não
-            return("Não foi possível conectar")
+            return "Não foi possível conectar"
 
     def read(self, id):
         '''Recebe o ID de um jogo venda e retorna um objeto dos seus dados'''
@@ -46,13 +45,11 @@ class Repository_jogo_venda():
             WHERE jogos_venda.id = :id""")
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
-            if tupla:
-                jogo_venda = Jogo_venda(tupla[0], tupla[1], tupla[2], tupla[3], tupla[4], tupla[5], tupla[6], tupla[7], tupla[8], tupla[9], tupla[10])
-                return jogo_venda # Jogo venda é retornado
+            return tupla
         return None # Caso não, None é retornado
 
     def update(self, id, nome_atributo, atributo_update):
-        '''Recebe o ID de um jogo_venda, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado.'''
+        '''Recebe o ID de um jogo_venda, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
         if conexao:
             atributos_produto = ["nome", "codigo_barras", "categoria"]
