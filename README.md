@@ -144,6 +144,6 @@ Board_and_Play/
 | [Samuel Jackson](https://github.com/SJacksonML) | Desenvolvedor  |
 
 
-| MemProfessor Orientador  👨‍🏫 |
+| Professor Orientador  👨‍🏫 |
 | ------------- |
 | [Jayr Alencar Pereira](https://github.com/jayralencar)  |
