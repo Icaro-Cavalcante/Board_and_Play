@@ -17,6 +17,8 @@ class Repository_jogo_venda():
         self.database = database
         self.table = table
 
+# ------------------------------------------- CRUD -------------------------------------------
+
     def create(self, jogo_venda):
         '''Recebe um objeto de jogo venda e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados

@@ -5,8 +5,8 @@ class Repository_produto():
     def __init__(self, database, table):
         self.database = database
         self.table = table
-        
-# ------------------------------------------------------ CRUD ------------------------------------------------------
+
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, tupla):
         '''Recebe uma tupla com os parâmetros de atributos da generalização Produto para suas especificações'''

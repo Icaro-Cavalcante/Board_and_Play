@@ -8,7 +8,7 @@ class Repository_transacao():
         self.database = database
         self.table = table
 
-# ------------------------------------------------- CRUD REAL --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, transacao):
         '''Recebe um objeto de transação e cadastra ele no banco de dados.'''

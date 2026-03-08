@@ -8,6 +8,8 @@ class Repository_jogo():
         self.database = database
         self.table = table
 
+# ------------------------------------------- CRUD -------------------------------------------
+
     def create(self, jogo):
         '''Recebe uma tupla de jogo e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados

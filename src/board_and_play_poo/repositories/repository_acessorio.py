@@ -7,7 +7,7 @@ class Repository_acessorio():
         self.database = database
         self.table = table
 
-# -------------------------------------------------- CRUD REAL --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, acessorio):
         '''Recebe um objeto de acessorio e cadastra ele no banco de dados.'''

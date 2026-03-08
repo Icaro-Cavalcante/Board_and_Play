@@ -14,6 +14,8 @@ class Repository_item_aluguel():
         self.database = database
         self.table = table
 
+# ------------------------------------------- CRUD -------------------------------------------
+
     def create(self, item_aluguel):
         '''Recebe uma tupla com dados de item aluguel e cadastra ela no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados

@@ -7,7 +7,7 @@ class Repository_aluguel():
         self.database = database
         self.table = table
 
-# -------------------------------------------------- CRUD --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, aluguel):
         '''Recebe um objeto de aluguel e cadastra ela no banco de dados.'''

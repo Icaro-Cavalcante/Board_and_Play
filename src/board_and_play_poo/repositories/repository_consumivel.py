@@ -7,7 +7,7 @@ class Repository_consumivel():
         self.database = database
         self.table = table
 
-# -------------------------------------------------- CRUD REAL --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, consumivel):
         '''Recebe um objeto de consumivel e cadastra ele no banco de dados.'''

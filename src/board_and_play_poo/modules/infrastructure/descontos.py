@@ -1,11 +1,13 @@
 from abc import ABC, abstractmethod
 
 class EstrategiaDesconto(ABC):
+    """Entrega um método abstrato para definição em outras classes"""
     @abstractmethod
     def AplicarDesconto(self, preco: float):
         pass
 
 class DescontoPorcent(EstrategiaDesconto):
+    """Classe para realizar descontos em porcentagem"""
     def __init__(self, porcentagem):
         self.porcentagem = porcentagem
 
@@ -13,6 +15,7 @@ class DescontoPorcent(EstrategiaDesconto):
         return preco * (1 - self.porcentagem / 100)
     
 class DescontoValorFixo(EstrategiaDesconto):
+    """Classe para aplicar descontos em valores decimais"""
     def __init__(self, valor):
         self.valor = valor
 
