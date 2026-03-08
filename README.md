@@ -42,10 +42,10 @@ Board_and_Play/
 |   |   ├── data_test/                    #  Diretório do banco de dados de testes
 |   |   |     └── dados.db                #  Banco de dados de testes SQLite
 |   |   |
-|   |   ├── database/
-|   |   |       ├── __init__.py           # Transforma o diretório em um pacote # database.py
-|   |   |       ├── database.py           # Transforma o diretório em um pacote # database.py
-|   |   |       └── tabelas.py            # Classe utilizada para CRUD das instâncias de vendas de produto
+|   |   ├── database/                     #  Diretório das classes do banco de dados
+|   |   |       ├── __init__.py           # Transforma o diretório em um pacote
+|   |   |       ├── database.py           # Classe responsável pela conexão com o banco de dados
+|   |   |       └── tabelas.py            # Classe responsável pelas tabelas do banco de dadoo
 |   |   |
 |   |   ├── modules/                      # Módulos do projeto
 |   |   |    ├── domain/                  # Classes de domínio
@@ -137,13 +137,13 @@ Board_and_Play/
 - `pytest` - Para testes unitários
 
 ## 👤 Membros
+| Contribuidores 🧑‍🎓  | Funções 🚀 |
+| ------------- | ------------- |
+| [Icaro Cavalcante](https://github.com/Icaro-Cavalcante)  | Desenvolvedor  |
+| [Elilúcio Teixeira](https://github.com/Elilucio7) | Desenvolvedor  |
+| [Samuel Jackson](https://github.com/SJacksonML) | Desenvolvedor  |
 
-### Contribuidores 🧑‍🎓:
 
-- Icaro Cavalcante;
-- Samuel Jackson;
-- Elilúcio Teixeira.
-
-### Professor Orientador 👨‍🏫:
-
-- Jayr Pereira. 
+| Professor Orientador  👨‍🏫 |
+| ------------- |
+| [Jayr Alencar Pereira](https://github.com/jayralencar)  |
