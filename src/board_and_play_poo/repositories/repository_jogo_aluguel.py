@@ -17,6 +17,8 @@ class Repository_jogo_aluguel():
         self.database = database
         self.table = table
 
+# ------------------------------------------- CRUD -------------------------------------------
+
     def create(self, jogo_aluguel):
         '''Recebe um objeto de jogo aluguel e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados

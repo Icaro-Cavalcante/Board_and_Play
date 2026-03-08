@@ -6,7 +6,7 @@ class Repository_venda():
         self.database = database
         self.table = table
 
-# ------------------------------------------------- CRUD REAL --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, venda):
         '''Recebe um objeto de venda e cadastra ele no banco de dados.'''

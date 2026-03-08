@@ -7,7 +7,7 @@ class Repository_cliente():
         self.database = database
         self.table = table
 
-# -------------------------------------------------- CRUD REAL --------------------------------------------------
+# ------------------------------------------- CRUD -------------------------------------------
 
     def create(self, cliente):
         '''Recebe um objeto de cliente e cadastra ele no banco de dados.'''

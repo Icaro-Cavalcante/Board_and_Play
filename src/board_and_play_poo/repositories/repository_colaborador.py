@@ -7,8 +7,6 @@ class Repository_colaborador():
         self.database = database
         self.table = table
 
-# --------------------------------------------------- CRUD REAL --------------------------------------------------
-
     def create(self, colaborador):
         '''Recebe um objeto de colaborador e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
