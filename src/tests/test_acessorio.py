@@ -16,7 +16,6 @@ acessorio_repo = Repository_acessorio(db, tb)
 def teste_acessorio_create():
     '''Teste para o método create de acessorio repository'''
     # NECESSÁRIO CHECKS PARA CREATE EM APLICAÇÃO, como a tabela produto não tem mais uniques além do id ela pode se repetir com os mesmos dados, não tenho certeza o quanto isso poderia ser um problema em um caso real, porém é um bom assunto para discussão futura
-    meses_2 = date.today() + timedelta(days=60)
     acessorio = Acessorio("chaveiro goku", "CHG-0987", "acessorio", 1, "chaveru", 4)
     resultado = acessorio_repo.create(acessorio)
     assert resultado == "Acessório cadastrado"

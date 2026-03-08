@@ -4,15 +4,51 @@ class Colaborador:
     """
 
     def __init__(self, cpf, nome, email, contato, contato_emergencia, salario, cargo, status, colaborador_id = None): # verificar se podemos encapsular esses atributos
-        self.cpf = cpf
-        self.nome = nome
-        self.email = email
-        self.contato = contato
-        self.contato_emergencia = contato_emergencia
-        self.salario = salario
-        self.cargo = cargo
-        self.status = status
-        self.colaborador_id = colaborador_id
+        self.__cpf = cpf
+        self.__nome = nome
+        self.__email = email
+        self.__contato = contato
+        self.__contato_emergencia = contato_emergencia
+        self.__salario = salario
+        self.__cargo = cargo
+        self.__status = status
+        self.__colaborador_id = colaborador_id
+
+    @property
+    def cpf(self):
+        return self.__cpf
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @property
+    def email(self):
+        return self.__email
+
+    @property
+    def contato(self):
+        return self.__contato
+
+    @property
+    def contato_emergencia(self):
+        return self.__contato_emergencia
+
+    @property
+    def salario(self):
+        return self.__salario
+
+    @property
+    def cargo(self):
+        return self.__cargo
+
+    @property
+    def status(self):
+        return self.__status
+
+    @property
+    def colaborador_id(self):
+        return self.__colaborador_id
 
     def __str__(self):
-        return f"ID do colaborador: {self.colaborador_id}\nCPF do colaborador: {self.cpf}\nNome do colaborador: {self.nome}\nE-mail do colaborador: {self.email}\nContato do colaborador: {self.contato}\nContato de emergência do colaborador: {self.colaborador}\nSalário base do colaborador: {self.salario}\nCargo do colaborador: {self.salario}\nStatus do colaborador: {self.status}"
+        return f"ID do colaborador: {self.__colaborador_id}\nCPF do colaborador: {self.__cpf}\nNome do colaborador: {self.__nome}\nE-mail do colaborador: {self.__email}\nContato do colaborador: {self.__contato}\nContato de emergência do colaborador: {self.__colaborador}\nSalário base do colaborador: {self.__salario}\nCargo do colaborador: {self.__salario}\nStatus do colaborador: {self.__status}"
