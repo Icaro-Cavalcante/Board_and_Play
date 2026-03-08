@@ -21,7 +21,7 @@ class Repository_venda():
         return "Venda cadstrada"
 
     def read(self, id):
-        '''Recebe o ID de uma venda e retorna um objeto dos seus dados'''
+        '''Recebe o ID de uma venda e retorna uma tupla dos seus dados'''
         query = text ("""SELECT * FROM vendas WHERE id = :id""") # query
         with self.database.conectar() as conexao: # Estabelecendo a conexão
             venda_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
