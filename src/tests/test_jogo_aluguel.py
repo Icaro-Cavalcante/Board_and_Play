@@ -1,33 +1,37 @@
-"""
 import pytest
 from unittest.mock import patch
-#from..board_and_play_poo.modules.domain.alugaveis import Jogo_aluguel
+from src.board_and_play_poo.database.database import Database
+from src.board_and_play_poo.database.tabelas import Tabela
+from src.board_and_play_poo.repositories.repository_jogo_aluguel import Repository_jogo_aluguel
+from src.board_and_play_poo.modules.domain.jogo_aluguel import Jogo_aluguel
+
+# ------------------Testes de Repository------------------
+
+tb = Tabela()
+db = Database("teste")
+tb.create_table(db) # Criando tabelas do db de test
+jogo_repo = Repository_jogo_aluguel(db, tb)
+j_aluguel_repo = Repository_jogo_aluguel(db, tb)
 
 def teste_jogo_alugel_create():
-    '''Teste para o método create da classe jogo aluguel.'''
-    with patch('builtins.input', side_effect=["1","War","80.0","12/10/2025","Desafie seus amigos e descubra por que War é o jogo de estratégia mais jogado do Brasil!","10","3","tabuleiro","disponivel","20","40"]):
-        resultado = Jogo_aluguel.create()
-
-        assert resultado == "Sucesso! Jogo criado." or resultado == "Esse jogo já existe"
+    '''Teste para o método create da classe jogo aluguel repository.'''
+    jogo_aluguel = (1, "HGS7856", "ATIVO")
+    resultado = j_aluguel_repo.create(jogo_aluguel)
+    assert resultado == "Jogo aluguel cadastrado"
 
 def teste_jogo_aluguel_read():
-    '''Teste para o método read da classe jogo aluguel.'''
-    resultado = Jogo_aluguel.read(1)
-    assert resultado[0] == 1
+    '''Teste para o método read da classe jogo aluguel repository.'''
+    teste_jogo_alugel_create()
+    resultado = j_aluguel_repo.read(1)
+    assert resultado.categoria == "jogo_aluguel"
 
 def teste_jogo_aluguel_update():
-    '''Teste para o método update da classe jogo aluguel.'''
-    resultado = Jogo_aluguel.update(1, "valor_diaria", 100)
-    assert resultado == "Sucesso! Atributo atualizado."
+    '''Teste para o método update da classe jogo aluguel repository.'''
+    teste_jogo_alugel_create()
+    resultado = j_aluguel_repo.update(1, "nome", "War 2026")
+    assert resultado == "Atributo atualizado."
 
-def teste_jogo_aluguel_delete():
-    '''Teste para o método delete da classe jogo aluguel.'''
-    resultado = Jogo_aluguel.delete(1)
-    assert resultado == "Sucesso! Jogo inativado."
-
-def teste_jogo_aluguel_tupla_objeto():
-    '''Teste para o método tupla objeto da classe jogo aluguel.'''
-    tupla = Jogo_aluguel.read(1)
-    resultado = Jogo_aluguel.tupla_objeto(tupla)
-    assert resultado._custo_aquisicao == 80
-"""
+def teste_jogo_aluguel_inactivate():
+    '''Teste para o método inactivate da classe jogo aluguel. repository'''
+    resultado = j_aluguel_repo.inactivate(1)
+    assert resultado == "Jogo aluguel mudado para INATIVO com sucesso."

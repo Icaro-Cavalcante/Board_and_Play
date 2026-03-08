@@ -12,7 +12,7 @@ produto_repo = Repository_produto(db, tb)
 
 def teste_produto_create():
     '''Teste para o método create de produto repository'''
-    if not produto_repo.read(1)[0]:
+    if not produto_repo.read(1):
         tupla = [ "Monopoly", "PLO-9641", "jogo_aluguel"]
         resultado = produto_repo.create(tupla)
     else:
@@ -26,6 +26,6 @@ def teste_produto_read():
 
 def teste_produto_update():
     '''Teste para o método update de produto repository'''
-    resultado = produto_repo.update(1, "nome", "Monopólio")
+    resultado = produto_repo.update(1, "codigo_barras", "PSD-3596")
     assert resultado == "Atributo atualizado." 
  
