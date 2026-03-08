@@ -14,7 +14,7 @@ class RepositoryConsumivel():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO consumiveis
             (produto_id, data_validade, lote, restricoes, quantidade)
-            VALUES (:produto_id, :data_validade, :lote, :restricoes)""") # Query
+            VALUES (:produto_id, :data_validade, :lote, :restricoes, :quantidade)""") # Query
 
             conexao.execute (query, {"produto_id":consumivel.produto_id, "data_validade":consumivel.data_validade, "lote":consumivel.lote, "restricoes":consumivel.restricoes, "quantidade":consumivel.quantidade} # Executando a query
             )

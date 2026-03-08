@@ -15,12 +15,12 @@ class RepositoryJogo():
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, genero, descricao, idade_min, num_jogadores)
             VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)
-            RETURNING id""") # Query
+            """) # Query
 
-            UtilId = conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
+            conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
-            return UtilId
+            return "Jogo cadastrado"
 
         else: # Se não
             return "Não foi possível conectar"
