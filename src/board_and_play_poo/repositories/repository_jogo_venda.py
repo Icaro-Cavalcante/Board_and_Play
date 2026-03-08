@@ -18,14 +18,14 @@ class Repository_jogo_venda():
         self.table = table
 
     def create(self, jogo_venda):
-        '''Recebe uma tupla de jogo venda e cadastra ele no banco de dados.'''
+        '''Recebe um objeto de jogo venda e cadastra ele no banco de dados.'''
         conexao = self.database.conectar() # Estabelecendo conexão com o banco de dados
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos_venda
             (jogo_id, quantidade)
             VALUES (:jogo_id, :quantidade)""") # Query
 
-            conexao.execute (query, {"jogo_id":jogo_venda[0], "quantidade": jogo_venda[1]} # Executando a query
+            conexao.execute (query, {"jogo_id":jogo_venda.jogo_id, "quantidade": jogo_venda.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
             return "Jogo venda cadastrado"

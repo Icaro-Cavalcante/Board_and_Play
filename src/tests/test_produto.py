@@ -13,8 +13,8 @@ produto_repo = Repository_produto(db, tb)
 def teste_produto_create():
     '''Teste para o método create de produto repository'''
     if not produto_repo.read(1):
-        tupla = ["Monopoly", "PLO-9641", "jogo_aluguel"]
-        tupla2 = ["Amigos", "QYI-8625", "jogo_venda"]
+        tupla = ("Monopoly", "PLO-9641", "jogo_aluguel")
+        tupla2 = ("Amigos", "QYI-8625", "jogo_venda")
         resultado = produto_repo.create(tupla)
         produto_repo.create(tupla2)
     else:

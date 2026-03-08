@@ -1,3 +1,4 @@
+"""
 import pytest
 from unittest.mock import patch
 from datetime import timedelta, date
@@ -30,3 +31,5 @@ def teste_consumivel_update():
     '''Teste para o método update de consumivel repository'''
     resultado = consumivel_repo.update(1, "lote", "AAAAA")
     assert resultado == "Atributo atualizado"
+
+"""
