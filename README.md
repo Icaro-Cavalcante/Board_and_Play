@@ -1,15 +1,15 @@
-# Board & Play ♙
+# ♟️ Board & Play
 
 > Um sistema de gerenciamento de estoque e contratos de serviços para um negócio de aluguel de jogos de tabuleiro.
 
-## ℹ️ Sobre 
+## 🎲 Sobre 
 
 - A Board & Play é um projeto da disciplina de Programação Orientada a Objetos da Universidade Federal do Cariri (UFCA), a qual é ministrada pelo professor Jayr Pereira.
 - O objetivo é desenvolver um sistema de linha de comando (CLI) para gerenciar um negócio fictício de aluguel de jogos de tabuleiro.
 - Nele são necessárias as funcionalidades de cadastro de jogos e clientes no sistema, controle de contratos ativos e de clientes com pagamentos pendentes, multas por violação de contrato por tempo ou avaria do produto, registro de pagamentos, cálculo de custos de risco e previsiblidade de receita.
 
 
-## 📋 Pré-requisitos
+## 🖊️ Pré-requisitos
 
 - Python 3
 
@@ -17,42 +17,92 @@
 
 ```
 Board_and_Play/
-├── src/boad_and_play_poo            
-|   ├── modules
-|   |   ├── domain
-|   |   |    ├── __init__.py          # Transforma o diretório em um pacote
-|   |   |    ├── alugaveis.py         # Classe utilizada para gerenciamento de jogos que atendem aos serviços de aluguel
-|   |   |    ├── clientes.py          # Classe utilizada para cadastro e gerenciamento de clientes
-|   |   |    ├── colaboradores.py     # Classe utilizada para para cadastro e gerenciamento de colaboradores
-|   |   |    ├── compraveis.py        # Classe utilizada para gerenciamento de jogos que atendem aos serviços de compra
-|   |   |    ├── jogos.py             # Classe pai que dá atributos comuns aos jogos alugáveis e compráveis
-|   |   |    └── produtos.py          # Classe pai principal do negócio que dá atributos comuns a todos os itens do negócio
+├── src/ 
+|   ├── board_and_play_poo /                        # Diretório do sistema
+|   |   ├── app/                                    # Diretório da aplicação
+|   |   |    ├── menus/                             # Diretório dos menus
+|   |   |    |   ├── __init__.py                    # Transforma o diretório em um pacote
+|   |   |    |   ├── menu_acessorio.py              # Menu de acessorio
+|   |   |    |   ├── menu_colaborador.py            # Menu de colaborador
+|   |   |    |   ├── menu_consumivel.py             # Menu de jogo consumivel
+|   |   |    |   ├── menu_contrato.py               # Menu de contrato
+|   |   |    |   ├── menu_cliente.py                # Menu de cliente
+|   |   |    |   ├── menu_jogo_aluguel.py           # Menu de jogo aluguel
+|   |   |    |   ├── menu_jogo_venda.py             # Menu de jogo venda
+|   |   |    |   ├── menu_registrar_contrato.py     # Menu de registrar contrato
+|   |   |    |   ├── menu_registrar_venda.py        # Menu de registrar venda
+|   |   |    |   └── menu_venda.py                  # Menu de venda
+|   |   |    |
+|   |   |    ├── __init__.py                        # Transforma o diretório em um pacote
+|   |   |    └── app.py                             # Aplicação, onde o usuário interaje com o sistema
 |   |   |
-|   |   ├── infraestructure
-|   |   |    ├── __init__.py          # Transforma o diretório em um pacote
-|   |   |    └── configuracoes.py     # Arquivo de configurações
+|   |   ├── data/                         #  Diretório do banco de dados
+|   |   |     └── dados.db                #  Banco de dados SQLite
 |   |   |
-|   |   └── services
-|   |       ├── __init__.py           # Transforma o diretório em um pacote
-|   |       ├── aluguel.py            # Classe utilizada para CRUD das instânicas de contratos de aluguel
-|   |       ├── negocios.py           # Classe utilizada para observar outras classes e manter registro de somatórios
-|   |       ├── transacoes.py         # Classe utilizada para CRUD das instâncias de comprovantes de pagamento
-|   |       └── venda.py              # Classe utilizada para CRUD das instâncias de vendas de produto
-|   |  
-|   ├── __init__.py                   # Transforma o diretório em um pacote
-|   └── main.py                       # Arquivo principal do sistema
-|              
-├── testes
-|   ├── __init__.py                   # Transforma o diretório em um pacote
-|   ├── test_aluguel.py               # Testes para o aluguel
-|   └── test_jogo_aluguel.py          # Testes para os jogos alugáveis
-|
-├── README.md                         # Este arquivo
-|
-└── __init__.py                       # Transforma o diretório em um pacote
+|   |   ├── data_test/                    #  Diretório do banco de dados de testes
+|   |   |     └── dados.db                #  Banco de dados de testes SQLite
+|   |   |
+|   |   ├── database/
+|   |   |       ├── __init__.py           # Transforma o diretório em um pacote # database.py
+|   |   |       ├── database.py           # Transforma o diretório em um pacote # database.py
+|   |   |       └── tabelas.py            # Classe utilizada para CRUD das instâncias de vendas de produto
+|   |   |
+|   |   ├── modules/                      # Módulos do projeto
+|   |   |    ├── domain/                  # Classes de domínio
+|   |   |    |   ├── __init__.py          # Transforma o diretório em um pacote
+|   |   |    |   ├── acessorios.py        # Classe que cuida de todos os produtos do tipo acessorio
+|   |   |    |   ├── alugueis.py          # Classe responsável pelas transações de aluguel
+|   |   |    |   ├── clientes.py          # Classe utilizada para para cadastro e gerenciamento de clientes
+|   |   |    |   ├── colaboradores.py     # Classe utilizada para para cadastro e gerenciamento de colaboradores
+|   |   |    |   ├── consumiveis.py       # Classe que cuida de todos os produtos do tipo consumível
+|   |   |    |   ├── jogos_aluguel.py     # Classe que cuida de todos os produtos do tipo jogo aluguel
+|   |   |    |   ├── jogos_venda.py       # Classe que cuida de todos os produtos do tipo jogo venda
+|   |   |    |   ├── jogos.py             # Classe pai que descreve os atributos que existem em todas as especificações de jogos
+|   |   |    |   ├── produtos.py          # Classe pai que integra atributos em comum de suas subclasses, servindo como generalização
+|   |   |    |   ├── transacoes.p         # Classe abstrata que entrega atributos e métodos para Venda e Aluguel
+|   |   |    |   └── venda.py             # Classe que representa uma venda, com métodos de calculo de valor e desconto
+|   |   |    |
+|   |   |    └── infrastructure/
+|   |   |        ├── __init__.py          # Transforma o diretório em um pacote
+|   |   |        ├── config_database.py   # Classe utilizada para configurar o banco de dados
+|   |   |        └── descontos.py         # Classe utilizada para os descontos
+|   |   |
+|   |   ├── repositories/                         # Diretório de repositórios que interagem com o banco de dados
+|   |   |     ├── __init__.py                     # Transforma o diretório em um pacote
+|   |   |     ├── repository_acessorios.py        # Repositório de acessórios
+|   |   |     ├── repository_alugueis.py          # Repositório de aluguéis
+|   |   |     ├── repository_clientes.py          # Repositório de clientes
+|   |   |     ├── repository_colaboradores.py     # Repositório de colaboradores
+|   |   |     ├── repository_consumiveis.py       # Repositório de consumíveis
+|   |   |     ├── repository_jogos_aluguel.py     # Repositório de jogos aluguel
+|   |   |     ├── repository_jogos_venda.py       # Repositório de jogos venda
+|   |   |     ├── repository_jogos.py             # Repositório de jogos
+|   |   |     ├── repository_produtos.py          # Repositório de produtos
+|   |   |     ├── repository_transacoes.py        # Repositório de transações
+|   |   |     └── repository_venda.py             # Repositório de venda
+|   |   |
+|   |   ├── __init__.py                      # Transforma o diretório em um pacote
+|   |   └── main.py                          # Arquivo principal do sistema
+|   |   
+|   └── tests/                               # Diretório de testes unitários
+|         ├── __init__.py                    # Transforma o diretório em um pacote
+|         ├── test_acessorios.py             # Testes unitários de acessório e seu repositório
+|         ├── test_alugueis.py               # Testes unitários de alugúeis e seu repositório
+|         ├── test_clientes.py               # Testes unitários de clientes e seu repositório
+|         ├── test_colaboradores.py          # Testes unitários de colaboradores e seu repositório
+|         ├── test_consumiveis.py            # Testes unitários de consumíveis e seu repositório
+|         ├── test_jogos_aluguel.py          # Testes unitários de jogos aluguel e seu repositório
+|         ├── test_jogos_venda.py            # Testes unitários de jogos venda e seu repositório
+|         ├── test_jogos.py                  # Testes unitários de jogos e seu repositório
+|         ├── test_produtos.py               # Testes unitários de produtos e seu repositório
+|         ├── test_transacoes.py             # Testes unitários de transações e seu repositório
+|         └── test_venda.py                  # Testes unitários de venda e seu repositório
+|  
+├── README.md                                # Este arquivo
+└── requirements.txt                         # Bibliotecas externas
 ```
 
-## 🖳 Como usar 
+## ✍️ Como usar 
 - 1 - Clone o repositório
 - 2 - Crie um ambiente virtual
   -  Abra o terminal
@@ -68,8 +118,32 @@ Board_and_Play/
 - 7 - Para executar o arquivo principal, digite no Terminal: `python -m src.board_and_play_poo.main`
 - 8 - Se quiser executar os testes use `python -m pytest`
 
+## 🏛️ Arquitetura utilizada
+> Domain Driven Development (DDD)
 
+## 🎮 Principios SOLID
+- S — `Princípio da responsabilidade única`
+- O — `Princípio Aberto-Fechado`
+- L — `Princípio da substituição de Liskov`
+- I — `Princípio da Segregação da Interface`
+- D — `Princípio da inversão da dependência`
 
-## 📖 UML textual
+## 🏗️ Padrões de projeto
+- `Template Method` - Método AplicarDesconto presente em Aluguel e Venda
+- `Decorator` - Chamar o método `create` de uma generalização toda vez que chama o método `create` de uma especificação (ex: toda criação de um `acessorio` leva à criação de um `produto` nas tabelas `acessorios` e `produtos`, respectivamente); Método para checar `status` de um contrato e aplicar multas, caso o contrato esteja `alterado`; Métodos que alterem status de um contrato de `'ABERTO'` ou `'ALTERADO'` para `'FECHADO'` ao término da interação de pagamento.
 
+## 📚 Bibliotecas externas
+- `sqlalchemy` - Para interagir com o banco de dados e facilitar migração
+- `pytest` - Para testes unitários
 
+## 👤 Membros
+
+### Contribuidores 🧑‍🎓:
+
+- Icaro Cavalcante;
+- Samuel Jackson;
+- Elilúcio Teixeira.
+
+### Professor Orientador 👨‍🏫:
+
+- Jayr Pereira. 
