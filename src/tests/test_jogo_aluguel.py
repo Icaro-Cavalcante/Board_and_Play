@@ -14,7 +14,7 @@ j_aluguel_repo = Repository_jogo_aluguel(db, tb)
 
 def teste_jogo_alugel_create():
     '''Teste para o método create da classe jogo aluguel repository.'''
-    jogo_aluguel = (1, "HGS7856", "ATIVO")
+    jogo_aluguel = Jogo_aluguel("Monopoly", "PLO-9641", "jogo_aluguel", "Estratégia", "É war, não tem segredo", 12, 4, "HJH-8635" "DISPONIVEL", 1, 1)
     resultado = j_aluguel_repo.create(jogo_aluguel)
     assert resultado == "Jogo aluguel cadastrado"
 
