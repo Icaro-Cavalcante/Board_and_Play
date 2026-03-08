@@ -1,6 +1,6 @@
 from pathlib import Path
 from datetime import datetime
-from src.board_and_play_poo.config_database import Config_database
+from board_and_play_poo.modules.infrastructure.config_database import Config_database
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
     Integer, Date, DateTime, Numeric, # para definir formato dos atributos
