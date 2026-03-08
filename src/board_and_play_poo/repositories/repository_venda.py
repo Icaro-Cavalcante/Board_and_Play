@@ -1,5 +1,5 @@
 from sqlalchemy import text
-from ..modules.domain.venda import Venda
+from ..modules.domain.vendas import Venda
 
 class Repository_venda():
     '''Classe que realiza as operações do banco de dados relacionadas a venda.'''
