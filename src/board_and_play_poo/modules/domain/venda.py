@@ -1,31 +1,47 @@
 from pathlib import Path
 from .transacoes import Transacao
-#from .compraveis import Jogo_venda
-  
+from src.board_and_play_poo.modules.infrastructure.desconto import DescontoPorcent, DescontoValorFixo
 
 class Venda(Transacao):
-    def __init__(self, id_transacao, id_cliente, id_colaborador, nota_fiscal, id_venda = None):
-        self.id_transacao = id_transacao
-        self.id_venda = id_venda
+    def __init__(self, id_cliente, id_colaborador, nota_fiscal, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, venda_id = None, transacao_id = None):
+        super().__init__(self, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id)
+        self.transacao_id = transacao_id
+        self.venda_id = venda_id
         self.id_cliente = id_cliente
         self.id_colaborador = id_colaborador
         self.nota_fiscal = nota_fiscal
-    """
-    @property
-    def id_venda(self) -> int:
-        '''getter para importar o __id_venda encapsulado em outras classes'''
-        return self.__id_venda"""
+        self.comprovante = comprovante
+        self.data_hora = data_hora
+        self.valor_total = valor_total
+        self.forma_pagamento = forma_pagamento
+        self.tipo_transacao = tipo_transacao
 
     def __str__(self):
         return f"ID da Venda: {self.id_venda} | ID da transação: {self.id_transacao} | ID do Cliente: {self.id_cliente}\nQID do Colaborador: {self.id_colaborador} | Nota Fiscla: {self.nota_fiscal}"
     
-    def __eq__(self, outro):
-        return self.id_venda == outro.id_venda
+    def calcular_valor(self, preco, unidades):
+        """Calcula valor final para u, jogo que está sendo vendido"""
+        return preco * unidades
     
-    """def calcular_venda(self, quantidade):
-        '''Recebe o ID do produto a ser comprado e a quantidade e retorna o valor da venda'''
-        tupla = Jogo_venda.read(self.id_produto)
-        objeto = Jogo_venda.tupla_objeto(tupla)
-        valor_compra = objeto._valor_compra
-        venda = valor_compra * quantidade
-        return venda"""
+    def AplicarDesconto(self, valor: float, tipo: str):
+        """Aplica desconto ao valor passado baseado no tipo, tipo deve ser ou 'porcentagem' ou 'valorfixo', não case sensitive"""
+        if tipo.lower == "porcentagem":
+            while True:
+                try:
+                    porcent = int(input("Digite a porcentagem do desconto: "))
+                    break
+                except ValueError:
+                    print("Dado inválido digitado.")
+            descont = DescontoPorcent(porcent)
+            valor = descont.AplicarDesconto(valor)
+            return valor
+        if tipo.lower == "valorfixo":
+            while True:
+                try:
+                    vfixo = int(input("Digite o valor do desconto do desconto: "))
+                    break
+                except ValueError:
+                    print("Dado inválido digitado.")
+            descont = DescontoValorFixo(vfixo)
+            valor = descont.AplicarDesconto(valor)
+            return valor
