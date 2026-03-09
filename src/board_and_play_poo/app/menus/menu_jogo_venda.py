@@ -6,7 +6,7 @@ from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
 tb = Tabela()
-db = Database("real")
+db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
 
 produto_repo = RepositoryProduto(db, tb)
@@ -20,11 +20,12 @@ def decorator_cad_jogo_venda(func):
         lista.append(str(input(f"\nInsira o nome do produto: ")))
         lista.append(str(input(f"\nInsira o código de barras: ")))
         lista.append("JOGO")
-        tupla = (lista)
+        tupla = tuple(lista)
         try:
             produto_id = produto_repo.create(tupla) # Passo I
         except TypeError:
             print("Dado inválido inserido, saindo do cadastro...")
+            return
 
         jogo_id = func(lista, produto_id)
         lista.append(1)
@@ -32,7 +33,7 @@ def decorator_cad_jogo_venda(func):
         lista.append(jogo_id)
         jogo = JogoVenda(lista[0], lista[1], lista[2], lista[3], lista[4], lista[5], lista[6], lista[7], lista[8],lista[9])
         jogo_venda_repo.create(jogo) # Passo III
-        return "tristeza"
+        return "alegria"
     return wrapper
 
 @decorator_cad_jogo_venda # O decorator serve para definir a ordem de criação: primeiro cria um produto, passa o ID para criar um jogo, passa o ID para criar um jogo venda
@@ -48,6 +49,7 @@ def criar_jogo(lista, produto_id):
                 break
             except ValueError:
                 print("Dado inválido")
+                return
         num = (str(input(f"\nInsira o número de jogadores: ")))
         lista.append(num)
         tupla = (produto_id,gen,desc,idade,num)
@@ -62,6 +64,7 @@ def consultar():
         print(obj)
     except ValueError:
         print("\nDado inválido, saindo da consulta...\n")
+        return
 
 def atualizar():
     """Como o menu chama o UPDATE de um JogoVenda"""
@@ -72,6 +75,7 @@ def atualizar():
         jogo_venda_repo.update(id, nome_atributo, novo_atributo)
     except ValueError:
         print("\nDado inválido, saindo da atualização...\n")
+        return
 
 class MenuJogoVenda:
     def menu_jogo_venda():
@@ -97,4 +101,3 @@ class MenuJogoVenda:
                     break
                 case _:
                     print("Escolha inválida.\n")
-MenuJogoVenda.menu_jogo_venda()
