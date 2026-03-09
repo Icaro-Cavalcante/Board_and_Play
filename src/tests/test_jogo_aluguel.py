@@ -27,7 +27,7 @@ def teste_jogo_aluguel_read():
 def teste_jogo_aluguel_update():
     '''Teste para o método update da classe JogoAluguelRepository'''
     teste_jogo_alugel_create()
-    resultado = j_aluguel_repo.update(1, "nome", "War 2026")
+    resultado = j_aluguel_repo.update(1, "genero", "War 2026")
     assert resultado == "Atributo atualizado."
 
 def teste_jogo_aluguel_inactivate():

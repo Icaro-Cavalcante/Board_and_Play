@@ -2,7 +2,7 @@ from datetime import datetime
 from src.board_and_play_poo.modules.infrastructure.config_database import ConfigDatabase
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
-    Integer, Date, DateTime, Numeric, # para definir formato dos atributos
+    Integer, Date, DateTime, Numeric, Text, # para definir formato dos atributos
     ForeignKey) # para especializar relacionamentos
 
 config = ConfigDatabase()
@@ -48,9 +48,9 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('produto_id', Integer, ForeignKey('produtos.id'), nullable=False, unique=True),
             Column('genero', String(15)),
-            Column('descricao', String(200)),
+            Column('descricao', Text),
             Column('idade_min', Integer, default=0),
-            Column('num_jogadores', String(5), default=1)
+            Column('num_jogadores', String, default=1)
         )
         
         self.jogos_aluguel = Table('jogos_aluguel', self.metadata,
@@ -103,7 +103,7 @@ class Tabela():
 
         self.alugueis = Table('alugueis', self.metadata,
             Column('id', Integer, primary_key=True),
-            Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
+            Column('transacao_id', Integer, ForeignKey('transacoes.id'), unique=True),
             Column('cliente_id', Integer, ForeignKey('clientes.id'), nullable=False),
             Column('colaborador_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
             Column('numero_contrato', String(50), unique=True),
