@@ -44,3 +44,28 @@ class RepositoryItemAluguel():
                 return tupla # ItemAluguel é retornado
         else:
             return None # Caso não, None é retornado
+
+    def buscar_por_aluguel(self, id):
+        '''Recebe o ID de um aluguel e retorna as tuplas dos item aluguel desse aluguel'''
+        conexao = self.database.conectar() # Estabelecendo a conexão
+        if conexao: 
+            query = text (f"""
+            SELECT * FROM itens_aluguel 
+            WHERE itens_aluguel.aluguel_id = :id""")
+
+            tuplas = conexao.execute (query, {"id": id, } # query
+            ).all() # Recebe uma lista com as tuplas
+            if tuplas:
+                return tuplas # ItemAluguel é retornado
+            else:
+                return None
+        else:
+            return None # Caso não, None é retornado
+
+    def imprimir_dados(self, tupla):
+        '''Imprime dados de uma tupla de item aluguel, semelhante a uma função __str__'''
+        dic_atributos = {1: "ID", 2: "ID de aluguel", 3: "ID de jogo", 4: "Valor da diária", 5: "Valor da sessão"}
+        atributo_num = 1
+        for atributo in tupla:
+            print(f"{dic_atributos[atributo_num]}: {atributo}")
+            atributo_num += 1
