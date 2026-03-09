@@ -4,17 +4,13 @@ from src.board_and_play_poo.repositories.repository_produto import RepositoryPro
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
-tb = Tabela()
-db = Database("teste")
-tb.create_table(db) # Criando tabelas do db de test
-jogo_repo = RepositoryJogo(db, tb)
-produto_repo = RepositoryProduto(db, tb)
-
 class RepositoryJogoAluguel():
     '''Classe que realiza as operações do banco de dados relacionadas a jogo aluguel'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
+        self.produto_repo = RepositoryProduto(self.database, self.table)
+        self.jogo_repo = RepositoryJogo(self.database, self.table)
 
 # ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
@@ -49,6 +45,15 @@ class RepositoryJogoAluguel():
             return tupla
         return None # Caso não, None é retornado
     
+    def find(self, jogo_id):
+        '''Recebe o ID de um jogo e retorna a tupla com os dados do jogo_aluguel agregado ao id'''
+        conexao = self.database.conectar()
+        if conexao: 
+            query = text(f"""SELECT * FROM jogos_aluguel WHERE jogo_id = :id""")
+            jogo = conexao.execute (query, {"id": jogo_id, }
+            ).first()
+            return jogo
+    
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um jogo aluguel, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         conexao = self.database.conectar() # Estabelecendo a conexão com o banco de dados de testes
@@ -63,9 +68,9 @@ class RepositoryJogoAluguel():
                 id_produto = jogo_aluguel.produto_id
                 print(f"DEBUG: id_produto={id_produto}, id_jogo={id_jogo}")  # Debug
                 if nome_atributo in atributos_produto:
-                    return produto_repo.update(id_produto, nome_atributo, atributo_update)
+                    return self.produto_repo.update(id_produto, nome_atributo, atributo_update)
                 elif nome_atributo in atributos_jogo:
-                    return jogo_repo.update(id_jogo, nome_atributo, atributo_update)
+                    return self.jogo_repo.update(id_jogo, nome_atributo, atributo_update)
                 elif nome_atributo in atributos_jogo_aluguel:
                     query = text (f'''UPDATE jogos_aluguel
                             SET {nome_atributo} = :atributo_update

@@ -4,17 +4,13 @@ from src.board_and_play_poo.repositories.repository_produto import RepositoryPro
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
-tb = Tabela()
-db = Database("teste")
-tb.create_table(db) # Criando tabelas do db de test
-jogo_repo = RepositoryJogo(db, tb)
-produto_repo = RepositoryProduto(db, tb)
-
 class RepositoryJogoVenda():
     '''Classe que realiza as operações do banco de dados relacionadas a jogo venda'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
+        self.produto_repo = RepositoryProduto(self.database, self.table)
+        self.jogo_repo = RepositoryJogo(self.database, self.table)
 
 # ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
@@ -61,9 +57,9 @@ class RepositoryJogoVenda():
                 id_jogo = jogo_venda.jogo_id
                 id_produto = jogo_venda.produto_id
                 if nome_atributo in atributos_produto:
-                    return produto_repo.update(id_produto, nome_atributo, atributo_update)
+                    return self.produto_repo.update(id_produto, nome_atributo, atributo_update)
                 elif nome_atributo in atributos_jogo:
-                    return jogo_repo.update(id_jogo, nome_atributo, atributo_update)
+                    return self.jogo_repo.update(id_jogo, nome_atributo, atributo_update)
                 elif nome_atributo in atributos_jogo_venda:
                     query = text (f'''UPDATE jogos_venda
                             SET {nome_atributo} = :atributo_update

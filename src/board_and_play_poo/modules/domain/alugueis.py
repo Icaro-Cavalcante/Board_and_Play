@@ -3,7 +3,7 @@ from .clientes import Cliente
 from .colaboradores import Colaborador
 from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
-class Aluguel():
+class Aluguel(Transacao):
     '''Classe responsável pelas transações de aluguel'''
     def __init__(self, numero_contrato, data_inicio, data_prevista_devolucao, data_devolucao_real, status, cliente_id=None, colaborador_id=None, transacao_id=None, aluguel_id=None):
         self.__numero_contrato = numero_contrato
@@ -55,6 +55,12 @@ class Aluguel():
     def __str__(self):
         return f"ID do aluguel: {self.__aluguel_id}\nID de transacao desse aluguel: {self.__transacao_id}\nData inicio do aluguel: {self.__data_inicio}\nData prevista para devolucao: {self.__data_prevista_devolucao}\nData devolucao real: {self.__data_devolucao_real}\n Status do aluguel: {self.__status}\n ID do cliente desse aluguel: {self.__cliente_id}\n ID do colaborador desse aluguel: {self.__colaborador_id}"
     
+    def calcular_valor(self):
+        pass
+
+    def gerar_comprovante(self):
+        pass
+
     def AplicarDesconto(self, valor: float, tipo: str):
         """Aplica desconto ao valor passado baseado no tipo, tipo deve ser ou 'porcentagem' ou 'valorfixo', não case sensitive"""
         if tipo.lower == "porcentagem":

@@ -1,27 +1,28 @@
 from pathlib import Path
 from .transacoes import Transacao
-from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
+from src.board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
 class Venda(Transacao):
     """Classe responsável pelas transações de venda"""
-    def __init__(self, cliente_id, colaborador_id, nota_fiscal, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, venda_id = None, transacao_id = None):
-        super().__init__(self, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id)
+    def __init__(self, cliente_id, colaborador_id, nota_fiscal, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id, venda_id = None):
+        super().__init__(comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao , transacao_id)
         self.__venda_id = venda_id
         self.__cliente_id = cliente_id
         self.__colaborador_id = colaborador_id
         self.__nota_fiscal = nota_fiscal
 
     @property
+    def id_transacao(self): return self._transacao_id
+
+    @property
     def venda_id(self):
         return self.__venda_id
-
+    
     @property
-    def cliente_id(self):
-        return self.__cliente_id
-
+    def id_cliente(self): return self.__cliente_id
+    
     @property
-    def colaborador_id(self):
-        return self.__colaborador_id
+    def id_colaborador(self): return self.__colaborador_id
 
     @property
     def nota_fiscal(self):
@@ -30,11 +31,13 @@ class Venda(Transacao):
     def __str__(self):
         return f"ID da Venda: {self.__id_venda} | ID da transação: {self.__id_transacao} | ID do Cliente: {self.__id_cliente}\nQID do Colaborador: {self.__id_colaborador} | Nota Fiscla: {self.__nota_fiscal}"
     
-    def calcular_valor(self, preco, unidades):
-        """Calcula valor final para u, jogo que está sendo vendido"""
+    def calcular_valor(preco, unidades):
         return preco * unidades
     
-    def AplicarDesconto(self, valor: float, tipo: str):
+    def gerar_comprovante(self):
+        return f"Venda ID: {self.__venda_id}"
+    
+    def AplicarDesconto(valor: float, tipo: str):
         """Aplica desconto ao valor passado baseado no tipo, tipo deve ser ou 'porcentagem' ou 'valorfixo', não case sensitive"""
         if tipo.lower == "porcentagem":
             while True:

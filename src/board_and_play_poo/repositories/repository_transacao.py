@@ -13,14 +13,15 @@ class RepositoryTransacao():
         conexao = self.database.conectar()
         if conexao: # Estabelecendo a conexão
             query = text ("""INSERT OR IGNORE INTO transacoes
-            (comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao)
-            VALUES (:comprovante, :data_hora, :valor_total, :forma_pagamento, :tipo_transacao) RETURNING id
+            (comprovante, valor_total, forma_pagamento, tipo_transacao)
+            VALUES (:comprovante, :valor_total, :forma_pagamento, :tipo_transacao) RETURNING id
             """)
-            aux = conexao.execute (query, {"comprovante": transacao.comprovante,"data_hora": transacao.data_hora, "valor_total":transacao.valor_total, "forma_pagamento":transacao.forma_pagamento, "tipo_transacao":transacao.tipo_transacao} # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
-            )
-            UtilId = aux.fetchone()[0]
+            result = conexao.execute (query, {"comprovante": transacao[0], "valor_total":transacao[1], "forma_pagamento":transacao[2], "tipo_transacao":transacao[3]}
+            ) # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
+            id = result.fetchone()
             conexao.commit() # Commitando o cadastro
-            return UtilId
+            if id:
+                return id[0]
         else: # Se não
             return "Não foi possível conectar"
 
@@ -43,9 +44,9 @@ class RepositoryTransacao():
         conexao = self.database.conectar() # Estabelecendo a conexão
         if conexao: 
             query = text (f'''UPDATE transacoes
-                    SET {nome_atributo} = {atributo_update}
-                    WHERE id = {id}''')
-            conexao.execute (query) # Executando a query
+                    SET :atr = :upd
+                    WHERE id = :id''')
+            conexao.execute(query, {"atr": nome_atributo, "upd": atributo_update, "id": id}) # Executando a query
             conexao.commit() # Commitando o update
             return "Atributo atualizado"
         else:

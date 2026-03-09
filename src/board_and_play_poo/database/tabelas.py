@@ -87,9 +87,9 @@ class Tabela():
         self.transacoes = Table('transacoes', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('comprovante', String(10), unique = True),
-            Column('data_hora', DateTime, nullable=False, default=datetime.now),
-            Column('valor_total', Numeric(10,2), nullable=False),
-            Column('forma_pagamento', String(30)),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
+            Column('data_hora', DateTime, nullable=False, default=datetime.now()),
+            Column('valor_total', Numeric(10,2),),
+            Column('forma_pagamento', String(30), nullable=False),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
             Column('tipo_transacao', String(10), nullable=False)  # 'VENDA' ou 'ALUGUEL'
         )
 
@@ -97,7 +97,7 @@ class Tabela():
             Column('id', Integer, primary_key=True),
             Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
             Column('cliente_id', Integer, ForeignKey('clientes.id'), nullable=False),
-            Column('colaborador_id', Integer, ForeignKey('colaboradores.id')),
+            Column('colaborador_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
             Column('nota_fiscal', String(50), unique=True)
         )
 

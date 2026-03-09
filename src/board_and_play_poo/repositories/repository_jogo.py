@@ -36,6 +36,15 @@ class RepositoryJogo():
             return jogo # Jogo é retornado
         return None # Caso não, None é retornado
     
+    def find(self, produto_id):
+        '''Recebe o ID de um produto e retorna a tupla com os dados do jogo agregado ao id'''
+        conexao = self.database.conectar()
+        if conexao: 
+            query = text(f"""SELECT * FROM jogos WHERE produto_id = :id""")
+            jogo = conexao.execute (query, {"id": produto_id, }
+            ).first()
+            return jogo
+    
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um jogo, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         # Nota 1: nome_atributo deve ser passado a partir de um dicionario. Exemplo dic = {1: "nome"}... nome deve ser passado como parâmetro e o usuário não pode passar nada que esteja fora dos atributos do dicionário.

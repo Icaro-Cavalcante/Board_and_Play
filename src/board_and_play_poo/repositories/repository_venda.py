@@ -1,5 +1,4 @@
 from sqlalchemy import text
-
 class RepositoryVenda():
     '''Classe que realiza as operações do banco de dados relacionadas a venda'''
     def __init__(self, database, table):
@@ -14,12 +13,13 @@ class RepositoryVenda():
         if conexao:
             query = text ("""INSERT OR IGNORE INTO vendas
             (transacao_id, clientes_id, colaboradores_id, nota_fiscal)
-            VALUES (:transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)""")
+            VALUES (:transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)RETURNING id""")
 
-            conexao.execute (query, {"transacao_id":venda.id_transacao, "clientes_id":venda.id_cliente, "colaboradores_id":venda.id_colaborador, "nota_fiscal":venda.nota_fiscal} # Query
+            aux = conexao.execute (query, {"transacao_id":venda.id_transacao, "clientes_id":venda.id_cliente, "colaboradores_id":venda.id_colaborador, "nota_fiscal":venda.nota_fiscal} # Query
             )
+            id = aux.fetchone()[0]
             conexao.commit() # Commitando o cadastro
-            return "Venda cadstrada"
+            return id
         else: # Se não
             return "Não foi possível conectar"
 
@@ -35,3 +35,4 @@ class RepositoryVenda():
             return None # Caso não, None é retornado
         else:
             return None # Caso não, None é retornado
+        

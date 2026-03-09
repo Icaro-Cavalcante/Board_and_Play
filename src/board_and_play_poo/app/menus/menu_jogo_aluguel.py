@@ -6,7 +6,7 @@ from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
 tb = Tabela()
-db = Database("teste")
+db = Database("real")
 tb.create_table(db) # Criando tabelas do db de test
 
 produto_repo = RepositoryProduto(db, tb)
