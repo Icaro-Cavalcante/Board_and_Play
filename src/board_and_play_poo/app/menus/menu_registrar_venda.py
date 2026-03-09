@@ -43,9 +43,9 @@ class MenuRegistrarVenda:
                         continuar = int(input("Digite 1 caso ainda há jogos na venda não inclusos, do contrário, digite qualquer outra tecla: "))
                         if continuar != 1: break
                     except ValueError:
-                        print("Dado inválido inserido, reiniciando cadastro")
-                    item_v_repo.gerar_venda(lista_IV, comp, form, nota, cli_id, col_id)
-                    print("Venda cadastrada")
+                        print("Dado inválido inserido, reiniciando cadastro de produtos")
+                item_v_repo.gerar_venda(lista_IV, comp, form, nota, cli_id, col_id)
+                print("Venda cadastrada")
             except ValueError:
                 print("Dado inválido inserido, saindo do cadastro")
 
