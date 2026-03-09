@@ -16,8 +16,9 @@ class RepositoryTransacao():
             (comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao)
             VALUES (:comprovante, :data_hora, :valor_total, :forma_pagamento, :tipo_transacao) RETURNING id
             """)
-            UtilId = conexao.execute (query, {"comprovante": transacao.comprovante,"data_hora": transacao.data_hora, "valor_total":transacao.valor_total, "forma_pagamento":transacao.forma_pagamento, "tipo_transacao":transacao.tipo_transacao} # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
+            aux = conexao.execute (query, {"comprovante": transacao.comprovante,"data_hora": transacao.data_hora, "valor_total":transacao.valor_total, "forma_pagamento":transacao.forma_pagamento, "tipo_transacao":transacao.tipo_transacao} # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
             )
+            UtilId = aux.fetchone()[0]
             conexao.commit() # Commitando o cadastro
             return UtilId
         else: # Se não

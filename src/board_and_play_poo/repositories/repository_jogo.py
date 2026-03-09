@@ -14,13 +14,14 @@ class RepositoryJogo():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, genero, descricao, idade_min, num_jogadores)
-            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)
+            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores) RETURNING id
             """) # Query
 
-            conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
+            result = conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
             )
+            obj_id = result.scalar()
             conexao.commit() # Commitando o cadastro
-            return "Jogo cadastrado"
+            return obj_id
 
         else: # Se não
             return "Não foi possível conectar"

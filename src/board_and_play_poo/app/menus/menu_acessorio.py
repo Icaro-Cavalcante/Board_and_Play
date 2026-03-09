@@ -13,14 +13,17 @@ class MenuAcessorio:
                     print("\nA opção deve ser um número inteiro.\n")
             match escolha:
                 case 1:
-                    print("\n===Função em desenvolvimento===\n")
+                    MenuAcessorio.cadastro_acessorio()
                 case 2:
-                    print("\n===Função em desenvolvimento===\n")
+                    MenuAcessorio.consultar()
                 case 3:
-                    print("\n===Função em desenvolvimento===\n")
+                    MenuAcessorio.update()
                 case 4:
-                    print("\n===Função em desenvolvimento===\n")
+                    MenuAcessorio.inativar()
                 case 5:
                     break
                 case _:
                     print("Escolha inválida.\n")
+
+    def cadastro_acessorio(self):
+        pass
