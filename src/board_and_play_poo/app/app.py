@@ -1,3 +1,20 @@
+from src.board_and_play_poo.database.database import Database
+from src.board_and_play_poo.database.tabelas import Tabela
+from src.board_and_play_poo.app.menus.menu_acessorio import MenuAcessorio
+from src.board_and_play_poo.app.menus.menu_cliente import MenuCliente
+from src.board_and_play_poo.app.menus.menu_colaborador import MenuColaborador
+from src.board_and_play_poo.app.menus.menu_consumivel import MenuConsumivel
+from src.board_and_play_poo.app.menus.menu_contrato import MenuContrato
+from src.board_and_play_poo.app.menus.menu_jogo_aluguel import MenuJogoAluguel
+from src.board_and_play_poo.app.menus.menu_jogo_venda import MenuJogoVenda
+from src.board_and_play_poo.app.menus.menu_registrar_contrato import MenuRegistrarContrato
+from src.board_and_play_poo.app.menus.menu_registrar_venda import MenuRegistrarVenda
+from src.board_and_play_poo.app.menus.menu_venda import MenuVenda
+
+tb = Tabela()
+db = Database("real")
+tb.create_table(db)
+
 class App():
     """Aplicação, onde são guardados os menus que serão chamados para a interação do usuáiro"""
     def menu_principal():
