@@ -3,15 +3,15 @@ from .clientes import Cliente
 from .colaboradores import Colaborador
 from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
-class Aluguel(Transacao):
+class Aluguel():
     '''Classe responsável pelas transações de aluguel'''
-    def __init__(self, comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, numero_contrato, data_inicio, data_prevista_devolucao, data_devolucao_real, status, transacao_id=None, cliente_id=None, colaborador_id=None, aluguel_id=None):
-        super().__init__(comprovante, data_hora, valor_total, forma_pagamento, tipo_transacao, transacao_id)
+    def __init__(self, numero_contrato, data_inicio, data_prevista_devolucao, data_devolucao_real, status, cliente_id=None, colaborador_id=None, transacao_id=None, aluguel_id=None):
         self.__numero_contrato = numero_contrato
         self.__data_inicio = data_inicio
         self.__data_prevista_devolucao = data_prevista_devolucao
         self.__data_devolucao_real = data_devolucao_real
         self.__status = status
+        self.__transacao_id = transacao_id
         self.__cliente_id = cliente_id
         self.__colaborador_id = colaborador_id
         self.__aluguel_id = aluguel_id
@@ -43,6 +43,10 @@ class Aluguel(Transacao):
     @property
     def colaborador_id(self):
         return self.__colaborador_id
+        
+    @property
+    def transacao_id(self):
+        return self.__transacao_id
 
     @property
     def aluguel_id(self):
