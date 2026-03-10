@@ -35,6 +35,14 @@ class RepositoryAcessorio():
             return acessorio # Acessório é retornado
         return None # Caso não, None é retornado
     
+    def imprimir_dados(self, tupla):
+        '''Imprime dados de uma tupla de acessório, semelhante a uma função __str__'''
+        dic_atributos = {1: "Nome", 2: "Código de barras", 3: "Categoria do Produto", 4: "Tipo do acessório", 5: "Quantidade", 6: "ID de produto", 7: "ID de acessório"}
+        atributo_num = 1
+        for atributo in tupla:
+            print(f"{dic_atributos[atributo_num]}: {atributo}")
+            atributo_num += 1
+
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um acessorio, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
         # Nota 1: nome_atributo deve ser passado a partir de um dicionario. Exemplo dic = {1: "nome"}... nome deve ser passado como parâmetro e o usuário não pode passar nada que esteja fora dos atributos do dicionário.

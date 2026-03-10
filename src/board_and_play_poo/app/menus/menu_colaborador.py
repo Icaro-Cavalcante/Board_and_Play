@@ -56,7 +56,7 @@ class MenuColaborador:
         colaborador_repo.create(novo_colaborador)
 
     def consultar():
-        '''Menu para onsultar os dados de um colaborador caso ele exista'''
+        '''Menu para consultar os dados de um colaborador caso ele exista'''
         while True:
             try:
                 id = int(input("Insira o ID de um colaborador: "))
@@ -89,14 +89,14 @@ class MenuColaborador:
                     print("===Atributos===")
                     for atributo in dic_atributos:
                         print(f"{atributo} - {dic_atributos[atributo]}")
-                        escolha = int(input("Escolha um atributo: "))
-                        match escolha:
-                            case 1 | 2 | 3 | 4 | 5 | 7 | 8:
-                                update = str(input("Insira o dado atualizado: "))
-                            case 6:
-                                update = float(input("Insira o dado atualizado: "))
-                            case _:
-                                raise ValueError
+                    escolha = int(input("Escolha um atributo: "))
+                    match escolha:
+                        case 1 | 2 | 3 | 4 | 5 | 7 | 8:
+                            update = str(input("Insira o dado atualizado: "))
+                        case 6:
+                            update = float(input("Insira o dado atualizado: "))
+                        case _:
+                            raise ValueError
                     break
                 except ValueError:
                     print("\nInput digitado não válido.\n")
