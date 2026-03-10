@@ -1,7 +1,5 @@
 from .transacoes import Transacao
-from .clientes import Cliente
-from .colaboradores import Colaborador
-from board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
+from src.board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
 class Aluguel():
     '''Classe responsável pelas transações de aluguel'''

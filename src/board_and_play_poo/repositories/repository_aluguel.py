@@ -17,10 +17,12 @@ class RepositoryAluguel():
             (transacao_id, cliente_id, colaborador_id, numero_contrato, data_inicio, data_prevista_devolucao, data_devolucao_real, status)
             VALUES (:transacao_id, :cliente_id, :colaborador_id, :numero_contrato, :data_inicio, :data_prevista_devolucao, :data_devolucao_real, :status)""") # Query
 
-            conexao.execute (query, {"transacao_id":aluguel.transacao_id, "cliente_id":aluguel.cliente_id, "colaborador_id":aluguel.colaborador_id, "numero_contrato":aluguel.numero_contrato, "data_inicio":aluguel.data_inicio, "data_prevista_devolucao":aluguel.data_prevista_devolucao, "data_devolucao_real":aluguel.data_devolucao_real, "status":aluguel.status} # Executando a query
+            aux = conexao.execute (query, {"transacao_id":aluguel.transacao_id, "cliente_id":aluguel.cliente_id, "colaborador_id":aluguel.colaborador_id, "numero_contrato":aluguel.numero_contrato, "data_inicio":aluguel.data_inicio, "data_prevista_devolucao":aluguel.data_prevista_devolucao, "data_devolucao_real":aluguel.data_devolucao_real, "status":aluguel.status} # Executando a query
             )
+            id = aux.lastrowid
             conexao.commit() # Commitando o cadastro
-            return "Aluguel cadastrado"
+            conexao.close()
+            return id
         else: # Se não
             return "Não foi possível conectar"
 
@@ -68,6 +70,7 @@ class RepositoryAluguel():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"
