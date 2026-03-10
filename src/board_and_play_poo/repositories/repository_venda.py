@@ -33,9 +33,7 @@ class RepositoryVenda():
             venda_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
             ).first() # É retornada uma lista com uma tupla dentro
             if venda_bd: # Caso o venda exista
-                conexao.close()
                 return venda_bd # venda é retornado
-            conexao.close()
             return None # Caso não, None é retornado
         else:
             return None # Caso não, None é retornado

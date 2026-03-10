@@ -43,11 +43,9 @@ class RepositoryItemVenda():
 
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             if tupla:
                 return tupla # ItemVenda é retornado
         else:
-            conexao.close()
             return None # Caso não, None é retornado
         
     def gerar_venda(self, lista_IV, comprovante, ForPagmt, nota_fiscal, cliente_id, colaborador_id):

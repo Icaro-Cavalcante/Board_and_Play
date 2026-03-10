@@ -32,7 +32,6 @@ class RepositoryCliente():
             query = text (f"""SELECT * FROM clientes WHERE id = :id""")
             cliente = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             if cliente:
                 return Cliente(cliente[1], cliente[2], cliente[3], cliente[4], cliente[5], cliente[0])
         return None # Caso não, None é retornado

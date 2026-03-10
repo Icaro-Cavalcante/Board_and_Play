@@ -36,7 +36,6 @@ class RepositoryTransacao():
 
         if transacoes_bd: # Caso a transação exista
             transacao = Transacao(transacoes_bd[0], transacoes_bd[1], transacoes_bd[2], transacoes_bd[3], transacoes_bd[4], transacoes_bd[5]) # Transformando transação em um objeto
-            conexao.close()
             return transacao # transação é retornada
         return None # Caso não, None é retornado
     

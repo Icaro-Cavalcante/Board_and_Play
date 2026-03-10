@@ -79,8 +79,10 @@ class RepositoryJogoAluguel():
                     conexao.close()
                     return "Atributo atualizado."
                 else:
+                    conexao.close()
                     return "Atributo inválido"
             else:
+                conexao.close()
                 return "Jogo aluguel não existe"
         else:
             return "Não foi possível conectar"

@@ -40,7 +40,6 @@ class RepositoryJogoVenda():
             WHERE jogos_venda.id = :id""")
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             return tupla
         conexao.close()
         return None # Caso não, None é retornado

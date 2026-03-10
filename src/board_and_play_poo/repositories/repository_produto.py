@@ -33,7 +33,6 @@ class RepositoryProduto():
             query = text ("""SELECT * FROM produtos WHERE id = :id""") # query
             produto_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
             ).first() # É retornada uma lista com uma tupla dentro
-            conexao.close()
             return produto_bd # Produto é retornado
         else: # Se a conexão não existir
             return None # Caso não, None é retornado

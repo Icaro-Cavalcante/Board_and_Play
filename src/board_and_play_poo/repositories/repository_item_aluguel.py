@@ -36,7 +36,6 @@ class RepositoryItemAluguel():
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
             if tupla:
-                conexao.close()
                 return tupla # ItemAluguel é retornado
         else:
             conexao.close()
