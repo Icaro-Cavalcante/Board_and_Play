@@ -49,4 +49,4 @@ class Colaborador:
         return self.__colaborador_id
 
     def __str__(self):
-        return f"ID do colaborador: {self.__colaborador_id}\nCPF do colaborador: {self.__cpf}\nNome do colaborador: {self.__nome}\nE-mail do colaborador: {self.__email}\nContato do colaborador: {self.__contato}\nContato de emergência do colaborador: {self.__colaborador}\nSalário base do colaborador: {self.__salario}\nCargo do colaborador: {self.__salario}\nStatus do colaborador: {self.__status}"
+        return f"ID do colaborador: {self.__colaborador_id} | CPF do colaborador: {self.__cpf} | Nome do colaborador: {self.__nome}\nE-mail do colaborador: {self.__email} | Contato do colaborador: {self.__contato} | Contato de emergência do colaborador: {self.__contato_emergencia}\nSalário base do colaborador: {self.__salario} | Cargo do colaborador: {self.__salario} | Status do colaborador: {self.__status}"

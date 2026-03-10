@@ -66,7 +66,7 @@ class MenuColaborador:
 
         colaborador_consulta = colaborador_repo.read(id)
         if colaborador_consulta:
-            colaborador_repo.imprimir_dados(colaborador_consulta)
+            print(colaborador_consulta)
         else:
             print("O colaborador não existe.")
 

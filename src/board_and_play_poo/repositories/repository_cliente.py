@@ -1,4 +1,5 @@
 from sqlalchemy import text
+from src.board_and_play_poo.modules.domain.clientes import Cliente
 
 class RepositoryCliente():
     '''Classe que realiza as operações do banco de dados relacionadas a cliente'''
@@ -32,7 +33,8 @@ class RepositoryCliente():
             cliente = conexao.execute (query, {"id": id, } # query
             ).first()
             conexao.close()
-            return cliente # Cliente é retornado
+            if cliente:
+                return Cliente(cliente[1], cliente[2], cliente[3], cliente[4], cliente[5], cliente[0])
         return None # Caso não, None é retornado
     
     def imprimir_dados(self, tupla):
