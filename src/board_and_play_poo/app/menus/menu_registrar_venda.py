@@ -18,6 +18,7 @@ class MenuRegistrarVenda:
     """Menu das classes Venda e ItemVenda"""  
     # comprovante, ForPagmt,  nota_fiscal, cliente_id, colaborador_id
     def menu_gerar_venda():
+        '''Menu que irá serir para o registro de vendas e seus dados'''
         print("\nRegistro de Venda\n\nCaso deseje sair anterior ao cadastro de fato, ao sistema pedir o id de cliente digite qualquer caractere não numérico")
         print("-" * 20)
         while True:
@@ -48,8 +49,10 @@ class MenuRegistrarVenda:
                 print("Venda cadastrada")
             except ValueError:
                 print("Dado inválido inserido, saindo do cadastro")
+            break
 
     def check_alugavel(prod):
+        '''Verifica se o jogo é alugável, retorna true se é'''
         if prod:
             if prod.categoria == "JOGO":
                 jog = jogo_repo.find(prod.id)

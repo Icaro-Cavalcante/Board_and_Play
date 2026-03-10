@@ -12,17 +12,16 @@ class Venda(Transacao):
         self.__nota_fiscal = nota_fiscal
 
     @property
-    def id_transacao(self): return self._transacao_id
+    def id_transacao(self): 
+        return self._transacao_id
 
     @property
-    def venda_id(self):
-        return self.__venda_id
-    
+    def id_cliente(self): 
+        return self.__cliente_id
+
     @property
-    def id_cliente(self): return self.__cliente_id
-    
-    @property
-    def id_colaborador(self): return self.__colaborador_id
+    def id_colaborador(self): 
+        return self.__colaborador_id
 
     @property
     def nota_fiscal(self):

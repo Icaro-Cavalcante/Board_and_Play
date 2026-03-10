@@ -33,9 +33,6 @@ class Transacao(ABC):
     @property
     def tipo_transacao(self):
         return self._tipo_transacao
-    
-    def __str__(self):
-        return f"ID da transação: {self._id} | ID do cliente: {self._id_cliente} | ID do colaborador: {self._id_colaborador}\n"
 
     @abstractmethod
     def calcular_valor(self, preco):
