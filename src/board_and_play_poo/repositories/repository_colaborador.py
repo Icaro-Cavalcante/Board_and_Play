@@ -32,7 +32,6 @@ class RepositoryColaborador():
             query = text (f"""SELECT * FROM colaboradores WHERE id = :id""")
             colaborador = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             if colaborador:
                 return Colaborador(colaborador[1], colaborador[2], colaborador[3], colaborador[4], colaborador[5], colaborador[6], colaborador[7], colaborador[8], colaborador[0])
         return None # Caso não, None é retornado

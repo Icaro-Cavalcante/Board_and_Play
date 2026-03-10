@@ -31,7 +31,6 @@ class RepositoryAcessorio():
             query = text (f"""SELECT * FROM acessorios WHERE id = :id""")
             acessorio = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             return acessorio # Acessório é retornado
         return None # Caso não, None é retornado
     

@@ -31,7 +31,6 @@ class RepositoryConsumivel():
             query = text (f"""SELECT * FROM consumiveis WHERE id = :id""")
             consumivel = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             return consumivel # Consumível é retornado
         return None # Caso não, None é retornado
     

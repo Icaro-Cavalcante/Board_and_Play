@@ -34,7 +34,6 @@ class RepositoryJogo():
             query = text (f"""SELECT * FROM jogos WHERE id = :id""")
             jogo = conexao.execute (query, {"id": id, } # query
             ).first()
-            conexao.close()
             return jogo # Jogo é retornado
         return None # Caso não, None é retornado
     
@@ -45,7 +44,6 @@ class RepositoryJogo():
             query = text(f"""SELECT * FROM jogos WHERE produto_id = :id""")
             jogo = conexao.execute (query, {"id": produto_id, }
             ).first()
-            conexao.close()
             return jogo
     
     def update(self, id, nome_atributo, atributo_update):
