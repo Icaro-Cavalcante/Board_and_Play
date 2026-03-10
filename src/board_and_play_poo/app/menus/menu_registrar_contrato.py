@@ -18,16 +18,19 @@ class MenuRegistrarContrato:
             print("3 - Cancelar")
             opcao = input("Selecione: ")
             if opcao == "1":
-                jogo_id = int(input("ID do jogo: "))
-                valor_diaria = float(input("Valor diária: "))
-                valor_sessao = float(input("Valor sessão: "))
-                resposta = MenuRegistrarContrato.service.adicionar_jogo_carrinho(
-                    carrinho,
-                    jogo_id,
-                    valor_diaria,
-                    valor_sessao
-                )
-                print(resposta)
+                try:
+                    jogo_id = int(input("ID do jogo: "))
+                    valor_diaria = float(input("Valor diária: "))
+                    valor_sessao = float(input("Valor sessão: "))
+                    resposta = MenuRegistrarContrato.service.adicionar_jogo_carrinho(
+                        carrinho,
+                        jogo_id,
+                        valor_diaria,
+                        valor_sessao
+                    )
+                    print(resposta)
+                except ValueError:
+                    print("Dado inválido inserido, retornando ao menu de registro")
             elif opcao == "2":
                 aluguel = MenuRegistrarContrato.criar_objeto_aluguel()
                 resposta = MenuRegistrarContrato.service.gerar_contrato(
@@ -41,11 +44,14 @@ class MenuRegistrarContrato:
                 break
 
     def criar_objeto_aluguel():
-        cliente_id = int(input("ID do cliente: "))
-        colaborador_id = int(input("ID do colaborador: "))
-        numero_contrato = input("Número do contrato: ")
-        data_inicio = input("Data início: ")
-        data_prevista = input("Data prevista devolução: ")
+        try:
+            cliente_id = int(input("ID do cliente: "))
+            colaborador_id = int(input("ID do colaborador: "))
+            numero_contrato = input("Número do contrato: ")
+            data_inicio = input("Data início: ")
+            data_prevista = input("Data prevista devolução: ")
+        except ValueError:
+            print("Dado inválido inserido, retornando ao menu de registro")
 
 # O id de transação será cadastrado como None, pois os atributos de Transacao sóo são relevante para um contrato com status 'FECHADO'
         

@@ -28,7 +28,7 @@ class Venda(Transacao):
         return self.__nota_fiscal
 
     def __str__(self):
-        return f"ID da Venda: {self.__id_venda} | ID da transação: {self.__id_transacao} | ID do Cliente: {self.__id_cliente}\nQID do Colaborador: {self.__id_colaborador} | Nota Fiscla: {self.__nota_fiscal}"
+        return f"ID da Venda: {self.__venda_id} | ID da transação: {self._transacao_id} | ID do Cliente: {self.__cliente_id}\nQID do Colaborador: {self.__colaborador_id} | Nota Fiscla: {self.__nota_fiscal}"
     
     def calcular_valor(preco, unidades):
         return preco * unidades

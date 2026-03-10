@@ -3,7 +3,7 @@ from src.board_and_play_poo.modules.infrastructure.config_database import Config
 from sqlalchemy import (
     Table, String, Column, MetaData, # para estrutura das tabelas
     Integer, Date, DateTime, Numeric, Text, # para definir formato dos atributos
-    ForeignKey) # para especializar relacionamentos
+    ForeignKey, func) # para especializar relacionamentos
 
 config = ConfigDatabase()
 
@@ -87,7 +87,7 @@ class Tabela():
         self.transacoes = Table('transacoes', self.metadata,
             Column('id', Integer, primary_key=True),
             Column('comprovante', String(10), unique = True),
-            Column('data_hora', DateTime, nullable=False, default=datetime.now()),
+            Column('data_hora', DateTime, nullable=False, server_default=func.now(), default=datetime.now),
             Column('valor_total', Numeric(10,2),),
             Column('forma_pagamento', String(30), nullable=False),  # 'DINHEIRO', 'DEBITO', 'CREDITO', 'PIX'
             Column('tipo_transacao', String(10), nullable=False)  # 'VENDA' ou 'ALUGUEL'

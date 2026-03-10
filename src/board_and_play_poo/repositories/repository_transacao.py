@@ -1,5 +1,4 @@
 from sqlalchemy import text
-from ..modules.domain.transacoes import Transacao
 
 class RepositoryTransacao():
     '''Classe que realiza as operações do banco de dados relacionadas a transacao'''
@@ -13,10 +12,10 @@ class RepositoryTransacao():
         conexao = self.database.conectar()
         if conexao: # Estabelecendo a conexão
             query = text ("""INSERT OR IGNORE INTO transacoes
-            (id, comprovante, valor_total, forma_pagamento, tipo_transacao)
-            VALUES (:id, :comprovante, :valor_total, :forma_pagamento, :tipo_transacao)
+            (comprovante, valor_total, forma_pagamento, tipo_transacao)
+            VALUES (:comprovante, :valor_total, :forma_pagamento, :tipo_transacao)
             """)
-            result = conexao.execute (query, {"id": 1, "comprovante": transacao[0], "valor_total":transacao[1], "forma_pagamento":transacao[2], "tipo_transacao":transacao[3]}
+            result = conexao.execute (query, {"comprovante": transacao[0], "valor_total":transacao[1], "forma_pagamento":transacao[2], "tipo_transacao":transacao[3]}
             ) # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
             id = result.lastrowid
             conexao.commit() # Commitando o cadastro
@@ -35,9 +34,21 @@ class RepositoryTransacao():
         transacoes_bd = transacoes_bd[0] # Pega a tupla da lista
 
         if transacoes_bd: # Caso a transação exista
-            transacao = Transacao(transacoes_bd[0], transacoes_bd[1], transacoes_bd[2], transacoes_bd[3], transacoes_bd[4], transacoes_bd[5]) # Transformando transação em um objeto
-            return transacao # transação é retornada
+            return transacoes_bd # transação é retornada
         return None # Caso não, None é retornado
+    
+    def read_especifico_join_venda(self, atributo, status):
+        conexao = self.database.conectar()
+        if conexao:
+            query = text(f"""SELECT * FROM transacoes JOIN vendas WHERE {atributo} = :status AND transacoes.id == vendas.id""")
+            tupla = conexao.execute (query, {"status": status,}).all()
+            if tupla:
+                lista = []
+                for tuple in tupla:
+                    lista.append(tuple)
+                return lista
+            else:
+                return None
     
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de uma transação, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados'''
