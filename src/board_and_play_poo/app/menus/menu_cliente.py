@@ -64,7 +64,7 @@ class MenuCliente:
 
         cliente_consulta = cliente_repo.read(id)
         if cliente_consulta:
-            cliente_repo.imprimir_dados(cliente_consulta)
+            print(cliente_consulta)
         else:
             print("O cliente não existe.")
 

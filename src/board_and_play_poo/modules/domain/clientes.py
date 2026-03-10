@@ -34,4 +34,4 @@ class Cliente:
         return self.__cliente_id
 
     def __str__(self):
-        return f"ID do cliente: {self.__cliente_id}\nCPF do cliente: {self.__cpf}\nNome do cliente: {self.__nome}\nE-mail do cliente: {self.__email}\nContatos do cliente: {self.__contato}\nStatus do cliente: {self.__status}"
+        return f"ID do cliente: {self.__cliente_id} | CPF do cliente: {self.__cpf} | Nome do cliente: {self.__nome}\nE-mail do cliente: {self.__email} | Contatos do cliente: {self.__contato} | Status do cliente: {self.__status}"

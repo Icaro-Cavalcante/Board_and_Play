@@ -34,16 +34,8 @@ class RepositoryColaborador():
             ).first()
             conexao.close()
             if colaborador:
-                return colaborador # Colaborador é retornado
+                return Colaborador(colaborador[1], colaborador[2], colaborador[3], colaborador[4], colaborador[5], colaborador[6], colaborador[7], colaborador[8], colaborador[0])
         return None # Caso não, None é retornado
-
-    def imprimir_dados(self, tupla):
-        '''Imprime dados de uma tupla de colaborador, semelhante a uma função __str__'''
-        dic_atributos = {1: "ID", 2: "CPF", 3: "Nome", 4: "Email", 5: "Contato", 6: "Contato de emergencia", 7: "Salário", 8: "Cargo", 9: "Status"}
-        atributo_num = 1
-        for atributo in tupla:
-            print(f"{dic_atributos[atributo_num]}: {atributo}")
-            atributo_num += 1
     
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um colaborador, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''

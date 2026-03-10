@@ -1,4 +1,5 @@
 from sqlalchemy import text
+
 class RepositoryVenda():
     '''Classe que realiza as operações do banco de dados relacionadas a venda'''
     def __init__(self, database, table):

@@ -1,8 +1,6 @@
 from sqlalchemy import text
 from src.board_and_play_poo.repositories.repository_jogo import RepositoryJogo
 from src.board_and_play_poo.repositories.repository_produto import RepositoryProduto
-from src.board_and_play_poo.database.database import Database
-from src.board_and_play_poo.database.tabelas import Tabela
 
 class RepositoryJogoVenda():
     '''Classe que realiza as operações do banco de dados relacionadas a jogo venda'''

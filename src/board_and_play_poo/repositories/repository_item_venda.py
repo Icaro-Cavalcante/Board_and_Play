@@ -1,7 +1,5 @@
 from sqlalchemy import text
 from datetime import datetime
-from src.board_and_play_poo.database.database import Database
-from src.board_and_play_poo.database.tabelas import Tabela
 from src.board_and_play_poo.repositories.repository_transacao import RepositoryTransacao
 from src.board_and_play_poo.repositories.repository_venda import RepositoryVenda
 from src.board_and_play_poo.modules.domain.vendas import Venda
