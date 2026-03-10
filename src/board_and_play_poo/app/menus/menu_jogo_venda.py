@@ -6,8 +6,8 @@ from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
 tb = Tabela()
-db = Database("teste")
-tb.create_table(db) # Criando tabelas do db de test
+db = Database("real")
+tb.create_table(db)
 
 produto_repo = RepositoryProduto(db, tb)
 jogo_repo = RepositoryJogo(db, tb)
@@ -101,3 +101,4 @@ class MenuJogoVenda:
                     break
                 case _:
                     print("Escolha inválida.\n")
+MenuJogoVenda.menu_jogo_venda()
