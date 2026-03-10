@@ -86,7 +86,7 @@ class App():
                 case 2:
                     MenuJogoVenda.menu_jogo_venda()
                 case 3:
-                    App.menu_consumivel()
+                    MenuConsumivel.menu_consumivel()
                 case 4:
                     App.menu_acessorio()
                 case 5:
