@@ -14,13 +14,14 @@ class RepositoryJogo():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO jogos
             (produto_id, genero, descricao, idade_min, num_jogadores)
-            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores) RETURNING id
+            VALUES (:produto_id, :genero, :descricao, :idade_min, :num_jogadores)
             """) # Query
 
             result = conexao.execute (query, {"produto_id":jogo[0], "genero":jogo[1], "descricao":jogo[2], "idade_min":jogo[3], "num_jogadores":jogo[4]} # Executando a query
             )
-            obj_id = result.scalar()
+            obj_id = result.lastrowid
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return obj_id
 
         else: # Se não
@@ -33,6 +34,7 @@ class RepositoryJogo():
             query = text (f"""SELECT * FROM jogos WHERE id = :id""")
             jogo = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             return jogo # Jogo é retornado
         return None # Caso não, None é retornado
     
@@ -43,6 +45,7 @@ class RepositoryJogo():
             query = text(f"""SELECT * FROM jogos WHERE produto_id = :id""")
             jogo = conexao.execute (query, {"id": produto_id, }
             ).first()
+            conexao.close()
             return jogo
     
     def update(self, id, nome_atributo, atributo_update):
@@ -56,6 +59,7 @@ class RepositoryJogo():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"

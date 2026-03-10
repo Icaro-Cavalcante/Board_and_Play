@@ -25,6 +25,7 @@ class RepositoryItemAluguel():
             conexao.execute (query, {"aluguel_id": item_aluguel[0], "jogo_id":item_aluguel[1], "valor_diaria":item_aluguel[2], "valor_sessao":item_aluguel[3]} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Jogo aluguel cadastrado"
 
         else: # Se não
@@ -41,8 +42,10 @@ class RepositoryItemAluguel():
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
             if tupla:
+                conexao.close()
                 return tupla # ItemAluguel é retornado
         else:
+            conexao.close()
             return None # Caso não, None é retornado
 
     def buscar_por_aluguel(self, id):
@@ -55,11 +58,13 @@ class RepositoryItemAluguel():
 
             tuplas = conexao.execute (query, {"id": id, } # query
             ).all() # Recebe uma lista com as tuplas
+            conexao.close()
             if tuplas:
                 return tuplas # ItemAluguel é retornado
             else:
                 return None
         else:
+            conexao.close()
             return None # Caso não, None é retornado
 
     def imprimir_dados(self, tupla):

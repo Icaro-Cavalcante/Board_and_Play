@@ -25,6 +25,7 @@ class RepositoryJogoVenda():
             conexao.execute (query, {"jogo_id":jogo_venda.jogo_id, "quantidade": jogo_venda.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Jogo venda cadastrado"
         else: # Se não
             return "Não foi possível conectar"
@@ -41,7 +42,9 @@ class RepositoryJogoVenda():
             WHERE jogos_venda.id = :id""")
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             return tupla
+        conexao.close()
         return None # Caso não, None é retornado
 
     def update(self, id, nome_atributo, atributo_update):
@@ -66,10 +69,14 @@ class RepositoryJogoVenda():
                             WHERE id = :id''') # query
                     conexao.execute (query, {"atributo_update": atributo_update, "id": id})
                     conexao.commit()
+                    conexao.close()
                     return "Atributo atualizado."
                 else:
+                    conexao.close()
                     return "Atributo inválido"
             else:
+                conexao.close()
                 return "Jogo venda não existe"
         else:
+            conexao.close()
             return "Não foi possível conectar"

@@ -19,6 +19,7 @@ class RepositoryAcessorio():
             conexao.execute (query, {"produto_id":acessorio.produto_id, "tipo_acessorio":acessorio.tipo_acessorio, "quantidade":acessorio.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Acessório cadastrado"
         else: # Se não
             return "Não foi possível conectar"
@@ -30,6 +31,7 @@ class RepositoryAcessorio():
             query = text (f"""SELECT * FROM acessorios WHERE id = :id""")
             acessorio = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             return acessorio # Acessório é retornado
         return None # Caso não, None é retornado
     
@@ -44,6 +46,7 @@ class RepositoryAcessorio():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"
