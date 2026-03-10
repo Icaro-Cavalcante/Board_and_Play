@@ -1,3 +1,4 @@
+import random
 from .transacoes import Transacao
 from src.board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
@@ -56,8 +57,8 @@ class Aluguel(Transacao):
     def calcular_valor(self):
         pass
 
-    def gerar_comprovante(self):
-        pass
+    def gerar_comprovante():
+        return f"Venda:{random.randint(1, 99999999999999)}"
 
     def AplicarDesconto(self, valor: float, tipo: str):
         """Aplica desconto ao valor passado baseado no tipo, tipo deve ser ou 'porcentagem' ou 'valorfixo', não case sensitive"""

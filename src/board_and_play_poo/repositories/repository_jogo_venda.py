@@ -77,3 +77,15 @@ class RepositoryJogoVenda():
         else:
             conexao.close()
             return "Não foi possível conectar"
+        
+    def produto_jogoV_quantidade(self, produto_id):
+        conexao = self.database.conectar()
+        if conexao:
+            query = text (f'''SELECT jogos_venda.id 
+            FROM jogos_venda 
+            JOIN jogos ON jogos_venda.jogo_id = jogos.id 
+            JOIN produtos ON jogos.produto_id = produtos.id 
+            WHERE produtos.id = :produto_id''') # query
+            conexao.execute (query, {"produto_id": produto_id,})
+            aux = conexao.execute(query, {"produto_id": produto_id}).scalar()
+            return aux
