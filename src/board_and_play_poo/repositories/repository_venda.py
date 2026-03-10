@@ -1,10 +1,13 @@
 from sqlalchemy import text
+from src.board_and_play_poo.modules.domain.vendas import Venda
+from src.board_and_play_poo.repositories.repository_transacao import RepositoryTransacao
 
 class RepositoryVenda():
     '''Classe que realiza as operações do banco de dados relacionadas a venda'''
     def __init__(self, database, table):
         self.database = database
         self.table = table
+        self.transacao_repo = RepositoryTransacao(self.database, self.table)
 
 # ----------------------------------------------------------- CRUD -----------------------------------------------------------
 
@@ -38,3 +41,20 @@ class RepositoryVenda():
         else:
             return None # Caso não, None é retornado
         
+    def read_especifico(self, atributo, status):
+        conexao = self.database.conectar()
+        if conexao:
+            query = text(f"""SELECT * FROM vendas WHERE {atributo} = :status""")
+            tupla = conexao.execute (query, {"status": status,}).all()
+            if tupla:
+                lista = []
+                for tuple in tupla:
+                    aux = self.tupla_objeto(tuple)
+                    lista.append(aux)
+                return lista
+            else:
+                return None
+
+    def tupla_objeto(self, obj):
+        tupla_trns = self.transacao_repo.read(obj.transacao_id)
+        return Venda(obj[2], obj.colaborador_id, obj.nota_fiscal, tupla_trns[1], tupla_trns[2], tupla_trns[3], tupla_trns[4], tupla_trns[5], tupla_trns[0], obj.id)

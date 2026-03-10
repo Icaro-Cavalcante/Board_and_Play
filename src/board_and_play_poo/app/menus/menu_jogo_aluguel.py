@@ -24,7 +24,7 @@ def decorator_cad_jogo_aluguel(func):
         try:
             produto_id = produto_repo.create(tupla) # Passo I
         except TypeError:
-            print("Dado inválido inserido, saindo do cadastro...")
+            print("Um erro ocorreu, saindo do cadastro")
             return
 
         jogo_id = func(lista, produto_id)
@@ -46,12 +46,14 @@ def criar_jogo(lista, produto_id):
         while True:
             try:
                 idade = (int(input(f"\nInsira a idade mínima: ")))
+                if idade <= 0:
+                    raise ValueError
                 lista.append(idade)
                 break
             except ValueError:
                 print("Dado inválido")
                 return
-        num = (str(input(f"\nInsira o número de jogadores: ")))
+        num = (str(input(f"\nInsira o número de jogadores ('3 a 5' por exemplo): ")))
         lista.append(num)
         tupla = (produto_id,gen,desc,idade,num)
         id = jogo_repo.create(tupla) # Passo II

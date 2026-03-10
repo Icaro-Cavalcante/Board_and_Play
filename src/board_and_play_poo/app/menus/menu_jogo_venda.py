@@ -48,6 +48,8 @@ def criar_jogo(lista, produto_id):
             while True:
                 try:
                     idade = (int(input(f"\nInsira a idade mínima: ")))
+                    if idade <= 0:
+                        raise ValueError
                     lista.append(idade)
                     num = (str(input(f"\nInsira o número de jogadores: ")))
                     lista.append(num)
@@ -89,6 +91,18 @@ def consultar():
                 print("\nInput digitado não válido.\n")
         nome_atributo = dic_atributos[escolha]
         jogo_venda_repo.update(id, nome_atributo, update)
+
+def atualizar():
+    """Como o menu chama o UPDATE de um JogoVenda"""
+    try:
+        id = input("\nDigite o ID do jogo a ser alterado: ")
+        nome_atributo = input("\nDigite o nome do atributo que deve ser alterado: ")
+        novo_atributo = input("\nAtualizar para: ")
+        jogo_venda_repo.update(id, nome_atributo, novo_atributo)
+    except ValueError:
+        print("\nDado inválido, saindo da atualização...\n")
+        return
+
 class MenuJogoVenda:
     def menu_jogo_venda():
         '''Menu da classe jogo venda'''

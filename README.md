@@ -129,7 +129,7 @@ Board_and_Play/
 - D — `Princípio da inversão da dependência`
 
 ## 🏗️ Padrões de projeto
-- `Template Method` - Método AplicarDesconto presente em Aluguel e Venda
+- `Strategy Pattern` - Método AplicarDesconto presente em Aluguel e Venda
 - `Decorator` - Chamar o método `create` de uma generalização toda vez que chama o método `create` de uma especificação (ex: toda criação de um `acessorio` leva à criação de um `produto` nas tabelas `acessorios` e `produtos`, respectivamente); Método para checar `status` de um contrato e aplicar multas, caso o contrato esteja `alterado`; Métodos que alterem status de um contrato de `'ABERTO'` ou `'ALTERADO'` para `'FECHADO'` ao término da interação de pagamento.
 
 ## 📚 Bibliotecas externas
