@@ -64,33 +64,18 @@ def consultar():
     while True:
         try:
             id = int(input("Insira o ID de um jogo: "))
+            jogo_venda_repo.read(id)
             break
         except ValueError:
             print("\nTipo de dado inválido.\n")
+        except AttributeError:
+            print("Jogo não cadastrado")
 
     jogo_consulta = jogo_venda_repo.read(id)
     if not jogo_consulta:
         print("O jogo não existe.")
     else:
-        dic_atributos = {1: "Nome", 2: "Codigo de barras", 3: "Código de barras", 4: "Genero", 5: "Descrição", 6: "Idade mínima", 7: "Número de jogadores", 8: "Quantidade"}
-        while True:
-            try:
-                print("===Atributos===")
-                for atributo in dic_atributos:
-                    print(f"{atributo} - {dic_atributos[atributo]}")
-                escolha = int(input("Escolha um atributo: "))
-                match escolha:
-                    case 1 | 2 | 3 | 4 | 5:
-                        update = str(input("Insira o dado atualizado: "))
-                    case 6 | 7 | 8:
-                        update = int(input("Insira o dado atualizado: "))
-                    case _:
-                        raise ValueError
-                break
-            except ValueError:
-                print("\nInput digitado não válido.\n")
-        nome_atributo = dic_atributos[escolha]
-        jogo_venda_repo.update(id, nome_atributo, update)
+        print(jogo_consulta)
 
 def atualizar():
     """Como o menu chama o UPDATE de um JogoVenda"""

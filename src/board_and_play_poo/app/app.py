@@ -51,17 +51,17 @@ class App():
                 case 1:
                     App.menu_registrar_contrato()
                 case 2:
-                    App.menu_gerar_venda()
+                    MenuRegistrarVenda.menu_gerar_venda()
                 case 3:
                     App.menu_estoque()
                 case 4:
                     MenuContrato().menu_contrato()
                 case 5:
-                    App.menu_venda()
+                    MenuVenda.menu_venda()
                 case 6:
-                    App.menu_colaborador()
+                    MenuColaborador.menu_colaborador()
                 case 7:
-                    App.menu_cliente()
+                    MenuCliente.menu_cliente()
                 case 8:
                     print("\nDesligando sistema...")
                     break

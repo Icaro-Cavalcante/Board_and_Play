@@ -32,7 +32,7 @@ class RepositoryAluguel():
         if conexao: 
             query = text (f"""SELECT * FROM alugueis WHERE id = :id""")
             tupla = conexao.execute (query, {"id": id, } # query
-            ).first()
+            ).fetchone()
             if tupla: # Se a tupla existir
                 # Criando um objeto
                 aluguel = self.tupla_objeto(tupla)

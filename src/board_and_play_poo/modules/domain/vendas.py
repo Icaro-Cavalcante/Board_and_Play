@@ -1,4 +1,4 @@
-from pathlib import Path
+import random
 from .transacoes import Transacao
 from src.board_and_play_poo.modules.infrastructure.descontos import DescontoPorcent, DescontoValorFixo
 
@@ -33,12 +33,12 @@ class Venda(Transacao):
     def calcular_valor(preco, unidades):
         return preco * unidades
     
-    def gerar_comprovante(self):
-        return f"Venda ID: {self.__venda_id}"
+    def gerar_comprovante():
+        return f"Venda:{random.randint(1, 99999999999999)}"
     
     def AplicarDesconto(valor: float, tipo: str):
         """Aplica desconto ao valor passado baseado no tipo, tipo deve ser ou 'porcentagem' ou 'valorfixo', não case sensitive"""
-        if tipo.lower == "porcentagem":
+        if tipo.lower() == "porcentagem":
             while True:
                 try:
                     porcent = int(input("Digite a porcentagem do desconto: "))
@@ -48,10 +48,10 @@ class Venda(Transacao):
             descont = DescontoPorcent(porcent)
             valor = descont.AplicarDesconto(valor)
             return valor
-        if tipo.lower == "valorfixo":
+        if tipo.lower() == "valorfixo":
             while True:
                 try:
-                    vfixo = int(input("Digite o valor do desconto do desconto: "))
+                    vfixo = float(input("Digite o valor do desconto do desconto: "))
                     break
                 except ValueError:
                     print("Dado inválido digitado.")

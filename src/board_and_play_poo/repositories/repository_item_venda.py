@@ -89,5 +89,5 @@ class RepositoryItemVenda():
                     total_venda = total_venda + (item[1] * item[2])
                     self.create(tupla_item)
                 self.transacao_repo.update(trans_id, "valor_total", total_venda)
-                return venda_id
+                return trans_id
         return None
