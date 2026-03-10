@@ -1,4 +1,5 @@
 from sqlalchemy import text
+from src.board_and_play_poo.modules.domain.colaboradores import Colaborador
 
 class RepositoryColaborador():
     '''Classe que realiza as operações do banco de dados relacionadas a colaborador'''
@@ -19,6 +20,7 @@ class RepositoryColaborador():
             conexao.execute (query, {"cpf":colaborador.cpf, "nome":colaborador.nome, "email":colaborador.email, "contato":colaborador.contato, "contato_emergencia":colaborador.contato_emergencia, "salario":colaborador.salario, "cargo":colaborador.cargo, "status":colaborador.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Colaborador cadastrado"
         else: # Se não
             return "Não foi possível conectar"
@@ -30,8 +32,18 @@ class RepositoryColaborador():
             query = text (f"""SELECT * FROM colaboradores WHERE id = :id""")
             colaborador = conexao.execute (query, {"id": id, } # query
             ).first()
-            return colaborador # Colaborador é retornado
+            conexao.close()
+            if colaborador:
+                return colaborador # Colaborador é retornado
         return None # Caso não, None é retornado
+
+    def imprimir_dados(self, tupla):
+        '''Imprime dados de uma tupla de colaborador, semelhante a uma função __str__'''
+        dic_atributos = {1: "ID", 2: "CPF", 3: "Nome", 4: "Email", 5: "Contato", 6: "Contato de emergencia", 7: "Salário", 8: "Cargo", 9: "Status"}
+        atributo_num = 1
+        for atributo in tupla:
+            print(f"{dic_atributos[atributo_num]}: {atributo}")
+            atributo_num += 1
     
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um colaborador, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
@@ -44,6 +56,7 @@ class RepositoryColaborador():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"
@@ -57,6 +70,7 @@ class RepositoryColaborador():
                     WHERE id = :id''') # query
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
+            conexao.close()
             return "Colaborador inativado"
         else:
             return "Não foi possível conectar"
