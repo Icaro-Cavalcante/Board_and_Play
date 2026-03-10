@@ -1,38 +1,53 @@
-from src.board_and_play_poo.repositories.repository_jogo_aluguel import RepositoryJogoAluguel
-from src.board_and_play_poo.modules.domain.jogo_aluguel import JogoAluguel
-from src.board_and_play_poo.modules.domain.transacoes import Transacao
+from src.board_and_play_poo.modules.domain.alugueis import Aluguel
 
 class MenuRegistrarContrato:
     """Menu das classes Aluguel e ItemAluguel"""
+
+    def __init__(self, service_aluguel):
+        MenuRegistrarContrato.service = service_aluguel
+
     def menu_registrar_contrato():
-        
-        pass
-        
+        """Entrada padrão usada pelo App"""
+        carrinho = []
 
-"""
-            self.itens_aluguel = Table('itens_aluguel', self.metadata,
-            Column('id', Integer, primary_key=True),
-            Column('aluguel_id', Integer, ForeignKey('alugueis.id'), nullable=False),
-            Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False),
-            Column('valor_diaria', Numeric(10,2)),
-            Column('valor_sessao', Numeric(10,2))
-        )
-                self.alugueis = Table('alugueis', self.metadata,
-            Column('id', Integer, primary_key=True),
-            Column('transacao_id', Integer, ForeignKey('transacoes.id'), nullable=False, unique=True),
-            Column('cliente_id', Integer, ForeignKey('clientes.id'), nullable=False),
-            Column('colaborador_id', Integer, ForeignKey('colaboradores.id'), nullable=False),
-            Column('numero_contrato', String(50), unique=True),
-            Column('data_inicio', Date, nullable=False),
-            Column('data_prevista_devolucao', Date, nullable=False),
-            Column('data_devolucao_real', Date),
-            Column('status', String, default='ABERTO') # 'ABERTO', 'ALTERADO' e 'FECHADO'
-        )
+        while True:
+            print("\nRegistrar contrato")
+            print("----------------------")
+            print("1 - Adicionar jogo")
+            print("2 - Finalizar contrato")
+            print("3 - Cancelar")
+            opcao = input("Selecione: ")
+            if opcao == "1":
+                jogo_id = int(input("ID do jogo: "))
+                valor_diaria = float(input("Valor diária: "))
+                valor_sessao = float(input("Valor sessão: "))
+                resposta = MenuRegistrarContrato.service.adicionar_jogo_carrinho(
+                    carrinho,
+                    jogo_id,
+                    valor_diaria,
+                    valor_sessao
+                )
+                print(resposta)
+            elif opcao == "2":
+                aluguel = MenuRegistrarContrato.criar_objeto_aluguel()
+                resposta = MenuRegistrarContrato.service.gerar_contrato(
+                    aluguel,
+                    carrinho
+                )
+                print(resposta)
+                break
+            elif opcao == "3":
+                print("Operação cancelada")
+                break
 
-        self.jogos_aluguel = Table('jogos_aluguel', self.metadata,
-            Column('id', Integer, primary_key=True),
-            Column('jogo_id', Integer, ForeignKey('jogos.id'), nullable=False, unique=True),
-            Column('etiqueta', String(50), unique=True, nullable=False),
-            Column('status', String(20), nullable=False)  # 'DISPONIVEL', 'INDISPONIVEL', 'INATIVO'
-        )
-"""
+    def criar_objeto_aluguel():
+        cliente_id = int(input("ID do cliente: "))
+        colaborador_id = int(input("ID do colaborador: "))
+        numero_contrato = input("Número do contrato: ")
+        data_inicio = input("Data início: ")
+        data_prevista = input("Data prevista devolução: ")
+
+# O id de transação será cadastrado como None, pois os atributos de Transacao sóo são relevante para um contrato com status 'FECHADO'
+        
+        aluguel = Aluguel(numero_contrato, data_inicio, data_prevista, None, "ABERTO", cliente_id, colaborador_id, None, None)
+        return aluguel

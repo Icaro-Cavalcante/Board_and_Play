@@ -25,6 +25,7 @@ class RepositoryJogoAluguel():
             conexao.execute (query, {"jogo_id":jogo_aluguel.jogo_id, "etiqueta":jogo_aluguel.etiqueta, "status":jogo_aluguel.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Jogo aluguel cadastrado"
 
         else: # Se não
@@ -77,6 +78,7 @@ class RepositoryJogoAluguel():
                             WHERE id = :id''') # query
                     conexao.execute (query, {"atributo_update": atributo_update, "id": id})
                     conexao.commit()
+                    conexao.close()
                     return "Atributo atualizado."
                 else:
                     return "Atributo inválido"
@@ -94,6 +96,7 @@ class RepositoryJogoAluguel():
                         WHERE id = {id}''') # query
             conexao.execute(query) # Executa a query
             conexao.commit() # Commitando a mudança
+            conexao.close()
             return  "Jogo aluguel mudado para INATIVO com sucesso."
         else:
             return "Não foi possível conectar"

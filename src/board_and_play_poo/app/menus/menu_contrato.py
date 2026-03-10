@@ -1,11 +1,10 @@
 from src.board_and_play_poo.repositories.repository_aluguel import RepositoryAluguel
 from src.board_and_play_poo.repositories.repository_item_aluguel import RepositoryItemAluguel
-from src.board_and_play_poo.modules.domain.alugueis import Aluguel 
 from src.board_and_play_poo.database.database import Database
 from src.board_and_play_poo.database.tabelas import Tabela
 
 tb = Tabela()
-db = Database("real")
+db = Database("teste")
 tb.create_table(db) # Criando tabelas do db de test
 
 aluguel_repo = RepositoryAluguel(db, tb)
@@ -19,7 +18,7 @@ class MenuContrato:
                 try:
                     print("\nContratos")
                     print("-" * 20)
-                    print("1 - Consultar por ID\n2 - Consultar contratos ativos\n3 - Consultar contratos alterados\n4 - Consultar contratos fechados\n5 - Voltar")
+                    print("1 - Consultar por ID\n2 - Consultar contratos abertos\n3 - Consultar contratos alterados\n4 - Consultar contratos fechados\n5 - Voltar")
                     escolha = int(input("Selecione uma opção: "))
                     break
                 except ValueError:
@@ -28,7 +27,7 @@ class MenuContrato:
                 case 1:
                     MenuContrato.menu_consultar_id()
                 case 2:
-                    MenuContrato.menu_consultar_status("ATIVO")
+                    MenuContrato.menu_consultar_status("ABERTO")
                 case 3:
                     MenuContrato.menu_consultar_status("ALTERADO")
                 case 4:
@@ -51,7 +50,7 @@ class MenuContrato:
             while True:
                 while True:
                     try:
-                        print(f"\nContrato {contrato_consulta.id}")
+                        print(f"\nContrato {contrato_consulta.aluguel_id}")
                         print("-" * 20)
                         print("1 - Consultar atributos\n2 - Consultar itens\n3 - Sair")
                         escolha = int(input("Selecione uma opção: "))
@@ -62,7 +61,7 @@ class MenuContrato:
                     case 1:
                         print(contrato_consulta)
                     case 2:
-                        tuplas = item_repo.buscar_por_aluguel(contrato_consulta.id)
+                        tuplas = item_repo.buscar_por_aluguel(contrato_consulta.aluguel_id)
                         for tupla in tuplas:
                             print("")
                             item_repo.imprimir_dados(tupla)
