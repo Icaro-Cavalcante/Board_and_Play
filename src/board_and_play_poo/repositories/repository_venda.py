@@ -12,13 +12,14 @@ class RepositoryVenda():
         conexao = self.database.conectar() # Estabelecendo a conexão
         if conexao:
             query = text ("""INSERT OR IGNORE INTO vendas
-            (transacao_id, clientes_id, colaboradores_id, nota_fiscal)
-            VALUES (:transacao_id, :clientes_id, :colaboradores_id, :nota_fiscal)RETURNING id""")
+            (transacao_id, cliente_id, colaborador_id, nota_fiscal)
+            VALUES (:transacao_id, :cliente_id, :colaborador_id, :nota_fiscal)""")
 
-            aux = conexao.execute (query, {"transacao_id":venda.id_transacao, "clientes_id":venda.id_cliente, "colaboradores_id":venda.id_colaborador, "nota_fiscal":venda.nota_fiscal} # Query
+            aux = conexao.execute (query, {"transacao_id":venda.id_transacao, "cliente_id":venda.id_cliente, "colaborador_id":venda.id_colaborador, "nota_fiscal":venda.nota_fiscal} # Query
             )
-            id = aux.fetchone()[0]
+            id = aux.lastrowid
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return id
         else: # Se não
             return "Não foi possível conectar"
@@ -31,7 +32,9 @@ class RepositoryVenda():
             venda_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
             ).first() # É retornada uma lista com uma tupla dentro
             if venda_bd: # Caso o venda exista
+                conexao.close()
                 return venda_bd # venda é retornado
+            conexao.close()
             return None # Caso não, None é retornado
         else:
             return None # Caso não, None é retornado

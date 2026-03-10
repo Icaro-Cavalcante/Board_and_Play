@@ -23,12 +23,13 @@ class RepositoryItemVenda():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO itens_venda
             (venda_id, produto_id, quantidade_venda, preco_unitario)
-            VALUES (:venda_id, :produto_id, :quantidade_venda, :preco_unitario)RETURNING id""") # Query
+            VALUES (:venda_id, :produto_id, :quantidade_venda, :preco_unitario)""") # Query
 
             aux = conexao.execute (query, {"venda_id":item_venda[0], "produto_id":item_venda[1], "quantidade_venda":item_venda[2], "preco_unitario":item_venda[3]} # Executando a query
             )
-            id = aux.fetchone()[0]
+            id = aux.lastrowid
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return id
 
         else: # Se não
@@ -44,23 +45,26 @@ class RepositoryItemVenda():
 
             tupla = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             if tupla:
                 return tupla # ItemVenda é retornado
         else:
+            conexao.close()
             return None # Caso não, None é retornado
         
-    def gerar_venda(self, lista_IV, comprovante, ForPagmt,  nota_fiscal, cliente_id, colaborador_id):
-        '''Recebe uma lista de Jogos_venda (também uma lista, com todos os atributos, menos transacao_id, em ordem de criação) e cadastra uma venda no banco de dados'''
-        soma = 0
-        sum = 0
-        tupla_transacao = (comprovante, None, ForPagmt, "VENDA")
-        trans_id = self.transacao_repo.create(tupla_transacao)
-        venda_obj = Venda(cliente_id, colaborador_id, nota_fiscal, comprovante, datetime.now(), None, ForPagmt, "VENDA", trans_id)
-        venda_id = self.venda_repo.create(venda_obj)
+    def gerar_venda(self, lista_IV, comprovante, ForPagmt, nota_fiscal, cliente_id, colaborador_id):
+        '''Método para'''
+        total_venda = 0
         for item in lista_IV:
-            tupla_item = (venda_id, item[0], item[1], item[2])
-            self.create(tupla_item)
-            soma += Venda.calcular_valor(item[2], item[1])
-            sum += 1
-        self.transacao_repo.update(trans_id, "valor_total", soma)
-        return sum
+            total_venda += (item[1] * item[2])
+        tupla_transacao = (comprovante, total_venda, ForPagmt, "VENDA")
+        trans_id = self.transacao_repo.create(tupla_transacao)
+        if trans_id:
+            venda_obj = Venda(cliente_id, colaborador_id, nota_fiscal, comprovante, datetime.now(), 0, ForPagmt, "VENDA", trans_id)
+            venda_id = self.venda_repo.create(venda_obj)
+            if venda_id:
+                for item in lista_IV:
+                    tupla_item = (venda_id, item[0], item[1], item[2])
+                    self.create(tupla_item)
+                return venda_id
+        return None

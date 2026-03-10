@@ -14,14 +14,15 @@ class RepositoryProduto():
         if conexao: # Se a conexão existir
             query = text ("""INSERT OR IGNORE INTO produtos
                 (nome, codigo_barras, categoria)
-                VALUES (:nome, :codigo_barras, :categoria) RETURNING id
+                VALUES (:nome, :codigo_barras, :categoria)
                 """) # Query
             # Estabelecendo a conexão com o banco de dados de testes
             result = conexao.execute (query , {"nome":tupla[0], "codigo_barras":tupla[1], "categoria":tupla[2]},  # Executa a query, passa o dicionário e cadastra um novo produto
             )
-            obj_id = result.fetchone()[0]
+            obj_id = result.lastrowid
             conexao.commit() # Commitando o cadastro
-            return(obj_id)
+            conexao.close()
+            return obj_id
         else: # Se a conexão não existir
             return "Não foi possível conectar"
                    
@@ -32,6 +33,7 @@ class RepositoryProduto():
             query = text ("""SELECT * FROM produtos WHERE id = :id""") # query
             produto_bd = conexao.execute (query, {"id": id, } # Executa a query, passa o id e recebe os dados
             ).first() # É retornada uma lista com uma tupla dentro
+            conexao.close()
             return produto_bd # Produto é retornado
         else: # Se a conexão não existir
             return None # Caso não, None é retornado
@@ -47,6 +49,7 @@ class RepositoryProduto():
                         WHERE id = :id''') # query
             conexao.execute ((query), {"atributo_update": atributo_update, "id": id,}) # Exeutando a query e passando os parametros
             conexao.commit() # Commitando o update
+            conexao.close()
             return "Atributo atualizado."
         else: # Se a conexão não existir
             return "Não foi possível conectar" 

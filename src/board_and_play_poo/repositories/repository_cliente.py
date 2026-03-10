@@ -19,6 +19,7 @@ class RepositoryCliente():
             conexao.execute (query, {"cpf":cliente.cpf, "nome":cliente.nome, "email":cliente.email, "contato":cliente.contato, "status":cliente.status} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Cliente cadastrado"
         else: # Se não
             return "Não foi possível conectar"
@@ -30,8 +31,17 @@ class RepositoryCliente():
             query = text (f"""SELECT * FROM clientes WHERE id = :id""")
             cliente = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             return cliente # Cliente é retornado
         return None # Caso não, None é retornado
+    
+    def imprimir_dados(self, tupla):
+        '''Imprime dados de uma tupla de cliente, semelhante a uma função __str__'''
+        dic_atributos = {1: "ID", 2: "CPF", 3: "Nome", 4: "Email", 5: "Contato", 6: "Status"}
+        atributo_num = 1
+        for atributo in tupla:
+            print(f"{dic_atributos[atributo_num]}: {atributo}")
+            atributo_num += 1
     
     def update(self, id, nome_atributo, atributo_update):
         '''Recebe o ID de um cliente, o nome do atributo e o atributo atualizado e atualiza o atributo no banco de dados do ambiente selecionado'''
@@ -44,6 +54,7 @@ class RepositoryCliente():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"
@@ -58,6 +69,7 @@ class RepositoryCliente():
                     WHERE id = :id''')
             conexao.execute (query, {"inativar": "INATIVADO", "id": id})
             conexao.commit()
+            conexao.close()
             return "Cliente inativado"
         else:
             return "Não foi possível conectar"

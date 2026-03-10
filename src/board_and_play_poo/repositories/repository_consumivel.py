@@ -19,6 +19,7 @@ class RepositoryConsumivel():
             conexao.execute (query, {"produto_id":consumivel.produto_id, "data_validade":consumivel.data_validade, "lote":consumivel.lote, "restricoes":consumivel.restricoes, "quantidade":consumivel.quantidade} # Executando a query
             )
             conexao.commit() # Commitando o cadastro
+            conexao.close()
             return "Consumivel cadastrado"
         else: # Se não
             return "Não foi possível conectar"
@@ -30,6 +31,7 @@ class RepositoryConsumivel():
             query = text (f"""SELECT * FROM consumiveis WHERE id = :id""")
             consumivel = conexao.execute (query, {"id": id, } # query
             ).first()
+            conexao.close()
             return consumivel # Consumível é retornado
         return None # Caso não, None é retornado
     
@@ -44,6 +46,7 @@ class RepositoryConsumivel():
                     WHERE id = :id''') # query
             conexao.execute (query, {"atributo_update": atributo_update, "id": id})
             conexao.commit()
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"

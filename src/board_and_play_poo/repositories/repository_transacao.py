@@ -13,15 +13,15 @@ class RepositoryTransacao():
         conexao = self.database.conectar()
         if conexao: # Estabelecendo a conexão
             query = text ("""INSERT OR IGNORE INTO transacoes
-            (comprovante, valor_total, forma_pagamento, tipo_transacao)
-            VALUES (:comprovante, :valor_total, :forma_pagamento, :tipo_transacao) RETURNING id
+            (id, comprovante, valor_total, forma_pagamento, tipo_transacao)
+            VALUES (:id, :comprovante, :valor_total, :forma_pagamento, :tipo_transacao)
             """)
-            result = conexao.execute (query, {"comprovante": transacao[0], "valor_total":transacao[1], "forma_pagamento":transacao[2], "tipo_transacao":transacao[3]}
+            result = conexao.execute (query, {"id": 1, "comprovante": transacao[0], "valor_total":transacao[1], "forma_pagamento":transacao[2], "tipo_transacao":transacao[3]}
             ) # Executa a query, passa o dicionário (a variável query) e cadastra uma nova transação
-            id = result.fetchone()
+            id = result.lastrowid
             conexao.commit() # Commitando o cadastro
-            if id:
-                return id[0]
+            conexao.close()
+            return id
         else: # Se não
             return "Não foi possível conectar"
 
@@ -36,6 +36,7 @@ class RepositoryTransacao():
 
         if transacoes_bd: # Caso a transação exista
             transacao = Transacao(transacoes_bd[0], transacoes_bd[1], transacoes_bd[2], transacoes_bd[3], transacoes_bd[4], transacoes_bd[5]) # Transformando transação em um objeto
+            conexao.close()
             return transacao # transação é retornada
         return None # Caso não, None é retornado
     
@@ -44,10 +45,11 @@ class RepositoryTransacao():
         conexao = self.database.conectar() # Estabelecendo a conexão
         if conexao: 
             query = text (f'''UPDATE transacoes
-                    SET :atr = :upd
+                    SET {nome_atributo} = :upd
                     WHERE id = :id''')
-            conexao.execute(query, {"atr": nome_atributo, "upd": atributo_update, "id": id}) # Executando a query
+            conexao.execute(query, {"id": id, "upd": atributo_update}) # Executando a query
             conexao.commit() # Commitando o update
+            conexao.close()
             return "Atributo atualizado"
         else:
             return "Não foi possível conectar"
